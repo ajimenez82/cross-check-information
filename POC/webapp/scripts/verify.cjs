@@ -1,0 +1,67 @@
+// Browser check using the bundled Playwright runtime (no extra project dependency).
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+
+(async () => {
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const page = await browser.newPage({ viewport: { width: 1536, height: 1024 } });
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  fs.mkdirSync('review', { recursive: true });
+  await page.goto('http://127.0.0.1:5173');
+  assert(!(await page.getByRole('button', { name: 'Abrir navegación' }).isVisible()), 'Desktop must hide mobile navigation toggle');
+  const analyze = page.getByRole('button', { name: 'Analizar', exact: true });
+  const query = page.getByLabel('Tu consulta');
+  assert(await analyze.isDisabled(), 'Empty query must disable analysis');
+  await query.fill('   ');
+  assert(await analyze.isDisabled(), 'Whitespace must disable analysis');
+  await query.fill('');
+  await query.blur();
+  await page.screenshot({ path: 'review/desktop-inicio.png', fullPage: true });
+  await page.getByRole('button', { name: '¿Qué evidencias respaldan esta declaración?' }).click();
+  assert.equal(await query.inputValue(), '¿Qué evidencias respaldan esta declaración?');
+  assert(page.url().endsWith('/'), 'Suggestion must not submit');
+  await query.fill('Una consulta cualquiera');
+  await analyze.click();
+  await page.getByRole('heading', { name: '¿Está respaldada la acusación de lawfare?' }).waitFor();
+  await page.screenshot({ path: 'review/desktop-resultados.png', fullPage: true });
+  await page.reload();
+  await page.getByRole('heading', { name: '¿Está respaldada la acusación de lawfare?' }).waitFor();
+  const account = page.getByRole('button', { name: /Ale Jiménez.*Usuario de demostración/ });
+  await account.click();
+  assert(await page.getByRole('button', { name: 'Mi perfil', exact: true }).isVisible());
+  assert(await page.getByRole('button', { name: 'Cerrar sesión', exact: true }).isDisabled());
+  await page.screenshot({ path: 'review/desktop-cuenta.png', fullPage: true });
+  await account.click();
+  assert.equal(await page.getByRole('button', { name: 'Mi perfil', exact: true }).count(), 0);
+  await account.click();
+  await page.keyboard.press('Escape');
+  assert.equal(await account.getAttribute('aria-expanded'), 'false');
+  await account.click();
+  await page.getByRole('heading', { name: '¿Está respaldada la acusación de lawfare?' }).click();
+  assert.equal(await account.getAttribute('aria-expanded'), 'false');
+  await page.getByRole('link', { name: 'Nueva conversación' }).click();
+  assert(await analyze.isDisabled());
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: 'review/mobile-inicio.png', fullPage: true });
+  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile home overflows');
+  await page.getByRole('button', { name: 'Abrir navegación' }).click();
+  const drawer = page.getByRole('dialog', { name: 'Navegación' });
+  assert(await drawer.isVisible());
+  await drawer.getByRole('link', { name: /Acusación de lawfare/ }).click();
+  await page.getByRole('heading', { name: '¿Está respaldada la acusación de lawfare?' }).waitFor();
+  assert(!(await drawer.isVisible()));
+  await page.screenshot({ path: 'review/mobile-resultados.png', fullPage: true });
+  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile result overflows');
+  for (const width of [320, 760, 768, 1024]) {
+    await page.setViewportSize({ width, height: 900 });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Result overflows at ${width}`);
+    await page.goto('http://127.0.0.1:5173/');
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Home overflows at ${width}`);
+    await page.goto('http://127.0.0.1:5173/resultados');
+  }
+  assert.deepEqual(errors, []);
+  await browser.close();
+  console.log('PASS: input validation, suggestions, fixed results, direct route, account toggle/outside/Escape, disabled logout, new conversation, mobile drawer, 320–1536px overflow, no browser errors.');
+})().catch(error => { console.error(error); process.exit(1); });

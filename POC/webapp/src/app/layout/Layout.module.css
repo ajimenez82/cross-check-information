@@ -1,0 +1,20 @@
+.shell { min-height: 100dvh; padding-left: 276px; }
+.sidebar { position: fixed; inset: 0 auto 0 0; width: 276px; padding: 22px 19px; border-right: 1px solid var(--border); display: flex; flex-direction: column; background: #f7faf9; overflow-y: auto; }
+.header { height: 80px; display: flex; align-items: center; justify-content: flex-end; padding: 12px 32px; border-bottom: 1px solid var(--border); background: white; }
+.main { min-width: 0; }
+.history h2 { font-size: 16px; margin: 14px 10px 15px; display: flex; align-items: center; gap: 16px; letter-spacing: -.4px; }
+.history a, .history button { display: flex; width: 100%; padding: 13px 11px; gap: 16px; border-radius: 7px; text-align: left; font-size: 15px; }
+.history svg { flex-shrink: 0; width: 23px; height: 23px; }
+.history small { display: block; margin-top: 5px; }
+.history .selected { background: #e2eee8; font-weight: 600; }
+.history a:hover, .history button:hover { background: #edf3f0; }
+.footer { margin-top: auto; border-top: 1px solid var(--border); padding-top: 17px; }
+.footer button { display: flex; align-items: center; gap: 17px; width: 100%; text-align: left; padding: 11px 9px; color: var(--muted); font-size: 14px; border-radius: 6px; }
+.footer button:hover { background: #eaf1ee; color: var(--green); }
+.footer svg { width: 23px; height: 23px; flex-shrink: 0; }
+.header .mobileToggle, .mobileBrand { display: none; }
+.drawer { padding: 0; margin: 0; height: 100dvh; max-height: 100dvh; width: min(330px, 90vw); max-width: 90vw; border: 0; background: #f7faf9; color: var(--ink); }
+.drawerContent { min-height: 100%; display: flex; flex-direction: column; padding: 20px; }
+.drawerHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+@media (min-width: 761px) and (max-width: 1100px) { .shell { padding-left: 238px; } .sidebar { width: 238px; padding-inline: 14px; } .sidebar :global(.brandTitle strong) { font-size: 27px; } .sidebar :global(.brand p) { font-size: 10px; } }
+@media (max-width: 760px) { .shell { padding: 0; } .sidebar { display: none; } .header { height: 100px; padding: 10px 16px; gap: 8px; justify-content: space-between; } .header .mobileToggle { display: inline-flex; color: var(--green); flex-shrink: 0; } .mobileToggle svg { width: 28px; height: 28px; } .mobileBrand { display: block; margin: auto; } .header :global(.account) { margin-left: 0; } .footer { margin-top: 40px; } }
