@@ -1,6 +1,6 @@
 # Requisitos y funcionalidad — PoC inicial (pre-MVP)
 
-- **Versión:** 1.1
+- **Versión:** 1.2
 - **Fecha:** 16 de septiembre de 2026
 - **Estado:** alcance acordado para la primera fase.
 - **Nombre definitivo:** pendiente. Los mockups utilizan «Contrasta», con «CrossCheck» como denominación secundaria y el lema «Información contrastada. Evidencias a la vista.». No implica disponibilidad de marca o dominio.
@@ -52,24 +52,27 @@ Cada categoría se asociará a un agente con instrucciones, criterios de contras
 | Categoría | Descripción | Disponibilidad |
 |---|---|---|
 | **Análisis político** | Contrasta afirmaciones y declaraciones políticas, aporta contexto y distingue hechos, posiciones e interpretaciones. Incluye el análisis de afirmaciones sobre causas judiciales vinculadas a la política, respetando estados procesales y evitando equiparar investigación con culpabilidad. | Única categoría activa |
-| **Noticias falsas o bulos** | Examina contenidos potencialmente falsos, manipulados o descontextualizados; busca su origen y evidencias que los respalden o contradigan. | Futura |
-| **Deportes** | Contrasta resultados, estadísticas, récords y afirmaciones deportivas, precisando competición, temporada, categoría y fecha. | Futura |
-| **Datos y hechos históricos** | Examina fechas, acontecimientos y relatos históricos, diferenciando hechos documentados, interpretaciones historiográficas y controversias. | Futura |
-| **Estafas publicitarias y timos** | Analiza ofertas, promociones y mensajes para identificar promesas engañosas e indicios de fraude. Distingue señales de riesgo de engaños documentados y evita convertir la ausencia de alertas en garantía de seguridad. | Futura |
-| **Sociedad** | Analiza afirmaciones sobre actualidad social, televisión, entretenimiento, ocio, turismo, hostelería y servicios cotidianos. Incluye comparaciones de audiencias, establecimientos y recomendaciones, distinguiendo datos verificables, valoraciones de usuarios y preferencias personales. | Futura |
+| **Noticias falsas y bulos** | Examina noticias virales, cadenas y contenidos potencialmente inventados, manipulados o fuera de contexto; busca su origen y evidencias que los respalden o contradigan. | Futura |
+| **Sociedad, medios y entretenimiento** | Analiza audiencias de televisión, fenómenos sociales, celebridades y afirmaciones sobre contenidos culturales. Distingue datos verificables, declaraciones e interpretaciones. | Futura |
+| **Consumo, ocio y viajes** | Contrasta comparaciones de productos, restaurantes, campings, alojamientos y servicios. Diferencia características comprobables, reseñas y preferencias; explicita los criterios de cada recomendación. | Futura |
+| **Estafas, timos y publicidad engañosa** | Analiza ofertas sospechosas, suplantaciones, mensajes fraudulentos y promesas comerciales. Incluye consultas sobre posibles llamadas fraudulentas, sin una categoría telefónica propia. Distingue señales de riesgo de engaños documentados y evita convertir la ausencia de alertas en garantía de seguridad. | Futura |
+| **Salud y bienestar** | Examina afirmaciones sobre alimentación, suplementos, tratamientos y hábitos, atendiendo a la calidad de la evidencia y sus límites. No sustituye una valoración médica individual. | Futura |
+| **Ciencia, tecnología y medioambiente** | Contrasta afirmaciones sobre descubrimientos, capacidades de la IA, privacidad, energía y cuestiones ambientales, diferenciando evidencia, hipótesis y expectativas. | Futura |
+| **Datos y hechos históricos** | Examina fechas, acontecimientos, citas atribuidas y relatos históricos, diferenciando hechos documentados, interpretaciones historiográficas y controversias. | Futura |
+| **Deportes** | Contrasta resultados, estadísticas, récords y declaraciones deportivas, precisando competición, temporada, categoría y fecha. | Futura |
 | **General** | Permite analizar consultas que no encajen en ninguna categoría especializada. Delimita la afirmación, aporta contexto y contrasta las fuentes disponibles; solicita criterios o aclaraciones cuando sean necesarios y expresa los límites de la conclusión. | Futura |
 
 Las categorías futuras se documentan como evolución del producto; no se muestran como opciones seleccionables en esta PoC.
 
 **Una conversación tiene una categoría inmutable. Cambiar de categoría requerirá una nueva conversación.**
 
-### 3.1. Ejemplos y criterios de Sociedad
+### 3.1. Ejemplos de Sociedad y de Consumo, ocio y viajes
 
 Los siguientes ejemplos ilustran consultas admitidas; no constituyen afirmaciones verificadas ni recomendaciones del producto:
 
-- «El Hormiguero es el programa más visto en su franja horaria, por encima de La Revuelta». El análisis debe precisar fechas, franja coincidente y métrica de audiencia: espectadores, cuota u otra medida comparable.
-- «El camping Taiga Conil es más recomendable que el Camping Roche en Conil». El análisis debe explicitar los criterios de comparación —ubicación, instalaciones, precio, servicios o tipo de viaje— y separar características verificables de reseñas y preferencias.
-- «Casa Mané es uno de los mejores restaurantes de Cádiz». El análisis debe delimitar el ámbito geográfico y qué significa «mejor», diferenciando reconocimientos documentados, valoraciones de clientes y opinión subjetiva.
+- **Sociedad, medios y entretenimiento:** «El Hormiguero es el programa más visto en su franja horaria, por encima de La Revuelta». El análisis debe precisar fechas, franja coincidente y métrica de audiencia: espectadores, cuota u otra medida comparable.
+- **Consumo, ocio y viajes:** «El camping Taiga Conil es más recomendable que el Camping Roche en Conil». El análisis debe explicitar los criterios de comparación —ubicación, instalaciones, precio, servicios o tipo de viaje— y separar características verificables de reseñas y preferencias.
+- **Consumo, ocio y viajes:** «Casa Mané es uno de los mejores restaurantes de Cádiz». El análisis debe delimitar el ámbito geográfico y qué significa «mejor», diferenciando reconocimientos documentados, valoraciones de clientes y opinión subjetiva.
 
 En comparaciones y recomendaciones, el agente no debe convertir una preferencia en una verdad universal. Si faltan criterios, los solicitará o hará explícitos los utilizados. Las reseñas no se considerarán automáticamente representativas ni equivalentes a evidencias de calidad objetiva. Si no procede un veredicto factual único, se utilizará una valoración matizada, interpretación u opinión, o sin veredicto único.
 
@@ -77,7 +80,13 @@ En comparaciones y recomendaciones, el agente no debe convertir una preferencia 
 
 General será la opción de cobertura para asuntos no contemplados en las categorías especializadas. No activará una reclasificación automática de una conversación existente: se conserva la categoría seleccionada al iniciarla. Si el asunto requiere otra especialidad, podrá sugerirse abrir una nueva conversación en la categoría correspondiente.
 
-El catálogo previsto queda compuesto por siete categorías. Sociedad y General se incorporan al catálogo futuro; esta revisión no amplía las categorías operativas de la PoC, que sigue incluyendo únicamente Análisis político.
+### 3.3. Selección y solapamientos
+
+Se elegirá la categoría temática cuando el asunto esté claro. «Noticias falsas y bulos» se orienta a verificar contenido viral de origen dudoso; «Estafas, timos y publicidad engañosa», a consultas centradas en un posible fraude o engaño comercial. «General» cubre asuntos sin encaje claro o cuya clasificación el usuario desconozca.
+
+La separación entre Sociedad y Consumo permite especializar el análisis: comparar audiencias requiere métricas y periodos comparables; recomendar un establecimiento exige criterios y preferencias explícitos. La categoría elegida no predetermina el veredicto.
+
+El catálogo previsto queda compuesto por **diez categorías**. Esta revisión no amplía las categorías operativas de la PoC, que sigue incluyendo únicamente **Análisis político**; las otras nueve quedan para fases posteriores.
 
 ## 4. Análisis desde el buscador o editor de consulta
 

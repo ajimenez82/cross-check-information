@@ -42,3 +42,10 @@
   .ideas .chevron { display: block; width: 17px; height: 17px; margin-left: auto; color: var(--muted); }
   .suggestions > p { font-size: 12px; }
 }
+
+.category { min-width: 0; }
+.category select { min-width: 0; max-width: 100%; text-overflow: ellipsis; }
+.unavailable { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; margin: -10px 0 22px; color: #725315; background: #fff6d7; border: 1px solid #efcf79; border-radius: 7px; font-size: 14px; }
+.unavailable svg { flex-shrink: 0; margin-top: 2px; }
+.form textarea:disabled { background: #f1f3f5; color: #7c8394; cursor: not-allowed; }
+.ideas button:disabled { opacity: .5; background: #f4f5f6; border-color: var(--border); }

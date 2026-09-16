@@ -1,7 +1,10 @@
-.shell { min-height: 100dvh; padding-left: 276px; }
+.shell { display: flex; flex-direction: column; min-height: 100dvh; padding-left: 276px; }
 .sidebar { position: fixed; inset: 0 auto 0 0; width: 276px; padding: 22px 19px; border-right: 1px solid var(--border); display: flex; flex-direction: column; background: #f7faf9; overflow-y: auto; }
 .header { height: 80px; display: flex; align-items: center; justify-content: flex-end; padding: 12px 32px; border-bottom: 1px solid var(--border); background: white; }
-.main { min-width: 0; }
+.main { min-width: 0; flex: 1; }
+.pageFooter { padding: 20px 24px; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 12px; }
+.pageFooter small { display: block; margin-top: 4px; font-size: 11px; }
+.header { flex-shrink: 0; }
 .history h2 { font-size: 16px; margin: 14px 10px 15px; display: flex; align-items: center; gap: 16px; letter-spacing: -.4px; }
 .history a, .history button { display: flex; width: 100%; padding: 13px 11px; gap: 16px; border-radius: 7px; text-align: left; font-size: 15px; }
 .history svg { flex-shrink: 0; width: 23px; height: 23px; }
