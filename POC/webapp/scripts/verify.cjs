@@ -25,7 +25,7 @@ const fs = require('node:fs');
   await query.fill('Una consulta cualquiera');
   const category = page.getByRole('combobox', { name: /^Categoría/ });
   await category.click();
-  assert.equal(await page.getByRole('option').count(), 10);
+  assert.equal(await page.getByRole('option').count(), 11);
   const values = await page.getByRole('option').allTextContents();
   await page.keyboard.press('Escape');
   async function choose(name) { await category.click(); await page.getByRole('option', { name, exact: true }).click(); }

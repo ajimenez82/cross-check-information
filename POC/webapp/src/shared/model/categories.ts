@@ -12,6 +12,12 @@ export const categories = [
     "available": false
   },
   {
+    "id": "myths-conspiracies",
+    "name": "Mitos y conspiraciones",
+    "description": "Examina mitos populares, leyendas urbanas y teorías conspirativas. Investiga su origen y contrasta las evidencias disponibles, distinguiendo hechos documentados, especulaciones y afirmaciones no verificables.",
+    "available": false
+  },
+  {
     "id": "category-2",
     "name": "Sociedad, medios y entretenimiento",
     "description": "Analiza audiencias de televisión, fenómenos sociales, celebridades y afirmaciones sobre contenidos culturales. Distingue datos verificables, declaraciones e interpretaciones.",

@@ -22,7 +22,7 @@ React, TypeScript, Vite, React Router, CSS Modules y Lucide. El hosting debe red
 
 ## Alcance
 
-- `/`: inicio con diez categorías y descripciones del documento de requisitos; solo Análisis político permite escribir y enviar. Las categorías futuras muestran un aviso y desactivan editor, ejemplos y envío, conservando el borrador al volver. Analizar se desactiva para entradas vacías o compuestas solo por espacios. Las ideas rellenan el campo sin enviar.
+- `/`: inicio con once categorías y descripciones del documento de requisitos; solo Análisis político permite escribir y enviar. Las categorías futuras muestran un aviso y desactivan editor, ejemplos y envío, conservando el borrador al volver. Analizar se desactiva para entradas vacías o compuestas solo por espacios. Las ideas rellenan el campo sin enviar.
 - `/resultados`: categoría fija como texto e informe fijo ilustrativo, independientemente del texto introducido. La consulta mostrada también pertenece al ejemplo.
 - Cuenta desplegable con cierre mediante segundo clic, clic fuera y Escape.
 - Navegación móvil con diálogo modal, foco contenido y cierre con Escape.

@@ -53,6 +53,7 @@ Cada categoría se asociará a un agente con instrucciones, criterios de contras
 |---|---|---|
 | **Análisis político** | Contrasta afirmaciones y declaraciones políticas, aporta contexto y distingue hechos, posiciones e interpretaciones. Incluye el análisis de afirmaciones sobre causas judiciales vinculadas a la política, respetando estados procesales y evitando equiparar investigación con culpabilidad. | Única categoría activa |
 | **Noticias falsas y bulos** | Examina noticias virales, cadenas y contenidos potencialmente inventados, manipulados o fuera de contexto; busca su origen y evidencias que los respalden o contradigan. | Futura |
+| **Mitos y conspiraciones** | Examina mitos populares, leyendas urbanas y teorías conspirativas. Investiga su origen y contrasta las evidencias disponibles, distinguiendo hechos documentados, especulaciones y afirmaciones no verificables. | Futura |
 | **Sociedad, medios y entretenimiento** | Analiza audiencias de televisión, fenómenos sociales, celebridades y afirmaciones sobre contenidos culturales. Distingue datos verificables, declaraciones e interpretaciones. | Futura |
 | **Consumo, ocio y viajes** | Contrasta comparaciones de productos, restaurantes, campings, alojamientos y servicios. Diferencia características comprobables, reseñas y preferencias; explicita los criterios de cada recomendación. | Futura |
 | **Estafas, timos y publicidad engañosa** | Analiza ofertas sospechosas, suplantaciones, mensajes fraudulentos y promesas comerciales. Incluye consultas sobre posibles llamadas fraudulentas, sin una categoría telefónica propia. Distingue señales de riesgo de engaños documentados y evita convertir la ausencia de alertas en garantía de seguridad. | Futura |
@@ -82,11 +83,11 @@ General será la opción de cobertura para asuntos no contemplados en las catego
 
 ### 3.3. Selección y solapamientos
 
-Se elegirá la categoría temática cuando el asunto esté claro. «Noticias falsas y bulos» se orienta a verificar contenido viral de origen dudoso; «Estafas, timos y publicidad engañosa», a consultas centradas en un posible fraude o engaño comercial. «General» cubre asuntos sin encaje claro o cuya clasificación el usuario desconozca.
+Se elegirá la categoría temática cuando el asunto esté claro. «Noticias falsas y bulos» se orienta a verificar contenido viral de origen dudoso; «Mitos y conspiraciones», a relatos persistentes, leyendas urbanas y teorías conspirativas; «Estafas, timos y publicidad engañosa», a consultas centradas en un posible fraude o engaño comercial. «General» cubre asuntos sin encaje claro o cuya clasificación el usuario desconozca.
 
 La separación entre Sociedad y Consumo permite especializar el análisis: comparar audiencias requiere métricas y periodos comparables; recomendar un establecimiento exige criterios y preferencias explícitos. La categoría elegida no predetermina el veredicto.
 
-El catálogo previsto queda compuesto por **diez categorías**. Esta revisión no amplía las categorías operativas de la PoC, que sigue incluyendo únicamente **Análisis político**; las otras nueve quedan para fases posteriores.
+El catálogo previsto queda compuesto por **once categorías**. Esta revisión no amplía las categorías operativas de la PoC, que sigue incluyendo únicamente **Análisis político**; las otras diez quedan para fases posteriores.
 
 ## 4. Análisis desde el buscador o editor de consulta
 
