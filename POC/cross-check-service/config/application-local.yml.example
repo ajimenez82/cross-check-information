@@ -1,0 +1,2 @@
+# Copy to application-local.yml and replace the placeholder, or run the initializer.
+CONVERSATION_TOKEN_SECRET: 'REPLACE_WITH_BASE64_ENCODING_32_BYTES'

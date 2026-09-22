@@ -25,6 +25,8 @@ java -jar bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar
 
 Para activar la API simulada:
 
+También puedes guardar la clave en `config/application-local.yml`, excluido de Git: ejecuta `./scripts/initialize-local-config.ps1` una vez y arranca desde esta carpeta con `--spring.profiles.active=dev,local`. Consulta la [configuración local en IntelliJ](docs/phase-4-conversation-tokens.md#configuración-local-en-fichero). El fichero queda fuera del JAR y una variable de entorno con el mismo nombre tiene prioridad.
+
 ```powershell
 ./scripts/initialize-token-secret.ps1
 java -jar bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev

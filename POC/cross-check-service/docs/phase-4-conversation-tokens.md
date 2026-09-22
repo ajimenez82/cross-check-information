@@ -26,6 +26,24 @@ Los escenarios de análisis de la fase 3 siguen disponibles, por ejemplo `--cros
 
 ### IntelliJ
 
+#### Configuración local en fichero
+
+Desde la carpeta del servicio ejecuta `./scripts/initialize-local-config.ps1`. Crea `config/application-local.yml`, excluido de Git y fuera de los recursos empaquetados en el JAR. Conserva el fichero si ya existe; al crearlo reutiliza `CONVERSATION_TOKEN_SECRET` de la terminal si está definida o genera una clave nueva sin mostrarla.
+
+En Run → Edit Configurations → configuración de CrossCheckApplication:
+
+- Working directory: la carpeta `POC/cross-check-service` del proyecto.
+- Program arguments: `--spring.profiles.active=dev,local --crosscheck.development.scenario=CLASSIFIED`.
+- Elimina `CONVERSATION_TOKEN_SECRET` de Environment variables si quieres utilizar el valor del fichero: una variable de entorno tiene prioridad.
+
+Si la clave anterior solo estaba guardada en IntelliJ, puedes conservarla copiándola al fichero local. Una clave nueva invalida los tokens anteriores. No compartas este fichero ni lo añadas a Git con `--force`.
+
+Para ejecutar el JAR desde la carpeta del servicio: `java -jar bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev,local`.
+
+El fichero de ejemplo `config/application-local.yml.example` no contiene secretos. En otros equipos se puede ejecutar el mismo inicializador. La integración con OpenAI no se modifica.
+
+#### Alternativa con variable de entorno
+
 En Run → Edit Configurations → configuración de CrossCheckApplication:
 
 - Program arguments: `--spring.profiles.active=dev --crosscheck.development.scenario=CLASSIFIED`.
@@ -56,7 +74,7 @@ No se incluyen consultas, respuestas, informes ni claves. Se aceptan exclusivame
 
 La validación de integridad ocurre antes de leer la caducidad. Un token manipulado, con formato incorrecto o cifrado con otra clave produce 400 `INVALID_CONVERSATION_REFERENCE`. Un token íntegro caducado produce 410 `CONVERSATION_REFERENCE_EXPIRED`, incluido el instante exacto de vencimiento. La categoría y revisión se comprueban también en el caso de uso antes de llamar al proveedor.
 
-La configuración `MAX_TOKEN_LENGTH` sigue siendo 4096 por defecto; el mínimo ahora es 512. El codec limita tanto la entrada como la salida. `CONVERSATION_TOKEN_TTL` mantiene PT2H por defecto; cada resultado correcto renueva el plazo. La clave solo se proporciona mediante `CONVERSATION_TOKEN_SECRET`, sin valor predeterminado.
+La configuración `MAX_TOKEN_LENGTH` sigue siendo 4096 por defecto; el mínimo ahora es 512. El codec limita tanto la entrada como la salida. `CONVERSATION_TOKEN_TTL` mantiene PT2H por defecto; cada resultado correcto renueva el plazo. La propiedad `CONVERSATION_TOKEN_SECRET` se proporciona mediante variable de entorno o el fichero local, sin valor predeterminado.
 
 Los tokens previos del registro en memoria ya no se aceptan. Se ha retirado `DEV_REFERENCE_CAPACITY`, porque ya no existe ese registro.
 
