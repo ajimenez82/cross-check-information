@@ -69,3 +69,21 @@ dialog::backdrop { background: #07172e55; }
   .accountTrigger > svg { width: 13px; }
   .accountPanel { width: 270px; }
 }
+
+/* Contrasta lo que te cuentan: responsive wordmark. */
+.brandTitle img { flex-shrink: 0; }
+.brandTitle > div { min-width: 0; }
+.brandTitle strong { max-width: 180px; font-size: 25px; letter-spacing: -.9px; }
+.brandTitle span { margin-top: 3px; color: var(--green); }
+.brand p { white-space: normal; }
+@media (max-width: 760px) {
+  .brandTitle strong { max-width: 145px; font-size: 20px; line-height: 1.05; letter-spacing: -.6px; }
+  .brandTitle span { font-size: 11px; }
+  .brandTitle img { width: 30px; height: 30px; }
+  .brand p { max-width: 180px; }
+}
+@media (max-width: 360px) {
+  .brandTitle strong { font-size: 17px; max-width: 115px; }
+  .brandTitle img { width: 25px; height: 25px; }
+  .brand p { font-size: 8px; }
+}

@@ -1,18 +1,99 @@
 import { useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { FileText, Flag, Link as LinkIcon, List, Send } from 'lucide-react';
-import { demoAnalysis as data } from '../../mocks/analysis';
 import { categories } from '../../shared/model/categories';
 import { Dialog } from '../../shared/ui/Dialog';
+import { useConversations, type Turn } from '../conversations/ConversationProvider';
+import { positionLabels, verdictLabels, type Analysis, type Source, type Position } from './api/analysisContract';
 import s from './Analysis.module.css';
 
+const formatDate = (value: string) => new Date(value).toLocaleString('es-ES');
+const positions = Object.keys(positionLabels) as Position[];
+
+function ReferenceButtons({ ids, sources, onSource }: { ids: string[]; sources: Source[]; onSource: (source: Source) => void }) {
+  return <div className={s.references}>{ids.map(id => {
+    const source = sources.find(item => item.id === id);
+    return source && <button key={id} onClick={() => onSource(source)} aria-label={`Ver referencia ${source.title}`}>[{id}]</button>;
+  })}</div>;
+}
+function Report({ data, onSource }: { data: Analysis; onSource: (source: Source) => void }) {
+  const classification = data.publicationPositions;
+  const total = classification.units.length;
+  const counts = positions.map(position => ({ position, count: classification.units.filter(unit => unit.position === position).length }));
+  return <div className={s.report}>
+    <article className={s.article}>
+      <div className={s.author}><img src="/assets/brand.svg" alt="" /><strong>Contrasta</strong><time dateTime={data.analyzedAt}>{formatDate(data.analyzedAt)}</time></div>
+      <h2 className={s.reportTitle}>{data.title}</h2>
+      {data.asOf && <p>Corte de las evidencias: {data.asOf}</p>}
+      <section className={s.textSection}><FileText /><div><h3>Contexto</h3><p>{data.context}</p></div></section>
+      <section className={s.textSection}><List /><div><h3>Síntesis</h3><p>{data.summary}</p><ReferenceButtons ids={data.summarySourceIds} sources={data.sources} onSource={onSource} /></div></section>
+      <section className={s.verdict} data-verdict={data.verdict.status}><span className={s.flag}><Flag /></span><div><h3>Valoración final</h3><strong className={s.verdictLabel}>{verdictLabels[data.verdict.status]}</strong><p>{data.verdict.explanation}</p><p>Respaldo documental: {data.verdict.documentarySupport}</p><ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} /></div></section>
+      {data.limitations.length > 0 && <section className={s.limitations}><h3>Limitaciones</h3><ul>{data.limitations.map((limit, index) => <li key={index}>{limit}</li>)}</ul></section>}
+    </article>
+    <aside className={s.positions}>
+      <h3>Posiciones en las publicaciones</h3>
+      {classification.availability === 'UNAVAILABLE' ? <p><strong>Medición no disponible</strong></p> : total === 0 ? <p><strong>No calculable</strong> · 0 unidades clasificadas</p> : <>
+        <p><strong>{total} unidades clasificadas</strong></p>
+        <div className={s.dynamicBar} aria-hidden="true">{counts.map(({ position, count }) => <span key={position} data-position={position} style={{ width: `${100 * count / total}%` }} />)}</div>
+        <ul className={s.legend}>{counts.map(({ position, count }) => <li key={position}>{positionLabels[position]}: {count} de {total} ({(100 * count / total).toLocaleString('es-ES', { maximumFractionDigits: 1 })} %)</li>)}</ul>
+      </>}
+      {classification.reason && <p>{classification.reason}</p>}
+      {classification.proposition && <p><strong>Proposición:</strong> {classification.proposition}</p>}
+      {classification.selectionCriteria && <p><strong>Selección:</strong> {classification.selectionCriteria}</p>}
+      {classification.period && <p>Periodo: {classification.period.from} — {classification.period.to}</p>}
+      {classification.consultedAt && <p>Consulta de la muestra: {formatDate(classification.consultedAt)}</p>}
+      {classification.units.length > 0 && <details><summary>Ver desglose de publicaciones</summary>{classification.units.map(unit => <section key={unit.id} className={s.breakdown}><strong>{positionLabels[unit.position]}</strong><p>{unit.explanation}</p><ReferenceButtons ids={unit.sourceIds} sources={data.sources} onSource={onSource} /></section>)}</details>}
+      {classification.excluded.length > 0 && <details><summary>Publicaciones excluidas ({classification.excluded.length})</summary>{classification.excluded.map(item => <section className={s.breakdown} key={item.sourceId}><p>{item.reason}</p><ReferenceButtons ids={[item.sourceId]} sources={data.sources} onSource={onSource} /></section>)}</details>}
+      <p className={s.scope}>Describe la muestra examinada; no mide opinión pública ni probabilidad de verdad. Las reproducciones agrupadas cuentan como una sola unidad.</p>
+    </aside>
+    <section className={s.sources}><h3><LinkIcon />Fuentes</h3>{data.sources.length ? <div>{data.sources.map(source => <button key={source.id} onClick={() => onSource(source)}><FileText /><span><strong>[{source.id}] {source.title}</strong><small>{source.contribution}</small></span></button>)}</div> : <p>No se han aportado fuentes para este resultado.</p>}</section>
+  </div>;
+}
+function FailedTurn({ turn, onRetry }: { turn: Turn; onRetry: (text: string) => void }) {
+  const [text, setText] = useState(turn.text);
+  const error = turn.error!;
+  return <section className={s.error} role="alert"><h2>No se ha completado el análisis</h2><p>{error.message}</p>
+    {error.uncertain && <p>La ejecución podría haber continuado en el servidor. Reintentar puede repetir el trabajo.</p>}
+    {error.requestId && <small>Referencia de diagnóstico: {error.requestId}</small>}
+    {error.resetRequired ? <Link to="/" className="primary">Iniciar nueva conversación</Link> :
+      <form onSubmit={event => { event.preventDefault(); onRetry(text); }}>
+        <label htmlFor={`retry-${turn.id}`}>Consulta para reintentar</label>
+        <textarea id={`retry-${turn.id}`} value={text} onChange={event => setText(event.target.value)} />
+        <button className="primary" disabled={!text.trim()}>Reintentar</button>
+      </form>}
+  </section>;
+}
 export function AnalysisPage() {
-  const [source, setSource] = useState<typeof data.sources[number] | null>(null);
+  const { id } = useParams();
+  const { conversations, send } = useConversations();
+  const conversation = conversations.find(item => item.id === id);
+  const [source, setSource] = useState<Source | null>(null);
   const [followUp, setFollowUp] = useState('');
-  const [notice, setNotice] = useState('');
-  return <div className={s.page}><div className={s.toolbar}><div><strong>Categoría:</strong><span>{categories[0].name}</span></div><small>Basado en el PDF aportado · Corte: 11/09/2026</small></div><section className={s.message} aria-label="Consulta de demostración"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time>10:24</time><p>{data.query}</p></div></section><div className={s.report}><article className={s.article}><div className={s.author}><img src="/assets/brand.svg" alt="" /><strong>Contrasta</strong><time>10:24</time></div><h1>{data.title}</h1><section className={s.textSection}><FileText /><div><h2>Contexto</h2><p>{data.context}</p></div></section><section className={s.textSection}><List /><div><h2>Síntesis</h2><p>{data.summary}</p></div></section><section className={s.verdict}><span className={s.flag}><Flag /></span><div><h2>Valoración final</h2><h3>{data.verdict}</h3><p>Respaldo documental de la acusación general: insuficiente.</p><small>No descarta irregularidades en casos concretos.</small></div></section></article>
-      <aside className={s.positions}><h2>Posiciones en las publicaciones</h2><span className={s.warning}>Datos ilustrativos · no calculados del PDF</span><strong className={s.percentage}>80 %</strong><p><strong>8 de 10</strong> publicaciones cuestionan el respaldo de la acusación.</p><div className={s.bar} role="img" aria-label="Cuestiona 80 %, respalda 10 %, mixta 0 %, sin posición 10 %"><span>80%</span><span>10%</span><span>10%</span></div><ul className={s.legend}><li>Cuestiona: 8</li><li>Respalda: 1</li><li>Mixta: 0</li><li>Sin posición: 1</li></ul><div className={s.scope}><p>Ejemplo de muestra; no representa opinión pública ni probabilidad de falsedad.</p><p><strong>Importante: este porcentaje es una cifra ficticia de demostración y no se ha calculado a partir del PDF.</strong></p></div></aside>
-      <section className={s.sources}><h2><LinkIcon />Fuentes</h2><div>{data.sources.map(item => <button key={item.id} onClick={() => setSource(item)}><FileText /><span><strong>[{item.id}] {item.name}</strong><small>{item.description}</small></span></button>)}</div><small>Referencias del PDF; no verificadas de nuevo.</small></section></div>
-    <form className={s.composer} onSubmit={e => { e.preventDefault(); if (followUp.trim()) { setNotice('Prototipo: el análisis mostrado es un ejemplo fijo. Los seguimientos estarán disponibles al conectar el servicio de análisis.'); setFollowUp(''); } }}><label className="srOnly" htmlFor="follow-up">Pregunta de seguimiento</label><input id="follow-up" value={followUp} onChange={e => setFollowUp(e.target.value)} placeholder="Escribe una pregunta o pega un enlace…" /><button className="primary" disabled={!followUp.trim()} aria-label="Enviar seguimiento"><Send /></button></form>{notice && <p className={s.notice} role="status">{notice}</p>}
-    {source && <Dialog title={`[${source.id}] ${source.name}`} onClose={() => setSource(null)}><p>{source.description}</p><p>Referencia del PDF utilizada en el diseño. No se ha verificado de nuevo y este prototipo no incluye un enlace al documento original.</p></Dialog>}
+  if (!id && conversations[0]) return <Navigate to={`/resultados/${conversations[0].id}`} replace />;
+  if (!conversation) return <div className={s.page}><h1>No hay una conversación disponible</h1><p>Puede haberse borrado el historial de este navegador.</p><Link className="primary" to="/">Nueva conversación</Link></div>;
+  const lastTurn = conversation.turns.at(-1);
+  const pending = lastTurn?.status === 'pending';
+  const canFollowUp = Boolean(conversation.token) && lastTurn?.status === 'done';
+  return <div className={s.page}>
+    <h1 className="srOnly">Conversación de análisis político</h1>
+    <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categories[0].name}</span></div></div>
+    <p className={s.warning}>Demostración · respuestas simuladas del servicio. No se está utilizando OpenAI.</p>
+    {conversation.turns.map(turn => <section key={turn.id} className={s.turn} aria-busy={turn.status === 'pending'}>
+      <section className={s.message} aria-label="Tu consulta"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
+      {turn.status === 'pending' && <p className={s.loading} role="status">Esperando respuesta del servicio…</p>}
+      {turn.status === 'error' && <FailedTurn turn={turn} onRetry={text => { void send(conversation.id, text, turn.id); }} />}
+      {turn.analysis && <Report data={turn.analysis} onSource={setSource} />}
+    </section>)}
+    <form className={s.composer} onSubmit={event => {
+      event.preventDefault();
+      if (canFollowUp && followUp.trim()) { void send(conversation.id, followUp); setFollowUp(''); }
+    }}><label className="srOnly" htmlFor="follow-up">Pregunta de seguimiento</label><input id="follow-up" disabled={!canFollowUp} value={followUp} onChange={event => setFollowUp(event.target.value)} placeholder="Escribe una pregunta o pega un enlace…" /><button className="primary" disabled={!canFollowUp || !followUp.trim()} aria-label="Enviar seguimiento"><Send /></button></form>
+    {pending && <p className={s.notice}>Espera a que termine esta consulta para enviar un seguimiento.</p>}
+    {source && <Dialog title={source.title} onClose={() => setSource(null)}>
+      <p>{source.contribution}</p>{source.publisher && <p>Publicación: {source.publisher}</p>}
+      <p>Fecha de publicación: {source.publishedAt ?? 'No disponible'}</p><p>Consulta: {formatDate(source.consultedAt)}</p>
+      <a href={source.url} target="_blank" rel="noopener noreferrer">Abrir fuente en una pestaña nueva</a>
+      <p>Los enlaces del escenario simulado son ilustrativos.</p>
+    </Dialog>}
   </div>;
 }

@@ -1,0 +1,6 @@
+{
+  "code": "CONVERSATION_REFERENCE_EXPIRED",
+  "message": "La referencia de conversación ha caducado.",
+  "requestId": "ID_ILUSTRATIVO",
+  "executionState": "NOT_STARTED"
+}

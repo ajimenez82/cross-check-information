@@ -1,0 +1,11 @@
+server:
+  address: 127.0.0.1
+
+crosscheck:
+  analysis:
+    max-input-length: ${MAX_INPUT_LENGTH:10000}
+    max-token-length: ${MAX_TOKEN_LENGTH:4096}
+    agent-revision: ${POLITICAL_AGENT_REVISION:development-v1}
+    conversation-ttl: ${CONVERSATION_TOKEN_TTL:PT2H}
+  development:
+    scenario: ${DEV_ANALYSIS_SCENARIO:INSUFFICIENT_EVIDENCE}

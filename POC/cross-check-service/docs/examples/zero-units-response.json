@@ -1,0 +1,50 @@
+{
+  "conversationToken": "TOKEN_ILUSTRATIVO_NO_VALIDO",
+  "analysis": {
+    "title": "Ejemplo de clasificación sin unidades válidas",
+    "context": "Ejemplo ficticio para revisar la estructura del contrato.",
+    "summary": "Se intentó clasificar la muestra, pero no hubo publicaciones accesibles suficientes.",
+    "summarySourceIds": [],
+    "verdict": {
+      "status": "INSUFFICIENT_EVIDENCE",
+      "explanation": "La falta de evidencias no demuestra que la afirmación sea falsa.",
+      "documentarySupport": "Insuficiente",
+      "sourceIds": []
+    },
+    "sources": [
+      {
+        "id": "s3",
+        "title": "Publicación ilustrativa C no accesible",
+        "url": "https://example.org/publicacion-c",
+        "publisher": null,
+        "publishedAt": null,
+        "consultedAt": "2026-09-17T11:57:00Z",
+        "contribution": "Se registra el intento de consulta, sin usarla como evidencia del contenido.",
+        "type": null
+      }
+    ],
+    "publicationPositions": {
+      "availability": "AVAILABLE",
+      "reason": "Todas las publicaciones de la muestra quedaron excluidas.",
+      "proposition": "Existe respaldo documental suficiente para la afirmación ilustrativa.",
+      "period": {
+        "from": "2026-09-01",
+        "to": "2026-09-17"
+      },
+      "consultedAt": "2026-09-17T11:58:00Z",
+      "selectionCriteria": "Muestra ficticia creada exclusivamente para revisar el contrato.",
+      "units": [],
+      "excluded": [
+        {
+          "sourceId": "s3",
+          "reason": "No se pudo consultar el contenido suficiente para clasificarla."
+        }
+      ]
+    },
+    "limitations": [
+      "Datos ficticios, sin valor factual ni representatividad."
+    ],
+    "analyzedAt": "2026-09-17T12:00:00Z",
+    "asOf": "2026-09-17"
+  }
+}

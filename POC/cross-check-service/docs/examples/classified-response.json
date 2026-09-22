@@ -1,0 +1,103 @@
+{
+  "conversationToken": "TOKEN_ILUSTRATIVO_NO_VALIDO",
+  "analysis": {
+    "title": "Ejemplo de publicaciones clasificadas",
+    "context": "Ejemplo ficticio para revisar la estructura del contrato.",
+    "summary": "Las publicaciones ilustrativas expresan posiciones distintas; esas posiciones no determinan el veredicto.",
+    "summarySourceIds": [
+      "s1",
+      "s2"
+    ],
+    "verdict": {
+      "status": "NO_SINGLE_VERDICT",
+      "explanation": "El ejemplo distingue posiciones editoriales y evidencias documentales.",
+      "documentarySupport": "No evaluado en este ejemplo ficticio",
+      "sourceIds": [
+        "s1"
+      ]
+    },
+    "sources": [
+      {
+        "id": "s1",
+        "title": "Publicación ilustrativa A",
+        "url": "https://example.org/publicacion-a",
+        "publisher": "Publicación ficticia A",
+        "publishedAt": "2026-09-15",
+        "consultedAt": "2026-09-17T11:55:00Z",
+        "contribution": "Ejemplo de argumentos que cuestionan la proposición.",
+        "type": "OPINION"
+      },
+      {
+        "id": "s1-copy",
+        "title": "Reproducción ilustrativa de A",
+        "url": "https://example.org/reproduccion-a",
+        "publisher": null,
+        "publishedAt": null,
+        "consultedAt": "2026-09-17T11:55:00Z",
+        "contribution": "Reproducción agrupada con A; no cuenta como una unidad adicional.",
+        "type": null
+      },
+      {
+        "id": "s2",
+        "title": "Publicación ilustrativa B",
+        "url": "https://example.org/publicacion-b",
+        "publisher": "Publicación ficticia B",
+        "publishedAt": null,
+        "consultedAt": "2026-09-17T11:56:00Z",
+        "contribution": "Ejemplo de información sin posición explícita.",
+        "type": "NEWS"
+      },
+      {
+        "id": "s3",
+        "title": "Publicación ilustrativa C no accesible",
+        "url": "https://example.org/publicacion-c",
+        "publisher": null,
+        "publishedAt": null,
+        "consultedAt": "2026-09-17T11:57:00Z",
+        "contribution": "Se registra el intento de consulta, sin usarla como evidencia del contenido.",
+        "type": null
+      }
+    ],
+    "publicationPositions": {
+      "availability": "AVAILABLE",
+      "reason": null,
+      "proposition": "Existe respaldo documental suficiente para la afirmación ilustrativa.",
+      "period": {
+        "from": "2026-09-01",
+        "to": "2026-09-17"
+      },
+      "consultedAt": "2026-09-17T11:58:00Z",
+      "selectionCriteria": "Muestra ficticia creada exclusivamente para revisar el contrato.",
+      "units": [
+        {
+          "id": "u1",
+          "sourceIds": [
+            "s1",
+            "s1-copy"
+          ],
+          "position": "QUESTIONS",
+          "explanation": "Argumenta que falta respaldo documental."
+        },
+        {
+          "id": "u2",
+          "sourceIds": [
+            "s2"
+          ],
+          "position": "NO_EXPLICIT_POSITION",
+          "explanation": "Describe la controversia sin adoptar una postura."
+        }
+      ],
+      "excluded": [
+        {
+          "sourceId": "s3",
+          "reason": "No se pudo consultar el contenido suficiente para clasificarla."
+        }
+      ]
+    },
+    "limitations": [
+      "Datos ficticios, sin valor factual ni representatividad."
+    ],
+    "analyzedAt": "2026-09-17T12:00:00Z",
+    "asOf": "2026-09-17"
+  }
+}

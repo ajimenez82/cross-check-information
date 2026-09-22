@@ -1,0 +1,6 @@
+{
+  "code": "INVALID_ANALYSIS_OUTPUT",
+  "message": "El proveedor devolvió un resultado no utilizable.",
+  "requestId": "ID_ILUSTRATIVO",
+  "executionState": "UNKNOWN"
+}

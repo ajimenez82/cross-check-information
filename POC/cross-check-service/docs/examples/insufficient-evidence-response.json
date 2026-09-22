@@ -1,0 +1,31 @@
+{
+  "conversationToken": "TOKEN_ILUSTRATIVO_NO_VALIDO",
+  "analysis": {
+    "title": "Ejemplo de análisis sin evidencias suficientes",
+    "context": "Ejemplo de contrato, no una investigación real.",
+    "summary": "No se han podido obtener fuentes suficientes para evaluar la afirmación.",
+    "summarySourceIds": [],
+    "verdict": {
+      "status": "INSUFFICIENT_EVIDENCE",
+      "explanation": "La falta de evidencias no demuestra que la afirmación sea falsa.",
+      "documentarySupport": "Insuficiente",
+      "sourceIds": []
+    },
+    "sources": [],
+    "publicationPositions": {
+      "availability": "UNAVAILABLE",
+      "reason": "No se ha realizado una clasificación de publicaciones.",
+      "proposition": null,
+      "period": null,
+      "consultedAt": null,
+      "selectionCriteria": null,
+      "units": [],
+      "excluded": []
+    },
+    "limitations": [
+      "Resultado ilustrativo: no corresponde a una consulta real."
+    ],
+    "analyzedAt": "2026-09-17T12:00:00Z",
+    "asOf": null
+  }
+}

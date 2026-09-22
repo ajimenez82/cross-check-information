@@ -1,0 +1,6 @@
+{
+  "code": "ANALYSIS_TIMEOUT",
+  "message": "El análisis ha superado el tiempo de espera.",
+  "requestId": "ID_ILUSTRATIVO",
+  "executionState": "UNKNOWN"
+}

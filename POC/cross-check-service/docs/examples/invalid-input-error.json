@@ -1,0 +1,6 @@
+{
+  "code": "INVALID_ANALYSIS_INPUT",
+  "message": "La consulta no es válida.",
+  "requestId": "ID_ILUSTRATIVO",
+  "executionState": "NOT_STARTED"
+}
