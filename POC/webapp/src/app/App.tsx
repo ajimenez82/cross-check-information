@@ -8,10 +8,10 @@ import s from './layout/Layout.module.css';
 import { useConversations } from '../features/conversations/ConversationProvider';
 
 const sections = [
-  { title: 'Acerca del proyecto', icon: Info, text: 'Contrasta lo que te cuentan es un proyecto experimental para explorar afirmaciones políticas, su contexto y las evidencias disponibles. Esta versión conecta la interfaz con un servicio de análisis simulado.' },
-  { title: 'Cómo funciona', icon: BookOpen, text: 'Escribe una consulta o selecciona una idea y pulsa Analizar. El servicio devuelve un escenario simulado configurado para desarrollo. El informe separa contexto, síntesis, valoración documental y posiciones de las publicaciones.' },
-  { title: 'Políticas de uso', icon: FileText, text: 'Utiliza el proyecto para examinar información con espíritu crítico. Las respuestas de esta demostración no constituyen una verificación nueva. Consulta las fuentes originales antes de extraer conclusiones.' },
-  { title: 'Privacidad', icon: Shield, text: 'Tus consultas se envían al servicio Java, que actualmente devuelve resultados simulados sin llamar a OpenAI. El historial y las referencias de conversación se guardan en este navegador. Borrar el historial local no borra datos de servicios externos. No hay autenticación ni una cuenta real.' },
+  { title: 'Acerca del proyecto', icon: Info, text: 'Contrasta lo que te cuentan es un proyecto experimental para explorar afirmaciones políticas, su contexto y las evidencias disponibles. Los informes distinguen contexto, evidencias y posiciones de las publicaciones.' },
+  { title: 'Cómo funciona', icon: BookOpen, text: 'Escribe una consulta o selecciona una idea y pulsa Analizar. Según el modo configurado, el servicio devuelve un informe simulado o consulta al agente de OpenAI. Los informes simulados se identifican en su contenido y no evalúan tu consulta.' },
+  { title: 'Políticas de uso', icon: FileText, text: 'Utiliza el proyecto para examinar información con espíritu crítico. Los análisis pueden contener errores. Consulta las fuentes originales y las limitaciones antes de extraer conclusiones.' },
+  { title: 'Privacidad', icon: Shield, text: 'Tus consultas se envían al servicio Java. En modo OpenAI, se envían también a OpenAI, que mantiene la sesión para los seguimientos; en modo simulado no se llama a OpenAI. El historial y las referencias de conversación se guardan en este navegador. Borrar el historial local no borra las sesiones en OpenAI. No hay autenticación ni una cuenta real.' },
   { title: 'Ayuda', icon: CircleHelp, text: 'Introduce texto para activar Analizar. Nueva conversación te devuelve al inicio. En móvil puedes abrir la navegación con el botón de menú. No hay un servicio de recepción de comentarios en esta demostración.' },
 ];
 

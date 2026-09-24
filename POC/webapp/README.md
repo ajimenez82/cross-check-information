@@ -1,6 +1,6 @@
 # Contrasta lo que te cuentan
 
-Prototipo responsive conectado a la API simulada de Cross Check Service. Esta fase no utiliza OpenAI.
+Prototipo responsive conectado a Cross Check Service. El modo `dev` devuelve resultados simulados; la integración `openai` del backend está preparada y pendiente de credenciales y pruebas reales. Consulta la [guía de integración](../cross-check-service/docs/phase-5-openai.md) antes de activarla.
 
 ## Desarrollo
 
@@ -53,7 +53,7 @@ Pie compartido en ambas páginas con año automático, nombre del proyecto, crea
 
 Arranca el servicio con el perfil `dev`, `CONVERSATION_TOKEN_SECRET` configurado y el escenario `CLASSIFIED`. Consulta las [instrucciones del servicio](../cross-check-service/README.md) y la [configuración de IntelliJ](../cross-check-service/docs/phase-4-conversation-tokens.md). En IntelliJ, añade `--crosscheck.development.scenario=CLASSIFIED` a los argumentos del programa. Después ejecuta `npm run dev` en esta carpeta.
 
-1. Envía una consulta: debe aparecer tu texto y el informe simulado con el aviso de demostración.
+1. Envía una consulta: debe aparecer tu texto y un informe identificado como simulado en su título y contenido.
 2. Envía un seguimiento y recarga: ambos turnos deben permanecer en el historial.
 3. Abre una conversación nueva y vuelve a la anterior desde el historial.
 4. Cambia el escenario del servicio y reinícialo para revisar `ZERO_UNITS`, `INSUFFICIENT_EVIDENCE` o `TIMEOUT`.

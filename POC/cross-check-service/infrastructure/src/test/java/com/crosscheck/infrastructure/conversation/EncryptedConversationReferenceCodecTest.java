@@ -20,12 +20,13 @@ class EncryptedConversationReferenceCodecTest {
     private final EncryptedConversationReferenceCodec codec = codec(secret, clock);
 
     @Test
-    void roundTripSurvivesNewInstanceWithSameKey() {
+    void roundTripSurvivesNewInstanceWithSameKey() throws Exception {
         var reference = reference(NOW.plusSeconds(3600));
         String token = codec.encode(reference);
         assertEquals(reference, codec(secret, clock).decode(token));
-        assertFalse(token.contains(reference.sessionId()));
-        assertFalse(token.contains(reference.agentRevision()));
+        // Random ciphertext may coincidentally contain short strings such as "v1".
+        // Check the public header instead; payload confidentiality is covered by wrong-key rejection.
+        assertEquals(Set.of("alg", "enc", "typ"), JWEObject.parse(token).getHeader().toJSONObject().keySet());
         assertNotEquals(token, codec.encode(reference));
         assertEquals(5, token.split("\\.", -1).length);
     }

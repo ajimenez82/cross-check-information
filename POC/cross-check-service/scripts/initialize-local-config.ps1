@@ -32,7 +32,7 @@ try {
 }
 
 New-Item -ItemType Directory -Path $configDirectory -Force | Out-Null
-$content = "# Local secret. Never commit or share this file.`nCONVERSATION_TOKEN_SECRET: '$secret'`n"
+$content = "# Local secrets. Never commit or share this file.`nCONVERSATION_TOKEN_SECRET: '$secret'`n# Required only when the openai profile is explicitly enabled.`nOPENAI_API_KEY: ''`nOPENAI_POLITICAL_ANALYSIS_AGENT_ID: ''`n"
 [IO.File]::WriteAllText($configPath, $content)
 $secret = $null
 Write-Output 'Local configuration created. Activate dev,local from the service directory.'

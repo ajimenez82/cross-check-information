@@ -1,0 +1,272 @@
+{
+  "name": "cross-check-political-v1",
+  "model": "REPLACE_WITH_APPROVED_MODEL",
+  "instructions": "REPLACE_WITH_CONTENTS_OF_political-analysis-instructions.md",
+  "tools": [
+    {
+      "type": "web_search",
+      "mode": "live"
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "json_schema",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "summarySourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verdict": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "SUPPORTED",
+                  "REFUTED",
+                  "MISLEADING",
+                  "INSUFFICIENT_EVIDENCE",
+                  "OPINION",
+                  "NO_SINGLE_VERDICT"
+                ]
+              },
+              "explanation": {
+                "type": "string"
+              },
+              "documentarySupport": {
+                "type": "string"
+              },
+              "sourceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "status",
+              "explanation",
+              "documentarySupport",
+              "sourceIds"
+            ],
+            "additionalProperties": false
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "publisher": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "publishedAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "consultedAt": {
+                  "type": "string"
+                },
+                "contribution": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "url",
+                "publisher",
+                "publishedAt",
+                "consultedAt",
+                "contribution",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "publicationPositions": {
+            "type": "object",
+            "properties": {
+              "availability": {
+                "type": "string",
+                "enum": [
+                  "AVAILABLE",
+                  "UNAVAILABLE"
+                ]
+              },
+              "reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "proposition": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "period": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "from": {
+                        "type": "string"
+                      },
+                      "to": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "from",
+                      "to"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "consultedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "selectionCriteria": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "units": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sourceIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "position": {
+                      "type": "string",
+                      "enum": [
+                        "SUPPORTS",
+                        "QUESTIONS",
+                        "MIXED",
+                        "NO_EXPLICIT_POSITION"
+                      ]
+                    },
+                    "explanation": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sourceIds",
+                    "position",
+                    "explanation"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "excluded": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceId": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "sourceId",
+                    "reason"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "availability",
+              "reason",
+              "proposition",
+              "period",
+              "consultedAt",
+              "selectionCriteria",
+              "units",
+              "excluded"
+            ],
+            "additionalProperties": false
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "asOf": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "context",
+          "summary",
+          "summarySourceIds",
+          "verdict",
+          "sources",
+          "publicationPositions",
+          "limitations",
+          "asOf"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

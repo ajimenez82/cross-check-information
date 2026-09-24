@@ -1,0 +1,15 @@
+# Activate openai,local explicitly; dev remains the offline provider.
+server:
+  address: 127.0.0.1
+
+crosscheck:
+  analysis:
+    max-input-length: ${MAX_INPUT_LENGTH:10000}
+    max-token-length: ${MAX_TOKEN_LENGTH:4096}
+    agent-revision: ${POLITICAL_AGENT_REVISION:political-v1}
+    conversation-ttl: ${CONVERSATION_TOKEN_TTL:PT2H}
+  openai:
+    political-analysis-agent-id: ${OPENAI_POLITICAL_ANALYSIS_AGENT_ID:}
+    timeout: PT90S
+    poll-interval: PT1S
+    max-concurrent-requests: 2

@@ -42,6 +42,8 @@ Para ejecutar el JAR desde la carpeta del servicio: `java -jar bootstrap/target/
 
 El fichero de ejemplo `config/application-local.yml.example` no contiene secretos. En otros equipos se puede ejecutar el mismo inicializador. La integración con OpenAI no se modifica.
 
+El fichero local y su plantilla también incluyen `OPENAI_API_KEY: ''` y `OPENAI_POLITICAL_ANALYSIS_AGENT_ID: ''`. Solo son obligatorias al activar el perfil `openai` de la [fase 5](phase-5-openai.md); `dev` sigue sin utilizarlas. Se cargan con el perfil `local` como propiedades de Spring, y las variables de entorno tienen prioridad. No publiques la clave en la plantilla ni en Git.
+
 #### Alternativa con variable de entorno
 
 En Run → Edit Configurations → configuración de CrossCheckApplication:

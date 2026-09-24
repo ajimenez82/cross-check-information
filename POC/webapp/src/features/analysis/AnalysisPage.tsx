@@ -77,7 +77,7 @@ export function AnalysisPage() {
   return <div className={s.page}>
     <h1 className="srOnly">Conversación de análisis político</h1>
     <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categories[0].name}</span></div></div>
-    <p className={s.warning}>Demostración · respuestas simuladas del servicio. No se está utilizando OpenAI.</p>
+    <p className={s.warning}>Prototipo · revisa las fuentes y las limitaciones de cada informe. Los informes marcados como simulados no evalúan tu consulta.</p>
     {conversation.turns.map(turn => <section key={turn.id} className={s.turn} aria-busy={turn.status === 'pending'}>
       <section className={s.message} aria-label="Tu consulta"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
       {turn.status === 'pending' && <p className={s.loading} role="status">Esperando respuesta del servicio…</p>}
@@ -93,7 +93,7 @@ export function AnalysisPage() {
       <p>{source.contribution}</p>{source.publisher && <p>Publicación: {source.publisher}</p>}
       <p>Fecha de publicación: {source.publishedAt ?? 'No disponible'}</p><p>Consulta: {formatDate(source.consultedAt)}</p>
       <a href={source.url} target="_blank" rel="noopener noreferrer">Abrir fuente en una pestaña nueva</a>
-      <p>Los enlaces del escenario simulado son ilustrativos.</p>
+      <p>Consulta el contenido original y las limitaciones indicadas. En los informes simulados, los enlaces son ilustrativos.</p>
     </Dialog>}
   </div>;
 }

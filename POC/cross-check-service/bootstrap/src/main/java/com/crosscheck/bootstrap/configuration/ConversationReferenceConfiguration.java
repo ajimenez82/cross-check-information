@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
 @Configuration(proxyBeanMethods = false)
-@Profile("dev")
+@Profile({"dev", "openai"})
 public class ConversationReferenceConfiguration {
     @Bean
     ConversationReferenceCodec conversationReferenceCodec(Environment environment, Clock clock, AnalysisPolicy policy) {

@@ -1,6 +1,8 @@
 # Cross Check Service
 
-Backend Java de CrossCheck. **Fase 4: referencias de conversación cifradas**. Una aplicación ejecutable, organizada en cinco módulos Maven.
+Backend Java de CrossCheck. **Fase 5: adaptador OpenAI implementado, pendiente de credenciales y pruebas reales**. Una aplicación ejecutable, organizada en cinco módulos Maven.
+
+Preparación y límites de esta entrega: [integración OpenAI](docs/phase-5-openai.md). Para continuar sin consumir la API, conserva el perfil `dev,local`.
 
 Revisión de esta entrega: [tokens cifrados, clave e IntelliJ](docs/phase-4-conversation-tokens.md). Escenarios: [API de la fase 3](docs/phase-3-api.md). Contrato base: [fase 2](docs/phase-2-contract.md).
 
@@ -48,7 +50,7 @@ El puerto por defecto es 8080. Se puede cambiar mediante `SERVER_PORT` o un argu
 java -jar bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar --server.port=8081
 ```
 
-La raíz `/` devuelve 404: el backend no sirve la interfaz. El endpoint `POST /api/analysis/start` está disponible únicamente con dev. Actuator expone únicamente `health`, sin detalles internos. No se necesita clave de OpenAI ni base de datos para arrancar.
+La raíz `/` devuelve 404: el backend no sirve la interfaz. El endpoint `POST /api/analysis/start` está disponible con `dev` o `openai`, nunca ambos. Actuator expone únicamente `health`, sin detalles internos. El modo simulado no necesita clave de OpenAI ni base de datos.
 
 ## Módulos
 
@@ -83,7 +85,7 @@ Se utiliza `@Slf4j` en el arranque. En fases posteriores se priorizarán `record
 
 El `.gitignore` del servicio excluye `target`, metadatos locales del IDE, logs y configuración local sensible. Los POM, recursos y `lombok.config` se versionan.
 
-El servicio permite consultar su salud y, con dev, ejecutar análisis simulados por HTTP utilizando tokens cifrados. La clave CONVERSATION_TOKEN_SECRET es obligatoria en dev. No hay integración OpenAI ni cambios en el frontend en esta entrega. La siguiente fase comenzará después de revisar esta base y confirmar su inicio.
+El servicio permite consultar su salud, ejecutar análisis simulados con `dev` o utilizar el agente remoto con `openai`. CONVERSATION_TOKEN_SECRET es obligatoria en ambos modos. La activación real de OpenAI y sus pruebas quedan pendientes; revisa la guía de la fase 5 antes de cambiar de perfil.
 
 ## Verificación de la fase 1
 
