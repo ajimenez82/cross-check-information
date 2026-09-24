@@ -71,3 +71,6 @@ node scripts/verify.cjs
 ```
 
 Comprueba contrato HTTP, cargas, seguimiento, recarga, historial, errores, reintentos explícitos, respuestas inválidas, enlaces inseguros y tamaños de pantalla. Con `LIVE_API=1` también comprueba navegador → proxy de Vite → Spring Boot, incluido el token cifrado de seguimiento. Las capturas se guardan en `review/integration/`.
+
+
+La comprobación focalizada de las ocho valoraciones está en scripts/verify-verdicts.cjs: verifica etiquetas, iconos, persistencia y posición del panel en escritorio/móvil. Requiere Playwright y Edge, y usa APP_URL (por defecto http://127.0.0.1:5178). Intercepta la API con datos de prueba; no llama a OpenAI.

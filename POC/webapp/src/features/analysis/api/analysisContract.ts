@@ -2,6 +2,8 @@ export const verdictLabels = {
   SUPPORTED: 'Respaldada', REFUTED: 'Refutada', MISLEADING: 'Engañosa o fuera de contexto',
   INSUFFICIENT_EVIDENCE: 'Evidencia insuficiente', OPINION: 'Interpretación u opinión',
   NO_SINGLE_VERDICT: 'Sin veredicto único',
+  SUPPORTED_BY_PUBLICATIONS: 'Respaldada por las publicaciones',
+  QUESTIONED_BY_PUBLICATIONS: 'Cuestionada por las publicaciones',
 } as const;
 export const positionLabels = {
   QUESTIONS: 'Cuestiona', SUPPORTS: 'Respalda', MIXED: 'Mixta', NO_EXPLICIT_POSITION: 'Sin posición explícita',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { FileText, Flag, Link as LinkIcon, List, Send } from 'lucide-react';
+import { FileText, CircleCheck, CircleX, TriangleAlert, CircleHelp, MessageCircle, GitFork, Newspaper, Link as LinkIcon, List, Send } from 'lucide-react';
 import { categories } from '../../shared/model/categories';
 import { Dialog } from '../../shared/ui/Dialog';
 import { useConversations, type Turn } from '../conversations/ConversationProvider';
@@ -9,6 +9,11 @@ import s from './Analysis.module.css';
 
 const formatDate = (value: string) => new Date(value).toLocaleString('es-ES');
 const positions = Object.keys(positionLabels) as Position[];
+const verdictIcons = {
+  SUPPORTED: CircleCheck, REFUTED: CircleX, MISLEADING: TriangleAlert,
+  INSUFFICIENT_EVIDENCE: CircleHelp, OPINION: MessageCircle, NO_SINGLE_VERDICT: GitFork,
+  SUPPORTED_BY_PUBLICATIONS: Newspaper, QUESTIONED_BY_PUBLICATIONS: Newspaper,
+};
 
 function ReferenceButtons({ ids, sources, onSource }: { ids: string[]; sources: Source[]; onSource: (source: Source) => void }) {
   return <div className={s.references}>{ids.map(id => {
@@ -17,6 +22,7 @@ function ReferenceButtons({ ids, sources, onSource }: { ids: string[]; sources: 
   })}</div>;
 }
 function Report({ data, onSource }: { data: Analysis; onSource: (source: Source) => void }) {
+  const VerdictIcon = verdictIcons[data.verdict.status];
   const classification = data.publicationPositions;
   const total = classification.units.length;
   const counts = positions.map(position => ({ position, count: classification.units.filter(unit => unit.position === position).length }));
@@ -27,7 +33,7 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
       {data.asOf && <p>Corte de las evidencias: {data.asOf}</p>}
       <section className={s.textSection}><FileText /><div><h3>Contexto</h3><p>{data.context}</p></div></section>
       <section className={s.textSection}><List /><div><h3>Síntesis</h3><p>{data.summary}</p><ReferenceButtons ids={data.summarySourceIds} sources={data.sources} onSource={onSource} /></div></section>
-      <section className={s.verdict} data-verdict={data.verdict.status}><span className={s.flag}><Flag /></span><div><h3>Valoración final</h3><strong className={s.verdictLabel}>{verdictLabels[data.verdict.status]}</strong><p>{data.verdict.explanation}</p><p>Respaldo documental: {data.verdict.documentarySupport}</p><ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} /></div></section>
+      <section className={s.verdict} data-verdict={data.verdict.status}><span className={s.flag} aria-hidden="true"><VerdictIcon /></span><div><h3>Valoración final</h3><strong className={s.verdictLabel}>{verdictLabels[data.verdict.status]}</strong><p>{data.verdict.explanation}</p><p>Respaldo documental: {data.verdict.documentarySupport}</p><ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} /></div></section>
       {data.limitations.length > 0 && <section className={s.limitations}><h3>Limitaciones</h3><ul>{data.limitations.map((limit, index) => <li key={index}>{limit}</li>)}</ul></section>}
     </article>
     <aside className={s.positions}>

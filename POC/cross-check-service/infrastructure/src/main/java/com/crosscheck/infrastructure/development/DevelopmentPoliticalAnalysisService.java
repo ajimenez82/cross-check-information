@@ -71,6 +71,21 @@ public final class DevelopmentPoliticalAnalysisService implements AiPoliticalAna
                             new PublicationAssessment("u2", List.of("s2"),
                                     PublicationPosition.NO_EXPLICIT_POSITION, "Ejemplo de información sin postura.")),
                     List.of(new ExcludedPublication("s3", "Inaccesibilidad simulada.")));
+        } else if (scenario == DevelopmentScenario.SUPPORTED_BY_PUBLICATIONS
+                || scenario == DevelopmentScenario.QUESTIONED_BY_PUBLICATIONS
+                || scenario == DevelopmentScenario.TIED_PUBLICATIONS) {
+            sources = List.of(source("s1", consultedAt), source("s2", consultedAt));
+            var firstPosition = scenario == DevelopmentScenario.QUESTIONED_BY_PUBLICATIONS
+                    ? PublicationPosition.QUESTIONS : PublicationPosition.SUPPORTS;
+            var secondPosition = scenario == DevelopmentScenario.TIED_PUBLICATIONS
+                    ? PublicationPosition.QUESTIONS : firstPosition;
+            positions = new PublicationPositions(ClassificationAvailability.AVAILABLE, null,
+                    "Proposición ficticia para revisar la valoración final.", null, consultedAt,
+                    "Muestra ficticia de desarrollo, no representativa.",
+                    List.of(new PublicationAssessment("u1", List.of("s1"), firstPosition,
+                                    "Posición ficticia de la primera publicación."),
+                            new PublicationAssessment("u2", List.of("s2"), secondPosition,
+                                    "Posición ficticia de la segunda publicación.")), List.of());
         } else if (scenario == DevelopmentScenario.ZERO_UNITS) {
             sources = List.of(source("s3", consultedAt));
             positions = new PublicationPositions(ClassificationAvailability.AVAILABLE,

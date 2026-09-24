@@ -94,3 +94,15 @@ El servicio permite consultar su salud, ejecutar análisis simulados con `dev` o
 - Comprobación de que Lombok queda fuera de las bibliotecas del ejecutable y de que Git ignora los artefactos y la configuración local.
 
 Durante la compilación, Lombok 1.18.48 emite una advertencia por el uso interno de `sun.misc.Unsafe::objectFieldOffset`, obsoleto en Java 26. No impide compilar; se mantiene visible para poder revisar futuras actualizaciones de Lombok.
+
+## Valoraciones finales y revisión local
+
+La API devuelve ocho estados finales. El agente mantiene seis estados documentales; Java deriva `SUPPORTED_BY_PUBLICATIONS` y `QUESTIONED_BY_PUBLICATIONS` solo desde `INSUFFICIENT_EVIDENCE`, mediante predominio estricto sobre unidades deduplicadas. Se conserva la explicación y el respaldo documental. Empates, predominio mixto/sin posición, cero unidades o clasificación no disponible mantienen evidencia insuficiente.
+
+Con los perfiles `dev,local`, usar uno de estos argumentos de IntelliJ para revisar la regla:
+
+- `--crosscheck.development.scenario=SUPPORTED_BY_PUBLICATIONS`
+- `--crosscheck.development.scenario=QUESTIONED_BY_PUBLICATIONS`
+- `--crosscheck.development.scenario=TIED_PUBLICATIONS`
+
+Son respuestas ficticias sin llamadas a OpenAI. Los dos primeros escenarios parten de evidencia insuficiente y dejan que Java derive el estado final; el tercero conserva `INSUFFICIENT_EVIDENCE`.

@@ -76,3 +76,11 @@ La interfaz mantiene el mismo contrato. Sus textos ya no afirman que todas las r
 - [Referencia Agents API, incluido formato JSON Schema](https://developers.openai.com/api/reference/resources/beta/subresources/agents).
 
 Agents API requiere actualmente la cabecera beta `OpenAI-Beta: agents=v1`. El acceso y comportamiento reales de esta cuenta no se han comprobado.
+
+## Agente de desarrollo creado — 24/09/2026
+
+Creado y recuperado desde Agents API: `cross-check-political-v1`, con `gpt-5.4-mini`, `reasoning.effort=low` y `service_tier=default` (Standard). Se ha verificado el nombre, modelo, contenido de las instrucciones, formato JSON y presencia de búsqueda web. El identificador se guarda en `OPENAI_POLITICAL_ANALYSIS_AGENT_ID` del archivo local ignorado por Git.
+
+La plantilla refleja esta configuración inicial orientada a menor coste. La creación no inicia una sesión ni ejecuta un análisis. Quedan pendientes las pruebas reales de investigación, cumplimiento del contrato, latencia, seguimiento y coste. La selección del modelo puede revisarse después de esas pruebas.
+
+Referencias: https://developers.openai.com/api/docs/models/gpt-5.4-mini y https://developers.openai.com/api/docs/guides/agents-api/configuration.

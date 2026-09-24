@@ -130,6 +130,23 @@ class AnalysisApiTest {
         assertFalse(positions.containsKey("percentage"));
     }
 
+    @ParameterizedTest
+    @EnumSource(value = DevelopmentScenario.class, names = {
+            "SUPPORTED_BY_PUBLICATIONS", "QUESTIONED_BY_PUBLICATIONS", "TIED_PUBLICATIONS"})
+    void derivesFinalVerdictThroughHttpContract(DevelopmentScenario scenario) throws Exception {
+        provider.scenario = scenario;
+        var response = post("{\"text\":\"Consulta\"}");
+        assertEquals(200, response.statusCode());
+        var verdict = child(child(body(response), "analysis"), "verdict");
+        assertEquals(scenario == DevelopmentScenario.TIED_PUBLICATIONS
+                ? "INSUFFICIENT_EVIDENCE" : scenario.name(), verdict.get("status"));
+        assertEquals("No evaluado: respuesta simulada", verdict.get("documentarySupport"));
+        if (scenario != DevelopmentScenario.TIED_PUBLICATIONS) {
+            assertTrue(((String) verdict.get("explanation")).startsWith(
+                    "La evidencia disponible no permite respaldar ni refutar la afirmación."));
+        }
+    }
+
     @Test
     void zeroUnitsRemainsAvailableWithoutInventedPercentage() throws Exception {
         provider.scenario = DevelopmentScenario.ZERO_UNITS;

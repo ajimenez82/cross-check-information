@@ -163,20 +163,20 @@ Cuando existan varias afirmaciones, el análisis debe tratarlas por separado y e
 
 Tarjeta destacada con **icono o bandera, color, etiqueta y explicación**. El significado no dependerá exclusivamente del color.
 
-| Estado técnico | Etiqueta orientativa | Indicador | Criterio |
+| Estado técnico | Etiqueta definitiva | Indicador | Criterio |
 |---|---|---|---|
-| `SUPPORTED` | Respaldada | Verde / comprobación | Las evidencias examinadas apoyan la afirmación dentro del alcance indicado. |
-| `REFUTED` | Refutada | Rojo / cruz | Las evidencias examinadas contradicen la afirmación. |
+| `SUPPORTED` | Respaldada | Verde / círculo con comprobación | Las evidencias examinadas apoyan la afirmación dentro del alcance indicado. |
+| `REFUTED` | Refutada | Rojo / círculo con cruz | Las evidencias examinadas contradicen la afirmación. |
 | `MISLEADING` | Engañosa o fuera de contexto | Ámbar / advertencia | Hay elementos ciertos, pero se omite o altera contexto de forma que cambia su significado. |
-| `INSUFFICIENT_EVIDENCE` | Evidencia insuficiente / No acreditada con las evidencias examinadas | Gris / bandera neutral | No hay base suficiente para sostener una conclusión sobre la afirmación. |
-| `OPINION` | Interpretación u opinión | Azul / información | El contenido no puede valorarse directamente como verdadero o falso. |
-| `NO_SINGLE_VERDICT` | Sin veredicto único | Neutral / balanza | La pregunta abierta o la combinación de afirmaciones requiere una conclusión diferenciada. |
+| `INSUFFICIENT_EVIDENCE` | Evidencia insuficiente | Gris / círculo con interrogación | No hay base suficiente para respaldar o refutar; predomina mixta o sin posición explícita, hay empate en el primer puesto, o no hay unidades o clasificación disponible. |
+| `OPINION` | Interpretación u opinión | Azul / bocadillo de diálogo | El contenido no puede valorarse directamente como verdadero o falso. |
+| `NO_SINGLE_VERDICT` | Sin veredicto único | Gris azulado / caminos que se bifurcan | La pregunta abierta o la combinación de afirmaciones requiere una conclusión diferenciada. |
 
 «Pendiente de contraste» es un estado de ejecución, no un veredicto final. `OPINION` tampoco sustituye al contraste de las afirmaciones factuales que pueda contener una opinión.
 
 #### Cómo se determina
 
-La valoración es un juicio cualitativo del agente sobre las evidencias, **no una media de opiniones ni un porcentaje de falsedad**.
+La valoración documental es un juicio cualitativo del agente sobre las evidencias, **no una media de opiniones ni un porcentaje de falsedad**.
 
 El agente debe:
 
@@ -187,9 +187,23 @@ El agente debe:
 5. Asignar un estado y justificarlo con referencias.
 6. Expresar lo que no puede concluirse.
 
-No se ha acordado una fórmula numérica ni umbrales automáticos para el veredicto. No se inventará una puntuación de certeza.
+No se calcula una puntuación de certeza. La valoración documental se conserva; únicamente cuando es INSUFFICIENT_EVIDENCE se aplica la regla determinista de posicionamiento descrita a continuación para obtener la valoración final.
 
 El objeto de valoración incluirá estado, explicación y referencias a las fuentes relevantes. React traducirá el estado a un indicador visual mediante reglas estables.
+
+
+#### Valoraciones derivadas de publicaciones
+
+| Estado técnico | Etiqueta definitiva | Indicador | Criterio |
+|---|---|---|---|
+| `SUPPORTED_BY_PUBLICATIONS` | Respaldada por las publicaciones | Verde suave / periódico | Evidencia insuficiente y SUPPORTS es la posición estrictamente mayor entre las cuatro. |
+| `QUESTIONED_BY_PUBLICATIONS` | Cuestionada por las publicaciones | Coral suave / periódico | Evidencia insuficiente y QUESTIONS es la posición estrictamente mayor entre las cuatro. |
+
+El catálogo definitivo contiene ocho estados: los seis documentales anteriores y estas dos valoraciones derivadas. Java compara recuentos de unidades deduplicadas, no fuentes individuales ni porcentajes redondeados. El mayor porcentaje no necesita superar el 50 %: 40/30/20/10 produce SUPPORTED_BY_PUBLICATIONS. Un empate en el primer puesto, predominio de MIXED o NO_EXPLICIT_POSITION, cero unidades o clasificación UNAVAILABLE mantiene INSUFFICIENT_EVIDENCE. Ningún otro estado documental se transforma.
+
+En las dos valoraciones derivadas se muestra siempre: **«La evidencia disponible no permite respaldar ni refutar la afirmación»**, seguido del predominio en la muestra y la explicación documental original. Se conservan respaldo documental y referencias. El agente no emite los estados derivados: devuelve su valoración documental y las posiciones; Java aplica la regla. Una mayoría editorial no demuestra verdad ni falsedad.
+
+Se conserva el panel de posiciones y su funcionamiento: a la derecha en escritorio y después del análisis y antes de las fuentes en móvil, como en v5. No se adopta la reorganización propuesta en v6.
 
 #### Respaldo documental
 
@@ -430,7 +444,7 @@ No se han fijado valores numéricos definitivos; se ajustarán mediante pruebas 
 9. Las fuentes se identifican y vinculan a su aportación al análisis.
 10. La medición de publicaciones muestra recuentos, denominador, criterio y desglose, o indica que no está disponible.
 11. Los porcentajes coinciden con los recuentos; no se inventan cifras para completar la interfaz.
-12. La medición de publicaciones no altera automáticamente el veredicto documental.
+12. La medición de publicaciones no altera el respaldo documental; Java deriva las dos valoraciones editoriales únicamente desde INSUFFICIENT_EVIDENCE mediante predominio estricto, sin exigir superar el 50 %.
 13. El historial sobrevive a una recarga en el mismo navegador y permite abrir, renombrar y eliminar conversaciones.
 14. El perfil identifica a Ale Jiménez como usuario de demostración y cerrar sesión está deshabilitado.
 15. Las páginas informativas son accesibles.

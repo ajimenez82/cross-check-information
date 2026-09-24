@@ -48,7 +48,7 @@ flowchart LR
 |---|---|---|
 | React SPA | Consulta, navegación, resultados, indicadores, historial y preferencias | No llama directamente a OpenAI ni determina la verdad de una afirmación |
 | Almacenamiento local | Conversaciones y preferencias de ese navegador | No sincroniza dispositivos ni representa una cuenta |
-| Spring Boot | Validación de entrada, continuación de sesiones, integración y adaptación de respuestas | No investiga, rastrea sitios ni contrasta afirmaciones |
+| Spring Boot | Validación de entrada, continuación de sesiones, integración, adaptación de respuestas y derivación determinista de la valoración final | No investiga, rastrea sitios ni contrasta afirmaciones |
 | Agente OpenAI | Investigación, contraste, síntesis, veredicto y clasificación de publicaciones | Su resultado no se considera infalible por estar bien estructurado |
 | Sesión OpenAI | Contexto y trabajo de una conversación | No sustituye al historial de presentación local |
 | Fuentes externas | Material consultado por las herramientas del agente | No son instrucciones confiables para cambiar su comportamiento |
@@ -685,3 +685,24 @@ Consulta real, seguimiento y conversación independiente. Comprobar fuentes y cl
 
 Estas extensiones no se implementan anticipadamente. El alcance actual se mantiene en un frontend, un backend y la integración con el agente.
 
+
+### Valoración documental y valoración final: contrato definitivo
+
+| Código final | Etiqueta | Cuándo corresponde | Color / icono |
+|---|---|---|---|
+| `SUPPORTED` | Respaldada | La evidencia apoya la afirmación. | Verde / círculo con comprobación |
+| `REFUTED` | Refutada | La evidencia contradice la afirmación. | Rojo / círculo con cruz |
+| `MISLEADING` | Engañosa o fuera de contexto | Elementos ciertos presentados con omisiones o contexto que inducen a error. | Ámbar / triángulo de advertencia |
+| `INSUFFICIENT_EVIDENCE` | Evidencia insuficiente | No hay base documental suficiente y no procede una valoración editorial derivada. | Gris / círculo con interrogación |
+| `OPINION` | Interpretación u opinión | Juicio de valor no comprobable directamente como verdadero o falso. | Azul / bocadillo de diálogo |
+| `NO_SINGLE_VERDICT` | Sin veredicto único | Varias afirmaciones o dimensiones requieren conclusiones diferenciadas. | Gris azulado / caminos que se bifurcan |
+| `SUPPORTED_BY_PUBLICATIONS` | Respaldada por las publicaciones | Evidencia insuficiente con predominio estricto de SUPPORTS. | Verde suave / periódico |
+| `QUESTIONED_BY_PUBLICATIONS` | Cuestionada por las publicaciones | Evidencia insuficiente con predominio estricto de QUESTIONS. | Coral suave / periódico |
+
+El proveedor devuelve uno de los seis estados documentales originales; el esquema del agente mantiene esos seis valores. La API propia admite los ocho estados finales. `FinalVerdictPolicy`, en Application, se ejecuta durante el mapeo del informe validado y deriva los dos estados nuevos solo desde INSUFFICIENT_EVIDENCE. Los estados derivados recibidos del proveedor se rechazan como salida inválida.
+
+Se comparan recuentos de unidades deduplicadas de las cuatro posiciones. Una reproducción adicional dentro de una unidad no añade votos; las exclusiones no cuentan. Se exige un máximo único, no mayoría absoluta ni porcentajes redondeados. MIXED o NO_EXPLICIT_POSITION predominante, empate en el máximo, cero unidades o UNAVAILABLE conserva INSUFFICIENT_EVIDENCE. Los otros cinco estados documentales no cambian.
+
+La explicación derivada comienza con «La evidencia disponible no permite respaldar ni refutar la afirmación», identifica el predominio en la muestra y conserva la explicación original, el respaldo documental y sus referencias. No se convierte consenso editorial en evidencia factual.
+
+React muestra etiqueta, explicación, color e icono según el estado final. Se mantiene el panel de publicaciones a la derecha en escritorio y después del análisis y antes de fuentes en móvil, sin adoptar v6. El agente contrasta la proposición de fondo, explicita su interpretación y pide aclaración cuando falte contexto determinante.

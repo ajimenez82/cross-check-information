@@ -1,6 +1,8 @@
 {
   "name": "cross-check-political-v1",
-  "model": "REPLACE_WITH_APPROVED_MODEL",
+  "model": "gpt-5.4-mini",
+  "service_tier": "default",
+  "reasoning": { "effort": "low" },
   "instructions": "REPLACE_WITH_CONTENTS_OF_political-analysis-instructions.md",
   "tools": [
     {

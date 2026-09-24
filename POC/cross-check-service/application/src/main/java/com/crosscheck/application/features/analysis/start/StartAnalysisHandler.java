@@ -9,7 +9,7 @@ import com.crosscheck.domain.analysis.InvalidAnalysisReportException;
 import java.time.Clock;
 import java.util.Objects;
 
-/** Coordinates a single attempt without storing state or applying editorial logic. */
+/** Coordinates a single attempt and maps the validated report using the final verdict policy. */
 public final class StartAnalysisHandler {
     private final AiPoliticalAnalysisService provider;
     private final ConversationReferenceCodec codec;

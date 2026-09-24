@@ -8,6 +8,16 @@
 .verdict[data-verdict="REFUTED"] { background: #fff0ee; border-color: #b84949; }
 .verdict[data-verdict="MISLEADING"] { background: #fff6df; border-color: #a17828; }
 .verdict[data-verdict="OPINION"] { background: #eaf3ff; border-color: #477faa; }
+.verdict[data-verdict="SUPPORTED"] .flag { color: #24704e; }
+.verdict[data-verdict="REFUTED"] .flag { color: #a13030; }
+.verdict[data-verdict="MISLEADING"] .flag { color: #856018; }
+.verdict[data-verdict="OPINION"] .flag { color: #32658d; }
+.verdict[data-verdict="NO_SINGLE_VERDICT"] { background: #edf1f7; border-color: #73839a; }
+.verdict[data-verdict="NO_SINGLE_VERDICT"] .flag { color: #536880; }
+.verdict[data-verdict="SUPPORTED_BY_PUBLICATIONS"] { background: #f2f8f3; border-color: #8eb89a; }
+.verdict[data-verdict="SUPPORTED_BY_PUBLICATIONS"] .flag { color: #456f51; }
+.verdict[data-verdict="QUESTIONED_BY_PUBLICATIONS"] { background: #fff3ef; border-color: #cf9a88; }
+.verdict[data-verdict="QUESTIONED_BY_PUBLICATIONS"] .flag { color: #9b5845; }
 .references { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .references button { text-decoration: underline; color: var(--green); padding: 4px; }
 .limitations { margin-top: 20px; }
@@ -47,7 +57,7 @@
 .textSection p { color: var(--muted); font-size: 16px; }
 .verdict { padding: 20px; border: 1px solid #cfd7e6; border-radius: 8px; background: #f0f2f6; display: flex; gap: 21px; margin-top: 2px; }
 .flag { flex-shrink: 0; border: 3px solid #626b83; color: #626b83; border-radius: 50%; display: grid; place-items: center; width: 55px; height: 55px; }
-.flag svg { width: 27px; height: 27px; fill: #626b83; }
+.flag svg { width: 27px; height: 27px; fill: none; }
 .verdict h2 { font-size: 16px; margin-bottom: 8px; }
 .verdict h3 { font-size: 23px; margin-bottom: 5px; }
 .verdict p { color: var(--muted); margin-bottom: 6px; }

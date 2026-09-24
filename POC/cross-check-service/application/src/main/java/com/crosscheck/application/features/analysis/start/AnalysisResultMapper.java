@@ -8,7 +8,7 @@ final class AnalysisResultMapper {
     private AnalysisResultMapper() {}
 
     static AnalysisResult map(AnalysisReport report, Instant analyzedAt) {
-        var verdict = report.verdict();
+        var verdict = FinalVerdictPolicy.resolve(report.verdict(), report.publicationPositions());
         var positions = report.publicationPositions();
         var period = positions.period();
         return new AnalysisResult(report.title(), report.context(), report.summary(), report.summarySourceIds(),
