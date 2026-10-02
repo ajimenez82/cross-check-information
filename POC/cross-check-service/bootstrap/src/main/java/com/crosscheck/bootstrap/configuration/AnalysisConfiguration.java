@@ -6,6 +6,9 @@ import com.crosscheck.application.features.analysis.start.AnalysisPolicy;
 import com.crosscheck.application.features.analysis.start.StartAnalysisHandler;
 import com.crosscheck.presentation.api.analysis.start.StartAnalysisController;
 import java.time.Clock;
+import com.crosscheck.application.contracts.ConversationContexts;
+import com.crosscheck.application.features.analysis.start.ConversationContextStore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +27,17 @@ public class AnalysisConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(name="crosscheck.analysis.jobs.enabled",havingValue="false",matchIfMissing=true)
+    ConversationContexts memoryConversationContexts(Clock clock) { return new ConversationContextStore(clock,1000); }
+
+    @Bean
     StartAnalysisHandler startAnalysisHandler(AiPoliticalAnalysisService provider,
-            ConversationReferenceCodec codec, AnalysisPolicy policy, Clock clock) {
-        return new StartAnalysisHandler(provider, codec, policy, clock);
+            ConversationReferenceCodec codec, AnalysisPolicy policy, Clock clock, ConversationContexts contexts) {
+        return new StartAnalysisHandler(provider, codec, policy, clock, contexts);
     }
 
     @Bean
-    StartAnalysisController startAnalysisController(StartAnalysisHandler handler) {
-        return new StartAnalysisController(handler);
+    StartAnalysisController startAnalysisController(StartAnalysisHandler handler, org.springframework.core.env.Environment environment) {
+        return new StartAnalysisController(handler, environment.getProperty("crosscheck.analysis.jobs.enabled", Boolean.class, false));
     }
 }

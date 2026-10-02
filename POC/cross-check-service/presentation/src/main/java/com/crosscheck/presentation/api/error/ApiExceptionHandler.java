@@ -19,6 +19,25 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(com.crosscheck.application.features.analysis.jobs.JobException.class)
+    ResponseEntity<Object> jobFailure(com.crosscheck.application.features.analysis.jobs.JobException exception, WebRequest request) {
+        String message = switch (exception.code()) {
+            case "IDEMPOTENCY_CONFLICT" -> "La clave de envío ya se utilizó para otra consulta.";
+            case "ANALYSIS_CONFLICT" -> "La conversación tiene otro análisis en curso o el contexto está desactualizado.";
+            case "ANALYSIS_CAPACITY_EXCEEDED" -> "La cola de análisis está llena. Inténtalo más tarde.";
+            case "ANALYSIS_JOB_EXPIRED" -> "El resultado del análisis ha caducado.";
+            case "ANALYSIS_JOB_NOT_FOUND", "INVALID_JOB_CREDENTIAL" -> "No se puede acceder a este análisis.";
+            case "ANALYSIS_STORAGE_UNAVAILABLE" -> "No se ha podido acceder al almacenamiento de análisis.";
+            case "ASYNC_ANALYSIS_REQUIRED" -> "Este servicio requiere el flujo de análisis asíncrono.";
+            default -> "La solicitud de análisis no es válida.";
+        };
+        var response=error(exception.status(),exception.code(),message,
+                exception.status()==503 ? "UNKNOWN" : "NOT_STARTED",request);
+        var headers=new HttpHeaders(); headers.putAll(response.getHeaders()); headers.setCacheControl("no-store");
+        if(exception.status()==429) headers.set("Retry-After","3");
+        return new ResponseEntity<>(response.getBody(),headers,response.getStatusCode());
+    }
+
     @ExceptionHandler(InvalidAnalysisInputException.class)
     ResponseEntity<Object> invalidInput(WebRequest request) {
         return error(400, "INVALID_ANALYSIS_INPUT", "La consulta no es válida.", "NOT_STARTED", request);

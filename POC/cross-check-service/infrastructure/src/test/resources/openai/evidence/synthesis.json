@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1",
+  "title": "Oferta de alquiler",
+  "context": "Analizamos si los límites reducen la oferta.",
+  "summary": "La publicación apoya la tesis con datos descriptivos, insuficientes para probar causalidad.",
+  "summaryFindingIds": [
+    "F1_1"
+  ],
+  "verdicts": [
+    {
+      "targetId": "C1",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "explanation": "No se identifica causalidad.",
+      "documentarySupport": "El informe aporta una descripción limitada.",
+      "findingIds": [
+        "F1_1"
+      ]
+    }
+  ],
+  "publicationPositions": {
+    "availability": "AVAILABLE",
+    "reason": "La muestra contiene una publicación evaluable con postura propia.",
+    "selectionCriteria": "Muestra de prueba.",
+    "assessments": [
+      {
+        "sourceId": "S1",
+        "decision": "COUNT",
+        "position": "SUPPORTS",
+        "explanation": "Postura del autor.",
+        "findingIds": [
+          "F1_1"
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "La postura no prueba causalidad."
+  ]
+}

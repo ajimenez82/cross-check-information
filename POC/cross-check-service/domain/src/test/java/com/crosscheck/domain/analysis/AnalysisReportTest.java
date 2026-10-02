@@ -119,7 +119,7 @@ class AnalysisReportTest {
     }
 
     @Test
-    void availableRequiresPropositionCriteriaAndConsultationDate() {
+    void availableRequiresPropositionAndCriteriaButAllowsUnknownConsultationDate() {
         assertAll(
             () -> assertThrows(InvalidAnalysisReportException.class, () -> new PublicationPositions(
                 ClassificationAvailability.AVAILABLE, null, null, null, NOW, "Búsqueda",
@@ -127,10 +127,17 @@ class AnalysisReportTest {
             () -> assertThrows(InvalidAnalysisReportException.class, () -> new PublicationPositions(
                 ClassificationAvailability.AVAILABLE, null, "Tesis", null, NOW, null,
                 List.of(unit("u1", "s1")), List.of())),
-            () -> assertThrows(InvalidAnalysisReportException.class, () -> new PublicationPositions(
+            () -> assertDoesNotThrow(() -> new PublicationPositions(
                 ClassificationAvailability.AVAILABLE, null, "Tesis", null, null, "Búsqueda",
                 List.of(unit("u1", "s1")), List.of()))
         );
+    }
+
+    @Test
+    void sourceAllowsUnknownConsultationTimeWithoutInventingOne() {
+        var source = new Evidence("s", "Source", URI.create("https://example.org"),
+                null, null, null, "Documentary evidence", null);
+        assertNull(source.consultedAt());
     }
 
     @Test
@@ -179,6 +186,79 @@ class AnalysisReportTest {
     private static Evidence source(String id) {
         return new Evidence(id, "Publicación ilustrativa", URI.create("https://example.org/" + id),
                 null, null, NOW, "Aportación ilustrativa", null);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"2023-12-31", "2025-01-01"})
+    void rejectsGroupedSourceOutsideSamplePeriod(String date) {
+        assertThrows(InvalidAnalysisReportException.class, () -> temporalReport(
+                List.of(datedSource("s1", "2024-06-01"), datedSource("s2", date)),
+                List.of(), samplePeriod(), List.of(), null));
+    }
+
+    @Test
+    void acceptsInclusiveSampleBoundariesAndCutoff() {
+        assertDoesNotThrow(() -> temporalReport(
+                List.of(datedSource("s1", "2024-01-01"), datedSource("s2", "2024-12-31")),
+                List.of(), samplePeriod(), List.of(), LocalDate.parse("2024-12-31")));
+    }
+
+    @Test
+    void acceptsUnknownDatesAndPeriodWithoutInventingValues() {
+        assertDoesNotThrow(() -> temporalReport(List.of(source("s1"), source("s2")),
+                List.of(), samplePeriod(), List.of(), LocalDate.parse("2024-12-31")));
+        assertDoesNotThrow(() -> temporalReport(
+                List.of(datedSource("s1", "2022-01-01"), datedSource("s2", "2026-01-01")),
+                List.of(), null, List.of(), null));
+    }
+
+    @Test
+    void samplePeriodDoesNotRestrictDocumentaryOrExcludedSources() {
+        assertDoesNotThrow(() -> temporalReport(
+                List.of(source("s1"), source("s2"), datedSource("law", "2020-01-01"),
+                        datedSource("excluded", "2026-01-01")),
+                List.of("law"), samplePeriod(),
+                List.of(new ExcludedPublication("excluded", "Outside historical cutoff")),
+                LocalDate.parse("2024-12-31")));
+    }
+
+    @Test
+    void rejectsEvidenceAfterCutoffEvenWithoutClassification() {
+        assertThrows(InvalidAnalysisReportException.class, () -> new AnalysisReport(
+                "Title", "Context", "Summary", List.of(), verdict(List.of()),
+                List.of(datedSource("s1", "2025-01-01")), unavailable(), List.of(),
+                LocalDate.parse("2024-12-31")));
+    }
+
+    @Test
+    void editorialExclusionDoesNotBypassCutoffForCitedEvidence() {
+        for (boolean summaryReference : List.of(true, false)) {
+            var references = List.of("s3");
+            var positions = available(List.of(), List.of(new ExcludedPublication("s3", "Legal source")));
+            assertThrows(InvalidAnalysisReportException.class, () -> new AnalysisReport(
+                    "Title", "Context", "Summary", summaryReference ? references : List.of(),
+                    verdict(summaryReference ? List.of() : references),
+                    List.of(datedSource("s3", "2025-01-01")), positions, List.of(),
+                    LocalDate.parse("2024-12-31")));
+        }
+    }
+
+    private static PublicationPeriod samplePeriod() {
+        return new PublicationPeriod(LocalDate.parse("2024-01-01"), LocalDate.parse("2024-12-31"));
+    }
+
+    private static Evidence datedSource(String id, String date) {
+        return new Evidence(id, "Source", URI.create("https://example.org/" + id),
+                null, LocalDate.parse(date), null, "Evidence", null);
+    }
+
+    private static AnalysisReport temporalReport(List<Evidence> sources, List<String> references,
+                                                PublicationPeriod period, List<ExcludedPublication> excluded,
+                                                LocalDate cutoff) {
+        var positions = new PublicationPositions(ClassificationAvailability.AVAILABLE, null,
+                "Proposition", period, null, "Selection", List.of(unit("u1", "s1", "s2")), excluded);
+        return new AnalysisReport("Title", "Context", "Summary", references, verdict(references),
+                sources, positions, List.of(), cutoff);
     }
 
     private static Verdict verdict(List<String> ids) {

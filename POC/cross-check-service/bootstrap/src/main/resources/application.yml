@@ -17,3 +17,10 @@ management:
   endpoint:
     health:
       show-details: never
+
+# The frontend uses durable asynchronous jobs by default.
+crosscheck:
+  analysis:
+    jobs:
+      enabled: ${ASYNC_ANALYSIS_ENABLED:true}
+      database-path: ${ANALYSIS_DATABASE_PATH:data/cross-check}

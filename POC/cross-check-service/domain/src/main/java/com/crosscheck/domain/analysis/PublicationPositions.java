@@ -20,7 +20,7 @@ public record PublicationPositions(ClassificationAvailability availability, Stri
         } else {
             ReportChecks.text(proposition, "positions.proposition");
             ReportChecks.text(selectionCriteria, "positions.selectionCriteria");
-            ReportChecks.required(consultedAt, "positions.consultedAt");
+            // Classification can be available without an exact access timestamp.
             if (units.isEmpty()) {
                 ReportChecks.text(reason, "positions.reason");
             }

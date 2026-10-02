@@ -1,3 +1,4 @@
+const { completedJob } = require('./job-fixture.cjs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -21,9 +22,11 @@ const path = require('node:path');
       QUESTIONED_BY_PUBLICATIONS: ['Cuestionada por las publicaciones', 'newspaper'],
     };
     let status;
-    await page.route('**/api/analysis/start', route => {
+    await page.route('**/api/analysis/jobs', route => {
       const response = structuredClone(fixture);
       response.analysis.verdict.status = status;
+      response.analysis.sources.forEach(source => { source.consultedAt = null; });
+      response.analysis.publicationPositions.consultedAt = null;
       response.analysis.verdict.explanation = 'La evidencia disponible no permite respaldar ni refutar la afirmación.';
       if (status.endsWith('_BY_PUBLICATIONS')) {
         const position = status === 'SUPPORTED_BY_PUBLICATIONS' ? 'SUPPORTS' : 'QUESTIONS';
@@ -32,7 +35,7 @@ const path = require('node:path');
           ? ' Predomina el respaldo en esta muestra ficticia.'
           : ' Predomina el cuestionamiento en esta muestra ficticia.';
       }
-      return route.fulfill({ contentType: 'application/json', body: JSON.stringify(response) });
+      return route.fulfill({ contentType: 'application/json', body: JSON.stringify(completedJob(response)) });
     });
     for (const width of [1536, 390]) {
       await page.setViewportSize({ width, height: 1000 });
@@ -57,6 +60,9 @@ const path = require('node:path');
       await page.screenshot({ path: `review/integration/verdict-${width}.png`, fullPage: true });
       await page.reload();
       await page.getByText('Cuestionada por las publicaciones', { exact: true }).waitFor();
+      await page.getByRole('button', { name: 'Ver referencia Publicación ilustrativa A', exact: true }).first().click();
+      await page.getByText('Consulta: No disponible', { exact: true }).waitFor();
+      await page.getByRole('button', { name: 'Cerrar', exact: true }).click();
     }
     assert.deepEqual(errors, []);
     console.log('PASS: eight verdicts, icons, history reload, desktop/mobile order and overflow.');

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "3",
+  "analysis": null,
+  "clarification": {
+    "question": "¿Qué periodo posterior quieres analizar?",
+    "reason": "MISSING_PERIOD"
+  }
+}

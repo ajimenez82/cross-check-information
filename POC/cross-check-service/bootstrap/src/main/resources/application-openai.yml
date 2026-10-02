@@ -6,9 +6,11 @@ crosscheck:
   analysis:
     max-input-length: ${MAX_INPUT_LENGTH:10000}
     max-token-length: ${MAX_TOKEN_LENGTH:4096}
-    agent-revision: ${POLITICAL_AGENT_REVISION:political-v1}
+    agent-revision: ${POLITICAL_AGENT_REVISION:political-v15}
     conversation-ttl: ${CONVERSATION_TOKEN_TTL:PT2H}
   openai:
+    evidence-pipeline-enabled: ${OPENAI_EVIDENCE_PIPELINE_ENABLED:true}
+    report-schema-version: ${OPENAI_REPORT_SCHEMA_VERSION:3}
     political-analysis-agent-id: ${OPENAI_POLITICAL_ANALYSIS_AGENT_ID:}
     timeout: PT90S
     poll-interval: PT1S

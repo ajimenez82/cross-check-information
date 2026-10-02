@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import tools.jackson.databind.JsonNode;
 import static com.crosscheck.application.error.AnalysisProviderException.Reason.*;
 import static com.crosscheck.application.error.AnalysisProviderException.ExecutionState.*;
@@ -28,6 +29,7 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
     private final Duration timeout;
     private final Duration pollInterval;
     private final Semaphore capacity;
+    private final int reportSchemaVersion;
     private final Set<String> activeSessions = ConcurrentHashMap.newKeySet();
 
     public OpenAiPoliticalAnalysisService(HttpClient client, String apiKey, String agentId,
@@ -36,9 +38,24 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
                 timeout, pollInterval, maxConcurrentRequests);
     }
 
+    public OpenAiPoliticalAnalysisService(HttpClient client, String apiKey, String agentId,
+            Duration timeout, Duration pollInterval, int maxConcurrentRequests, int reportSchemaVersion) {
+        this(client, URI.create("https://api.openai.com/v1/"), apiKey, agentId,
+                timeout, pollInterval, maxConcurrentRequests, reportSchemaVersion);
+    }
+
     // Endpoint injection is package-private and used only by local HTTP contract tests.
     OpenAiPoliticalAnalysisService(HttpClient client, URI baseUri, String apiKey, String agentId,
             Duration timeout, Duration pollInterval, int maxConcurrentRequests) {
+        this(client, baseUri, apiKey, agentId, timeout, pollInterval, maxConcurrentRequests, 1);
+    }
+
+    OpenAiPoliticalAnalysisService(HttpClient client, URI baseUri, String apiKey, String agentId,
+            Duration timeout, Duration pollInterval, int maxConcurrentRequests, int reportSchemaVersion) {
+        if (reportSchemaVersion < 1 || reportSchemaVersion > 3) {
+            throw new IllegalArgumentException("Unsupported OpenAI report schema version.");
+        }
+        this.reportSchemaVersion = reportSchemaVersion;
         if (apiKey == null || apiKey.isBlank() || apiKey.chars().anyMatch(c -> c <= 32 || c >= 127)) {
             throw new IllegalArgumentException("Configure a non-empty OPENAI_API_KEY for the openai profile.");
         }
@@ -58,8 +75,19 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
         this.capacity = new Semaphore(maxConcurrentRequests);
     }
 
+    public com.crosscheck.application.features.analysis.jobs.JobProvider jobProvider(String revision) {
+        if (reportSchemaVersion != 3) throw new IllegalArgumentException("Async analysis requires schema version 3");
+        return new OpenAiJobProvider(transport, agentId, revision, this);
+    }
+
+    public com.crosscheck.application.features.analysis.jobs.JobProvider evidenceJobProvider(String revision, java.time.Clock clock) {
+        if (reportSchemaVersion != 3) throw new IllegalArgumentException("Evidence pipeline requires public schema version 3");
+        return new OpenAiEvidenceJobProvider(transport, this, new com.crosscheck.infrastructure.evidence.PublicSourceCapture(clock), agentId, revision);
+    }
+
     @Override
     public AiAnalysisTurn analyze(AiAnalysisInput input) {
+        long started = System.nanoTime();
         String sessionId = input.sessionId();
         if (sessionId != null && !sessionId.matches("[A-Za-z0-9_-]{1,200}")) {
             throw new AnalysisProviderException(SESSION_UNAVAILABLE, NOT_STARTED);
@@ -71,8 +99,15 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
                 locked = activeSessions.add(sessionId);
                 if (!locked) throw new AnalysisProviderException(CONFLICT, NOT_STARTED);
             }
+            log.info("Analysis provider started: requestId={}, followUp={}", MDC.get("requestId"), sessionId != null);
             return execute(input, System.nanoTime() + timeout.toNanos());
+        } catch (RuntimeException failure) {
+            log.warn("Analysis provider failed: requestId={}, type={}, elapsedMs={}",
+                    MDC.get("requestId"), failure.getClass().getSimpleName(), (System.nanoTime() - started) / 1_000_000);
+            throw failure;
         } finally {
+            log.info("Analysis provider finished: requestId={}, elapsedMs={}",
+                    MDC.get("requestId"), (System.nanoTime() - started) / 1_000_000);
             if (locked) activeSessions.remove(sessionId);
             capacity.release();
         }
@@ -81,9 +116,21 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
     private AiAnalysisTurn execute(AiAnalysisInput input, long deadline) {
         String sessionId = input.sessionId();
         String previousTurn = null;
+        if (reportSchemaVersion == 3 && sessionId != null && input.context() == null) {
+            return new AiAnalysisTurn(sessionId, null, new com.crosscheck.application.model.Clarification(
+                    "Escribe la consulta completa para recuperar el contexto del análisis.",
+                    com.crosscheck.application.model.Clarification.Reason.CONTEXT_UNAVAILABLE));
+        }
+        String requestText = input.text();
+        if (reportSchemaVersion == 3) {
+            var envelope = new java.util.LinkedHashMap<String, Object>();
+            envelope.put("currentInput", input.text());
+            envelope.put("previousContext", input.context());
+            requestText = MAPPER.writeValueAsString(envelope);
+        }
         if (sessionId == null) {
             var session = transport.request("agents/sessions", Map.of("agent_id", agentId,
-                    "environment", Map.of("type", "none"), "input", input.text(), "stream", false),
+                    "environment", Map.of("type", "none"), "input", requestText, "stream", false),
                     deadline, false, false);
             sessionId = id(session, "id");
         } else {
@@ -102,10 +149,11 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
             transport.request("agents/sessions/" + sessionId + "/events",
                     Map.of("events", List.of(Map.of("type", "agent.session.input.message", "input",
                             List.of(Map.of("role", "user", "content",
-                                    List.of(Map.of("type", "input_text", "text", input.text()))))))),
+                                    List.of(Map.of("type", "input_text", "text", requestText))))))),
                     deadline, true, false);
         }
 
+        log.info("Analysis input submitted: requestId={}", MDC.get("requestId"));
         // Poll saved turn state, never infer success from an idle session or an old final message.
         while (true) {
             var turn = latestTurn(sessionId, deadline, true);
@@ -115,14 +163,16 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
                 }
                 switch (text(turn, "status")) {
                     case "completed" -> {
-                        var report = readReport(sessionId, id(turn, "id"), deadline);
+                        log.info("Analysis remote turn completed: requestId={}", MDC.get("requestId"));
+                        var report = readReport(sessionId, id(turn, "id"), deadline, input);
+                        log.info("Analysis report validated: requestId={}", MDC.get("requestId"));
                         var usage = turn.path("usage");
                         if (usage.path("input_tokens").isIntegralNumber()
                                 && usage.path("output_tokens").isIntegralNumber()) {
                             log.info("OpenAI analysis completed: inputTokens={}, outputTokens={}",
                                     usage.path("input_tokens").asLong(), usage.path("output_tokens").asLong());
                         }
-                        return new AiAnalysisTurn(sessionId, report);
+                        return report;
                     }
                     case "failed", "cancelled", "waiting" -> throw new AnalysisProviderException(UNAVAILABLE, UNKNOWN);
                     case "queued", "in_progress" -> { }
@@ -146,7 +196,13 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
         return turns.isEmpty() ? null : turns.get(0);
     }
 
-    private com.crosscheck.domain.analysis.AnalysisReport readReport(String sessionId, String turnId, long deadline) {
+    AiAnalysisTurn readReport(String sessionId, String turnId, long deadline, AiAnalysisInput input) {
+        var result = readOutput(sessionId, turnId, deadline);
+        return reportSchemaVersion == 3 ? claimTurn(result, input, sessionId)
+                : new AiAnalysisTurn(sessionId, reportSchemaVersion == 2 ? tracedReport(result) : report(result));
+    }
+
+    String readOutput(String sessionId, String turnId, long deadline) {
         String cursor = null;
         Set<String> cursors = new HashSet<>();
         String result = null;
@@ -168,7 +224,10 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
                 result = output.toString();
             }
             if (!response.path("has_more").isBoolean()) throw new InvalidAnalysisOutputException();
-            if (!response.path("has_more").asBoolean()) return report(result);
+            if (!response.path("has_more").asBoolean()) {
+                if (result == null || result.length() > 250_000) throw new InvalidAnalysisOutputException();
+                return result;
+            }
             cursor = id(response, "last_id");
             if (!cursors.add(cursor)) throw new InvalidAnalysisOutputException();
         }

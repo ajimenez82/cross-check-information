@@ -47,12 +47,63 @@ final class OpenAiJson {
     static AnalysisReport report(String json) {
         try {
             if (json == null || json.length() > 250_000) throw new InvalidAnalysisOutputException();
-            var result = MAPPER.readValue(json, AnalysisReport.class);
+            var tree = MAPPER.readTree(json);
+            // Legacy provider reports predate trace. Do not accept asserted trace through that contract.
+            for (String field : java.util.List.of("units", "excluded")) {
+                for (var item : tree.path("publicationPositions").path(field)) {
+                    if (item instanceof tools.jackson.databind.node.ObjectNode object) {
+                        if (object.has("trace") && !object.path("trace").isNull()) throw new InvalidAnalysisOutputException();
+                        object.putNull("trace");
+                    }
+                }
+            }
+            var result = MAPPER.treeToValue(tree, OpenAiReport.class);
             if (result == null) throw new InvalidAnalysisOutputException();
-            return result;
+            return result.toReport();
         } catch (RuntimeException invalid) {
             // Never retain parsing exceptions: they can contain the model output.
             throw new InvalidAnalysisOutputException();
         }
+    }
+
+    // Kept separate from the active parser until the remote contract is migrated explicitly.
+    static AnalysisReport tracedReport(String json) {
+        try {
+            if (json == null || json.length() > 250_000) throw new InvalidAnalysisOutputException();
+            var result = MAPPER.readValue(json, OpenAiTracedReport.class);
+            if (result == null) throw new InvalidAnalysisOutputException();
+            return result.toReport();
+        } catch (RuntimeException invalid) {
+            throw new InvalidAnalysisOutputException();
+        }
+    }
+
+    static AnalysisReport claimReport(String json, String input) {
+        try {
+            if (json == null || json.length() > 250_000) throw new InvalidAnalysisOutputException();
+            var result = MAPPER.readValue(json, OpenAiClaimReport.class);
+            if (result == null) throw new InvalidAnalysisOutputException();
+            return result.toReport(input);
+        } catch (RuntimeException invalid) {
+            throw new InvalidAnalysisOutputException();
+        }
+    }
+
+    private record ClaimResponse(String schemaVersion, OpenAiClaimReport analysis,
+            com.crosscheck.application.model.Clarification clarification) {}
+
+    static com.crosscheck.application.model.AiAnalysisTurn claimTurn(String json,
+            com.crosscheck.application.model.AiAnalysisInput input, String sessionId) {
+        try {
+            if (json == null || json.length() > 250_000) throw new InvalidAnalysisOutputException();
+            var result = MAPPER.readValue(json, ClaimResponse.class);
+            if (result == null || !"3".equals(result.schemaVersion())
+                    || (result.analysis() == null) == (result.clarification() == null)
+                    || result.clarification() != null && result.clarification().reason()
+                    == com.crosscheck.application.model.Clarification.Reason.CONTEXT_UNAVAILABLE)
+                throw new InvalidAnalysisOutputException();
+            return new com.crosscheck.application.model.AiAnalysisTurn(sessionId,
+                    result.analysis() == null ? null : result.analysis().toReport(input.anchorTexts()), result.clarification());
+        } catch (RuntimeException invalid) { throw new InvalidAnalysisOutputException(); }
     }
 }

@@ -1,0 +1,18 @@
+[
+  {
+    "width": 1536,
+    "passed": true,
+    "apiRequestsIntercepted": 1,
+    "percentagesAbsent": true,
+    "sourceDialog": true,
+    "persisted": true
+  },
+  {
+    "width": 390,
+    "passed": true,
+    "apiRequestsIntercepted": 1,
+    "percentagesAbsent": true,
+    "sourceDialog": true,
+    "persisted": true
+  }
+]

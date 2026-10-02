@@ -130,3 +130,5 @@
   .composer input { font-size: 14px; padding-inline: 8px; }
   .composer button { padding-inline: 12px; }
 }
+
+.trace { overflow-wrap: anywhere; }

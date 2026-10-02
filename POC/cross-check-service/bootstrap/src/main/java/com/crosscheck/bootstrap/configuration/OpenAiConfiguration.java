@@ -26,9 +26,13 @@ public class OpenAiConfiguration {
         if (environment.acceptsProfiles(Profiles.of("dev"))) {
             throw new IllegalStateException("Choose either dev or openai, not both.");
         }
+        if (environment.getProperty("crosscheck.openai.evidence-pipeline-enabled", Boolean.class, false)
+                && !environment.getProperty("crosscheck.analysis.jobs.enabled", Boolean.class, true)) {
+            throw new IllegalStateException("The evidence pipeline requires asynchronous analysis jobs.");
+        }
         // Keep secrets outside configuration binding diagnostics and record toString methods.
         return new OpenAiPoliticalAnalysisService(openAiHttpClient,
                 environment.getProperty("OPENAI_API_KEY"), properties.politicalAnalysisAgentId(), properties.timeout(),
-                properties.pollInterval(), properties.maxConcurrentRequests());
+                properties.pollInterval(), properties.maxConcurrentRequests(), properties.reportSchemaVersion());
     }
 }

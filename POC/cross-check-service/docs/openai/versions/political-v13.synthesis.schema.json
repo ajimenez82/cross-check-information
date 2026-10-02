@@ -1,0 +1,182 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": [
+        "1"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "summaryFindingIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0,
+      "maxItems": 24
+    },
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "targetId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUPPORTED",
+              "REFUTED",
+              "MISLEADING",
+              "INSUFFICIENT_EVIDENCE",
+              "OPINION"
+            ]
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "documentarySupport": {
+            "type": "string"
+          },
+          "findingIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 0,
+            "maxItems": 24
+          }
+        },
+        "required": [
+          "targetId",
+          "status",
+          "explanation",
+          "documentarySupport",
+          "findingIds"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 8
+    },
+    "publicationPositions": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "type": "string",
+          "enum": [
+            "AVAILABLE",
+            "UNAVAILABLE"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "description": "Always explain the publication sample outcome, including why no publications count when all candidates are excluded."
+        },
+        "selectionCriteria": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assessments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sourceId": {
+                "type": "string"
+              },
+              "decision": {
+                "type": "string",
+                "enum": [
+                  "COUNT",
+                  "EXCLUDE"
+                ]
+              },
+              "position": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTS",
+                      "QUESTIONS",
+                      "MIXED",
+                      "NO_EXPLICIT_POSITION"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "explanation": {
+                "type": "string"
+              },
+              "findingIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "maxItems": 24
+              }
+            },
+            "required": [
+              "sourceId",
+              "decision",
+              "position",
+              "explanation",
+              "findingIds"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 6
+        }
+      },
+      "required": [
+        "availability",
+        "reason",
+        "selectionCriteria",
+        "assessments"
+      ],
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "title",
+    "context",
+    "summary",
+    "summaryFindingIds",
+    "verdicts",
+    "publicationPositions",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

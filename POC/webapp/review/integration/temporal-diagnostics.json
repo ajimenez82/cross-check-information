@@ -1,0 +1,15 @@
+{
+  "calls": 2,
+  "events": [
+    {
+      "status": 502,
+      "code": "INVALID_ANALYSIS_OUTPUT",
+      "requestId": "142e30d9-0a6e-44ca-9a3a-aa0305e5de56"
+    },
+    {
+      "status": 200,
+      "requestId": "5180c1fe-792c-4620-b2f7-56d05a52164d"
+    }
+  ],
+  "recovered": true
+}

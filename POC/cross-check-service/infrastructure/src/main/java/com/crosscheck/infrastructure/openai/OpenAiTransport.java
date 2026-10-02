@@ -33,11 +33,16 @@ final class OpenAiTransport {
     }
 
     JsonNode request(String path, Object body, long deadline, boolean sessionResource, boolean submitted) {
+        return request(path, body, deadline, sessionResource, submitted, null);
+    }
+
+    JsonNode request(String path, Object body, long deadline, boolean sessionResource, boolean submitted, String idempotencyKey) {
         long remaining = deadline - System.nanoTime();
         if (remaining <= 0) throw new AnalysisProviderException(TIMEOUT, submitted ? UNKNOWN : NOT_STARTED);
         var builder = HttpRequest.newBuilder(baseUri.resolve(path)).timeout(Duration.ofNanos(remaining))
                 .header("Authorization", "Bearer " + apiKey).header("OpenAI-Beta", "agents=v1")
                 .header("Accept", "application/json");
+        if (idempotencyKey != null) builder.header("Idempotency-Key", idempotencyKey);
         if (body != null) {
             builder.header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(OpenAiJson.MAPPER.writeValueAsString(body)));
@@ -56,7 +61,15 @@ final class OpenAiTransport {
                     case 408, 504 -> TIMEOUT;
                     default -> UNAVAILABLE;
                 };
-                throw new AnalysisProviderException(reason, state);
+                long retryAfter = 0;
+                String retry = response.headers().firstValue("Retry-After").orElse("");
+                try { retryAfter = Long.parseLong(retry); }
+                catch (NumberFormatException ignored) {
+                    try { retryAfter = Math.max(0, java.time.Duration.between(java.time.Instant.now(),
+                            java.time.ZonedDateTime.parse(retry, java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME).toInstant()).getSeconds()); }
+                    catch (java.time.format.DateTimeParseException absent) { }
+                }
+                throw new AnalysisProviderException(reason, state, retryAfter);
             }
             if (response.body().length == 0 && body != null) return OpenAiJson.MAPPER.createObjectNode();
             try {

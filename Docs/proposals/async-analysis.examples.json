@@ -1,0 +1,120 @@
+{
+  "proposalVersion": "async-jobs-draft-1",
+  "implemented": false,
+  "request": {
+    "method": "POST",
+    "path": "/api/analysis/jobs",
+    "headers": {
+      "Idempotency-Key": "63bc6963-df38-43a0-a84b-02fc40a620a9",
+      "Authorization": "Bearer <32 random bytes encoded as Base64URL without padding>"
+    },
+    "body": {
+      "text": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España? Analiza el periodo 2023–2025.",
+      "conversationToken": null
+    }
+  },
+  "responses": [
+    {
+      "name": "queued",
+      "httpStatus": 202,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "QUEUED",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:00:00Z",
+        "completedAt": null,
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": 3,
+        "result": null,
+        "error": null
+      }
+    },
+    {
+      "name": "submitting",
+      "httpStatus": 200,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "SUBMITTING",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:00:00Z",
+        "completedAt": null,
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": 3,
+        "result": null,
+        "error": null
+      }
+    },
+    {
+      "name": "running",
+      "httpStatus": 200,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "RUNNING",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:00:00Z",
+        "completedAt": null,
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": 3,
+        "result": null,
+        "error": null
+      }
+    },
+    {
+      "name": "recovering",
+      "httpStatus": 200,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "RECOVERING",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:00:00Z",
+        "completedAt": null,
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": 3,
+        "result": null,
+        "error": null
+      }
+    },
+    {
+      "name": "completed-local-clarification",
+      "httpStatus": 200,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "COMPLETED",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:01:46Z",
+        "completedAt": "2026-09-29T10:01:46Z",
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": null,
+        "result": {
+          "analysis": null,
+          "clarification": {
+            "question": "El contexto anterior ya no está disponible. Escribe la consulta completa para iniciar un nuevo análisis.",
+            "reason": "CONTEXT_UNAVAILABLE"
+          },
+          "conversationToken": null
+        },
+        "error": null
+      }
+    },
+    {
+      "name": "failed-uncertain-submission",
+      "httpStatus": 200,
+      "body": {
+        "analysisId": "69be33dd-c5d6-459b-9e13-f6201df3f18e",
+        "status": "FAILED",
+        "createdAt": "2026-09-29T10:00:00Z",
+        "updatedAt": "2026-09-29T10:10:00Z",
+        "completedAt": "2026-09-29T10:10:00Z",
+        "expiresAt": "2026-09-30T10:00:00Z",
+        "pollAfterSeconds": null,
+        "result": null,
+        "error": {
+          "code": "ANALYSIS_SUBMISSION_UNKNOWN",
+          "message": "No se ha podido confirmar el estado del envío. No se repetirá automáticamente.",
+          "requestId": "e4225cdd-8bae-4c91-85e3-e2d8fdba29c6",
+          "executionState": "UNKNOWN"
+        }
+      }
+    }
+  ]
+}

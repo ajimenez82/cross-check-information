@@ -1,0 +1,106 @@
+[
+  {
+    "layer": "mock",
+    "number": 1,
+    "scenario": "slow",
+    "phase": "received"
+  },
+  {
+    "layer": "mock",
+    "number": 1,
+    "scenario": "slow",
+    "phase": "closed",
+    "finished": true,
+    "elapsedMs": 704
+  },
+  {
+    "layer": "browser",
+    "phase": "headers",
+    "status": 200,
+    "requestId": "timeout-test-1"
+  },
+  {
+    "layer": "mock",
+    "number": 2,
+    "scenario": "slow",
+    "phase": "received"
+  },
+  {
+    "layer": "mock",
+    "number": 2,
+    "scenario": "slow",
+    "phase": "closed",
+    "finished": true,
+    "elapsedMs": 723
+  },
+  {
+    "layer": "browser",
+    "phase": "headers",
+    "status": 200,
+    "requestId": "timeout-test-2"
+  },
+  {
+    "layer": "mock",
+    "number": 3,
+    "scenario": "server-timeout",
+    "phase": "received"
+  },
+  {
+    "layer": "mock",
+    "number": 3,
+    "scenario": "server-timeout",
+    "phase": "closed",
+    "finished": true,
+    "elapsedMs": 714
+  },
+  {
+    "layer": "browser",
+    "phase": "headers",
+    "status": 504,
+    "requestId": "timeout-test-3"
+  },
+  {
+    "layer": "mock",
+    "number": 4,
+    "scenario": "client-timeout",
+    "phase": "received"
+  },
+  {
+    "layer": "browser",
+    "phase": "requestfailed",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "layer": "mock",
+    "number": 4,
+    "scenario": "client-timeout",
+    "phase": "closed",
+    "finished": true,
+    "elapsedMs": 2402
+  },
+  {
+    "layer": "mock",
+    "number": 5,
+    "scenario": "body-delay",
+    "phase": "received"
+  },
+  {
+    "layer": "browser",
+    "phase": "headers",
+    "status": 200,
+    "requestId": "timeout-test-5"
+  },
+  {
+    "layer": "browser",
+    "phase": "requestfailed",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "layer": "mock",
+    "number": 5,
+    "scenario": "body-delay",
+    "phase": "closed",
+    "finished": false,
+    "elapsedMs": 1498
+  }
+]

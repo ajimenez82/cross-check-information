@@ -11,7 +11,7 @@ public record Evidence(String id, String title, URI url, String publisher,
         title = ReportChecks.text(title, "source.title");
         url = ReportChecks.url(url);
         publisher = ReportChecks.optionalText(publisher, "source.publisher");
-        consultedAt = ReportChecks.required(consultedAt, "source.consultedAt");
+        // Unknown access times remain null rather than implying false precision.
         contribution = ReportChecks.text(contribution, "source.contribution");
         type = ReportChecks.optionalText(type, "source.type");
     }

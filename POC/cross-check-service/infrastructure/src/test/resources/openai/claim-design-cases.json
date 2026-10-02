@@ -1,0 +1,718 @@
+{
+  "notice": "Synthetic policy examples, not accepted analyses or evidence. Tests do not establish semantic correctness.",
+  "cases": [
+    {
+      "name": "single_disputed_sources",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "name": "distinct_dimensions",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "NO_SINGLE_VERDICT"
+    },
+    {
+      "name": "same_conclusions",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "SUPPORTED"
+    },
+    {
+      "name": "all_insufficient",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+      "name": "supported_and_unresolved",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "NO_SINGLE_VERDICT"
+    },
+    {
+      "name": "provider_global_verdict_forbidden",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "NO_SINGLE_VERDICT",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "provider_editorial_verdict_forbidden",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "SUPPORTED_BY_PUBLICATIONS",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "multiple_with_one_claim",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_DIMENSIONS",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "single_with_two_claims",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "split_by_source_disagreement",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "SOURCE_DISAGREEMENT",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "same_question_split_twice",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_DIMENSIONS",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "overlapping_excerpts",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "aumentó la frecuencia y redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "invented_dimension",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C2",
+            "inputExcerpt": "redujo el precio en Madrid",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "duplicate_claim_id",
+      "inputText": "La medida aumentó la frecuencia y redujo el precio.",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+        "decomposition": {
+          "kind": "MULTIPLE",
+          "basis": "EXPLICIT_CONJUNCTION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "aumentó la frecuencia",
+            "proposition": "aumentó la frecuencia",
+            "verdict": {
+              "status": "SUPPORTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          },
+          {
+            "id": "C1",
+            "inputExcerpt": "redujo el precio",
+            "proposition": "redujo el precio",
+            "verdict": {
+              "status": "REFUTED",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "unknown_source",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "UNKNOWN"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "global_provider_field_forbidden",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ],
+        "verdict": {
+          "status": "NO_SINGLE_VERDICT"
+        }
+      },
+      "expected": "REJECT"
+    },
+    {
+      "name": "single_opinion",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "status": "OPINION",
+              "explanation": "Conclusión sintética para probar la política.",
+              "documentarySupport": "Evidencia ficticia del caso de prueba.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": "OPINION"
+    },
+    {
+      "name": "v8_observed_verdict_on_single_claim",
+      "inputText": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+      "sourceIds": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "payload": {
+        "proposalVersion": "claims-draft-1",
+        "analysisTarget": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "proposition": "¿Los límites al alquiler reducen la oferta en España durante 2023–2025?",
+            "verdict": {
+              "documentarySupport": "Las publicaciones revisadas no convergen en una sola conclusión: unas encuentran caída de la oferta de alquiler asociada a los topes, pero otras no observan una reducción estadísticamente detectable. Además, la evidencia más sólida se concentra en Cataluña, no en una estimación causal homogénea para toda España.",
+              "explanation": "Corresponde NO_SINGLE_VERDICT porque hay posiciones empíricas contrapuestas sobre el efecto en la oferta, y porque el alcance geográfico de la evidencia es desigual: Cataluña domina la evidencia directa y no basta para fijar una única conclusión nacional para 2023–2025.",
+              "sourceIds": [
+                "S1",
+                "S2",
+                "S3"
+              ],
+              "status": "NO_SINGLE_VERDICT"
+            }
+          }
+        ]
+      },
+      "expected": "REJECT"
+    }
+  ]
+}

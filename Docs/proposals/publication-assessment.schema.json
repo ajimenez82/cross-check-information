@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/crosscheck/proposals/publication-assessment.schema.json",
+  "title": "Draft publication assessment for review only",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "SUPPORTS",
+            "QUESTIONS",
+            "MIXED",
+            "NO_EXPLICIT_POSITION"
+          ]
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "COUNT"
+          ]
+        },
+        "trace": {
+          "type": "object",
+          "properties": {
+            "stanceOwner": {
+              "type": "string",
+              "enum": [
+                "AUTHOR",
+                "THIRD_PARTY",
+                "NONE"
+              ]
+            },
+            "stanceHolder": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "outcome": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "geography": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "studyPeriod": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "policy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "MATCH"
+                  ]
+                },
+                "explanation": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "outcome",
+                "geography",
+                "studyPeriod",
+                "policy",
+                "match",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "temporalRelation": {
+              "type": "string",
+              "enum": [
+                "REQUESTED_PERIOD",
+                "RETROSPECTIVE"
+              ]
+            },
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "locator": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "paraphrase": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "attribution": {
+                    "type": "string",
+                    "enum": [
+                      "AUTHOR",
+                      "THIRD_PARTY",
+                      "DESCRIPTIVE"
+                    ]
+                  },
+                  "relation": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTS",
+                      "QUESTIONS",
+                      "CONTEXT"
+                    ]
+                  }
+                },
+                "required": [
+                  "sourceId",
+                  "locator",
+                  "paraphrase",
+                  "attribution",
+                  "relation"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "stanceOwner",
+            "stanceHolder",
+            "scope",
+            "temporalRelation",
+            "arguments"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "sourceIds",
+        "position",
+        "explanation",
+        "decision",
+        "trace"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "position": {
+          "type": "null"
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "EXCLUDE"
+          ]
+        },
+        "trace": {
+          "type": "object",
+          "properties": {
+            "stanceOwner": {
+              "type": "string",
+              "enum": [
+                "AUTHOR",
+                "THIRD_PARTY",
+                "NONE",
+                "UNDETERMINED"
+              ]
+            },
+            "stanceHolder": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "outcome": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "geography": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "studyPeriod": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "policy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "match": {
+                  "type": "string",
+                  "enum": [
+                    "MATCH",
+                    "PARTIAL",
+                    "OUT_OF_SCOPE",
+                    "UNCERTAIN"
+                  ]
+                },
+                "explanation": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "outcome",
+                "geography",
+                "studyPeriod",
+                "policy",
+                "match",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "temporalRelation": {
+              "type": "string",
+              "enum": [
+                "REQUESTED_PERIOD",
+                "RETROSPECTIVE",
+                "BACKGROUND",
+                "UNKNOWN"
+              ]
+            },
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "locator": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "paraphrase": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "attribution": {
+                    "type": "string",
+                    "enum": [
+                      "AUTHOR",
+                      "THIRD_PARTY",
+                      "DESCRIPTIVE"
+                    ]
+                  },
+                  "relation": {
+                    "type": "string",
+                    "enum": [
+                      "SUPPORTS",
+                      "QUESTIONS",
+                      "CONTEXT"
+                    ]
+                  }
+                },
+                "required": [
+                  "sourceId",
+                  "locator",
+                  "paraphrase",
+                  "attribution",
+                  "relation"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "stanceOwner",
+            "stanceHolder",
+            "scope",
+            "temporalRelation",
+            "arguments"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "sourceIds",
+        "position",
+        "explanation",
+        "decision",
+        "trace"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

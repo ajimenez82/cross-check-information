@@ -1,0 +1,122 @@
+{
+  "analysisId": "8d6946da-5562-4d78-b7eb-c50f1b649581",
+  "status": "COMPLETED",
+  "createdAt": "2026-10-01T12:31:02.718939200Z",
+  "updatedAt": "2026-10-01T12:31:18.034365400Z",
+  "completedAt": "2026-10-01T12:31:18.096925400Z",
+  "expiresAt": "2026-10-02T12:31:02.718939200Z",
+  "pollAfterSeconds": null,
+  "result": {
+    "conversationToken": "[redacted]",
+    "analysis": {
+      "title": "Efecto de los límites al alquiler sobre la oferta en España",
+      "context": "Analizamos si los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España, con foco en el periodo 2023–2025 y en el debate catalán y nacional. La evidencia aceptada para esta síntesis no aporta una estimación causal sobre topes de precios; solo ofrece contexto general sobre un mercado con oferta insuficiente y restricciones estructurales.",
+      "summary": "La evidencia aceptada no demuestra que los límites al alquiler reduzcan la oferta en España. El único documento evaluable describe un mercado tensionado, con oferta insuficiente, pero no atribuye ese patrón a topes de precio ni ofrece una estimación causal sobre 2023–2025.",
+      "summarySourceIds": [
+        "S1"
+      ],
+      "verdict": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "explanation": "No hay evidencia causal aceptada que relacione los límites de precio con una caída de la oferta en España durante 2023–2025. La documentación disponible en esta síntesis solo establece un contexto de oferta insuficiente y limitaciones estructurales, así que la proposición queda sin demostración suficiente.",
+        "documentarySupport": "El Banco de España constata que la demanda crece más que la oferta y que la oferta avanza a un ritmo insuficiente, además de señalar restricciones estructurales de la oferta. Eso apoya la existencia de tensión en el mercado, pero no prueba que los límites al precio del alquiler sean la causa de una reducción de la oferta.",
+        "sourceIds": [
+          "S1"
+        ]
+      },
+      "sources": [
+        {
+          "id": "S1",
+          "title": "El mercado del alquiler de vivienda residencial en España: evolución reciente, determinantes e indicadores de esfuerzo - Occasional Papers - Banco de España",
+          "url": "https://www.bde.es/wbe/en/publicaciones/analisis-economico-investigacion/documentos-ocasionales/el-mercado-del-alquiler-de-vivienda-residencial-en-espana-evolucion-reciente-determinantes-e-indicadores-de-esfuerzo.html",
+          "publisher": "Banco de España",
+          "publishedAt": "2024-10-16",
+          "consultedAt": "2026-10-01T07:05:21.348620100Z",
+          "contribution": "El documento atribuye el encarecimiento del alquiler a un crecimiento de la demanda superior al de la oferta, y señala que la oferta aumenta a un ritmo insuficiente.\nEl informe añade que el aumento de la oferta ha quedado limitado por usos alternativos de la vivienda y por el escaso dinamismo de la inversión institucional.",
+          "type": null
+        }
+      ],
+      "publicationPositions": {
+        "availability": "AVAILABLE",
+        "reason": "Se evaluó una sola publicación candidata y quedó excluida porque sus hallazgos aceptados son de contexto, no de efecto causal de límites de precio. Por eso no cuenta ninguna publicación para inferir una postura editorial sobre la proposición; el resultado es una muestra disponible pero vacía en términos de publicación contable.",
+        "proposition": "Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España, con especial atención al periodo 2023–2025.",
+        "period": null,
+        "consultedAt": null,
+        "selectionCriteria": "Solo podían contarse publicaciones de tipo ANALYSIS o REPORTING con hallazgos de alcance y periodo elegibles que establecieran una postura propia sobre la proposición exacta. En esta muestra, los hallazgos aceptados de S1 son BACKGROUND y no cumplen los criterios de conteo.",
+        "units": [],
+        "excluded": [
+          {
+            "sourceId": "S1",
+            "reason": "La fuente es de análisis y aporta contexto sobre el mercado del alquiler en España, pero sus hallazgos aceptados son de trasfondo general: describen que la demanda crece más que la oferta y que la oferta se ve limitada por usos alternativos de la vivienda y por la escasa inversión institucional. No identifican el efecto causal de un límite al precio del alquiler sobre la oferta en el periodo pedido, y además el propio paquete marca estos hallazgos como BACKGROUND, por lo que no pueden contarse para la posición de publicación.",
+            "trace": {
+              "stanceOwner": "NONE",
+              "stanceHolder": null,
+              "scope": {
+                "outcome": "Oferta y precios del alquiler",
+                "geography": "España",
+                "studyPeriod": "Desde la crisis de 2008 hasta 2024",
+                "policy": null,
+                "match": "MATCH",
+                "explanation": "Marco nacional sobre el mercado del alquiler en España; no identifica el efecto causal de un tope concreto."
+              },
+              "temporalRelation": "BACKGROUND",
+              "arguments": [
+                {
+                  "sourceId": "S1",
+                  "locator": "Abstract",
+                  "paraphrase": "El documento atribuye el encarecimiento del alquiler a un crecimiento de la demanda superior al de la oferta, y señala que la oferta aumenta a un ritmo insuficiente.",
+                  "attribution": "AUTHOR",
+                  "relation": "CONTEXT"
+                },
+                {
+                  "sourceId": "S1",
+                  "locator": "Abstract",
+                  "paraphrase": "El informe añade que el aumento de la oferta ha quedado limitado por usos alternativos de la vivienda y por el escaso dinamismo de la inversión institucional.",
+                  "attribution": "AUTHOR",
+                  "relation": "CONTEXT"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "limitations": [
+        "La evidencia localizada más sólida en este barrido es catalana; para España en conjunto predominan análisis contextuales o inferencias parciales.",
+        "Varias fuentes usan proxys distintos de oferta (anuncios, contratos firmados, fianzas de temporada), que no son medidas idénticas.",
+        "Algunas fuentes son jurídicas o periodísticas y documentan el debate o cambios observados, pero no sustituyen una estimación causal propia.",
+        "No se ha intentado un barrido exhaustivo; se seleccionó una muestra corta y accesible de publicaciones útiles.",
+        "Se agruparon entradas de una misma URL para evitar contar o capturar dos veces la publicación. La lista de autores era discrepante y no se ha dado por confirmada.",
+        "S2: no se pudo acceder al documento de forma independiente.",
+        "S3: no se pudo acceder al documento de forma independiente.",
+        "S4: no se pudo acceder al documento de forma independiente.",
+        "La fecha exacta de publicación de algunas fuentes no pudo verificarse; no se ha completado artificialmente."
+      ],
+      "analyzedAt": "2026-10-01T12:31:18.034365400Z",
+      "asOf": null,
+      "claimAnalysis": {
+        "analysisTarget": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España? Periodo de contraste 2023–2025, con especial atención a Cataluña y al debate nacional.",
+        "decomposition": {
+          "kind": "SINGLE",
+          "basis": "SINGLE_PROPOSITION",
+          "explanation": "Una sola proposición causal sobre el efecto de los límites al alquiler en la oferta; las referencias geográficas y temporales son parte del mismo enunciado."
+        },
+        "claims": [
+          {
+            "id": "C1",
+            "inputExcerpt": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España?",
+            "proposition": "Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España, con especial atención al periodo 2023–2025.",
+            "verdict": {
+              "status": "INSUFFICIENT_EVIDENCE",
+              "explanation": "No hay evidencia causal aceptada que relacione los límites de precio con una caída de la oferta en España durante 2023–2025. La documentación disponible en esta síntesis solo establece un contexto de oferta insuficiente y limitaciones estructurales, así que la proposición queda sin demostración suficiente.",
+              "documentarySupport": "El Banco de España constata que la demanda crece más que la oferta y que la oferta avanza a un ritmo insuficiente, además de señalar restricciones estructurales de la oferta. Eso apoya la existencia de tensión en el mercado, pero no prueba que los límites al precio del alquiler sean la causa de una reducción de la oferta.",
+              "sourceIds": [
+                "S1"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "clarification": null
+  },
+  "error": null
+}

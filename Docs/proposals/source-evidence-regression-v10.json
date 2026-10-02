@@ -1,0 +1,51 @@
+{
+  "status": "PIPELINE_IMPLEMENTED_LIVE_SYNTHESIS_REJECTED",
+  "originalResponse": "../../POC/webapp/review/integration/political-v10-provider-output-20260930.json",
+  "originalResponseSha256": "3df41eb6894e6c8b00d727ce658c96cd3f018bad9dfa63731ffb149392aebfb9",
+  "currentInput": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España? Analiza el periodo 2023–2025 y contrasta publicaciones con distintas posiciones.",
+  "cases": [
+    {
+      "id": "EV01",
+      "field": "analysis.claimAnalysis.claims[0].inputExcerpt",
+      "expected": "REJECT_NON_LITERAL_ANCHOR",
+      "observed": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023–2025?",
+      "verification": "AUTOMATED_OFFLINE_CONTRACT_TEST",
+      "testMethod": "rejectsObservedV10NonLiteralAnchor"
+    },
+    {
+      "id": "EV02",
+      "field": "analysis.publicationPositions.assessments[0]",
+      "expected": "REJECT_SOURCE_IDENTITY_MISMATCH",
+      "verification": "AUTOMATED_REFERENCE_AND_FRAGMENT_CHECKS_SEMANTICS_PENDING",
+      "details": "The FEDEA argument references S1 (BOE), while the FEDEA document is S2.",
+      "testMethod": "preservesFedeaIdentityInsteadOfAcceptingBoeReference"
+    },
+    {
+      "id": "EV03",
+      "field": "analysis.sources[0].publishedAt",
+      "expected": "2024-03-15",
+      "observed": "2024-03-14",
+      "verification": "AUTOMATED_WITH_REVIEWED_METADATA_FIXTURE_ACQUISITION_PENDING",
+      "referenceUrl": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-5213",
+      "testMethod": "rejectsV10BoeAndBankDatesAgainstReviewedMetadata"
+    },
+    {
+      "id": "EV04",
+      "field": "analysis.sources[3].publishedAt",
+      "expected": "2024-10-16",
+      "observed": "2024-01-01",
+      "verification": "AUTOMATED_WITH_REVIEWED_METADATA_FIXTURE_ACQUISITION_PENDING",
+      "referenceUrl": "https://www.bde.es/wbe/es/publicaciones/analisis-economico-investigacion/documentos-ocasionales/el-mercado-del-alquiler-de-vivienda-residencial-en-espana-evolucion-reciente-determinantes-e-indicadores-de-esfuerzo.html",
+      "testMethod": "rejectsV10BoeAndBankDatesAgainstReviewedMetadata"
+    },
+    {
+      "id": "EV05",
+      "field": "analysis.publicationPositions.assessments[1]",
+      "expected": "REVIEW_SCOPE_AND_STANCE_WITHOUT_ASSUMING_OPPOSITION_FROM_UNCERTAINTY",
+      "verification": "SEMANTIC_REVIEW_PENDING",
+      "details": "Do not infer QUESTIONS solely from lack of robust estimates; establish exact policy and period first."
+    }
+  ],
+  "implementationReview": "../../POC/cross-check-service/docs/evidence-dossier.md",
+  "currentReview": "../../POC/cross-check-service/docs/openai/political-v11-live-review.md"
+}

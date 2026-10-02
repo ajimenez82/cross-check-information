@@ -2,7 +2,9 @@
   "name": "cross-check-political-v1",
   "model": "gpt-5.4-mini",
   "service_tier": "default",
-  "reasoning": { "effort": "low" },
+  "reasoning": {
+    "effort": "low"
+  },
   "instructions": "REPLACE_WITH_CONTENTS_OF_political-analysis-instructions.md",
   "tools": [
     {
@@ -87,13 +89,16 @@
                   ]
                 },
                 "publishedAt": {
+                  "description": "Verified complete publication date YYYY-MM-DD, or null when any component is unknown. Never a partial date.",
+                  "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
                   "type": [
                     "string",
                     "null"
                   ]
                 },
                 "consultedAt": {
-                  "type": "string"
+                  "type": "null",
+                  "description": "Assigned only from verified access records by the application; always null in provider output."
                 },
                 "contribution": {
                   "type": "string"
@@ -140,106 +145,366 @@
                   "null"
                 ]
               },
-              "period": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "from": {
-                        "type": "string"
-                      },
-                      "to": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "from",
-                      "to"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "consultedAt": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
               "selectionCriteria": {
                 "type": [
                   "string",
                   "null"
                 ]
               },
-              "units": {
-                "type": "array",
+              "assessments": {
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sourceIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "position": {
+                          "type": "string",
+                          "enum": [
+                            "SUPPORTS",
+                            "QUESTIONS",
+                            "MIXED",
+                            "NO_EXPLICIT_POSITION"
+                          ]
+                        },
+                        "explanation": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "decision": {
+                          "type": "string",
+                          "enum": [
+                            "COUNT"
+                          ]
+                        },
+                        "trace": {
+                          "type": "object",
+                          "properties": {
+                            "stanceOwner": {
+                              "type": "string",
+                              "enum": [
+                                "AUTHOR",
+                                "THIRD_PARTY",
+                                "NONE"
+                              ]
+                            },
+                            "stanceHolder": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "scope": {
+                              "type": "object",
+                              "properties": {
+                                "outcome": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "geography": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "studyPeriod": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "policy": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "match": {
+                                  "type": "string",
+                                  "enum": [
+                                    "MATCH"
+                                  ]
+                                },
+                                "explanation": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "outcome",
+                                "geography",
+                                "studyPeriod",
+                                "policy",
+                                "match",
+                                "explanation"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "temporalRelation": {
+                              "type": "string",
+                              "enum": [
+                                "REQUESTED_PERIOD",
+                                "RETROSPECTIVE"
+                              ]
+                            },
+                            "arguments": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "sourceId": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "locator": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "paraphrase": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "attribution": {
+                                    "type": "string",
+                                    "enum": [
+                                      "AUTHOR",
+                                      "THIRD_PARTY",
+                                      "DESCRIPTIVE"
+                                    ]
+                                  },
+                                  "relation": {
+                                    "type": "string",
+                                    "enum": [
+                                      "SUPPORTS",
+                                      "QUESTIONS",
+                                      "CONTEXT"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "sourceId",
+                                  "locator",
+                                  "paraphrase",
+                                  "attribution",
+                                  "relation"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "minItems": 1
+                            }
+                          },
+                          "required": [
+                            "stanceOwner",
+                            "stanceHolder",
+                            "scope",
+                            "temporalRelation",
+                            "arguments"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sourceIds",
+                        "position",
+                        "explanation",
+                        "decision",
+                        "trace"
+                      ],
+                      "additionalProperties": false
                     },
-                    "sourceIds": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "position": {
-                      "type": "string",
-                      "enum": [
-                        "SUPPORTS",
-                        "QUESTIONS",
-                        "MIXED",
-                        "NO_EXPLICIT_POSITION"
-                      ]
-                    },
-                    "explanation": {
-                      "type": "string"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sourceIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "position": {
+                          "type": "null"
+                        },
+                        "explanation": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "decision": {
+                          "type": "string",
+                          "enum": [
+                            "EXCLUDE"
+                          ]
+                        },
+                        "trace": {
+                          "type": "object",
+                          "properties": {
+                            "stanceOwner": {
+                              "type": "string",
+                              "enum": [
+                                "AUTHOR",
+                                "THIRD_PARTY",
+                                "NONE",
+                                "UNDETERMINED"
+                              ]
+                            },
+                            "stanceHolder": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "scope": {
+                              "type": "object",
+                              "properties": {
+                                "outcome": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "geography": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "studyPeriod": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "policy": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "match": {
+                                  "type": "string",
+                                  "enum": [
+                                    "MATCH",
+                                    "PARTIAL",
+                                    "OUT_OF_SCOPE",
+                                    "UNCERTAIN"
+                                  ]
+                                },
+                                "explanation": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "outcome",
+                                "geography",
+                                "studyPeriod",
+                                "policy",
+                                "match",
+                                "explanation"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "temporalRelation": {
+                              "type": "string",
+                              "enum": [
+                                "REQUESTED_PERIOD",
+                                "RETROSPECTIVE",
+                                "BACKGROUND",
+                                "UNKNOWN"
+                              ]
+                            },
+                            "arguments": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "sourceId": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "locator": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "paraphrase": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "attribution": {
+                                    "type": "string",
+                                    "enum": [
+                                      "AUTHOR",
+                                      "THIRD_PARTY",
+                                      "DESCRIPTIVE"
+                                    ]
+                                  },
+                                  "relation": {
+                                    "type": "string",
+                                    "enum": [
+                                      "SUPPORTS",
+                                      "QUESTIONS",
+                                      "CONTEXT"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "sourceId",
+                                  "locator",
+                                  "paraphrase",
+                                  "attribution",
+                                  "relation"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "minItems": 1
+                            }
+                          },
+                          "required": [
+                            "stanceOwner",
+                            "stanceHolder",
+                            "scope",
+                            "temporalRelation",
+                            "arguments"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "sourceIds",
+                        "position",
+                        "explanation",
+                        "decision",
+                        "trace"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "id",
-                    "sourceIds",
-                    "position",
-                    "explanation"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "excluded": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "sourceId": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "sourceId",
-                    "reason"
-                  ],
-                  "additionalProperties": false
-                }
+                  ]
+                },
+                "type": "array"
               }
             },
             "required": [
               "availability",
               "reason",
               "proposition",
-              "period",
-              "consultedAt",
               "selectionCriteria",
-              "units",
-              "excluded"
+              "assessments"
             ],
             "additionalProperties": false
           },
@@ -250,13 +515,22 @@
             }
           },
           "asOf": {
+            "description": "Evidence cutoff date, not the end of the period studied; null if not established. Must not predate sources used.",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
             "type": [
               "string",
               "null"
             ]
+          },
+          "schemaVersion": {
+            "enum": [
+              "2"
+            ],
+            "type": "string"
           }
         },
         "required": [
+          "schemaVersion",
           "title",
           "context",
           "summary",

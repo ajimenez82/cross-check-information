@@ -3,3 +3,13 @@ CONVERSATION_TOKEN_SECRET: 'REPLACE_WITH_BASE64_ENCODING_32_BYTES'
 # Required only when the openai profile is explicitly enabled.
 OPENAI_API_KEY: ''
 OPENAI_POLITICAL_ANALYSIS_AGENT_ID: ''
+# Must match the saved agent's output schema; no automatic fallback.
+OPENAI_REPORT_SCHEMA_VERSION: 3
+# Conversation compatibility label, not an OpenAI agent version selector.
+POLITICAL_AGENT_REVISION: 'political-v15'
+OPENAI_EVIDENCE_PIPELINE_ENABLED: true
+
+# Required by the current frontend; disable only for legacy synchronous clients.
+ASYNC_ANALYSIS_ENABLED: true
+# Optional absolute path, without the H2 file extension. Default: data/cross-check.
+# ANALYSIS_DATABASE_PATH: 'C:/path/to/cross-check-service/data/cross-check'

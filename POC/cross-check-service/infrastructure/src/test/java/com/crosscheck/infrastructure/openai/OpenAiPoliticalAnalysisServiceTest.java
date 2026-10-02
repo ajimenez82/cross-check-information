@@ -101,8 +101,10 @@ class OpenAiPoliticalAnalysisServiceTest {
     }
 
     private String report() {
-        return MAPPER.writeValueAsString(new DevelopmentPoliticalAnalysisService(
-                DevelopmentScenario.CLASSIFIED, Clock.systemUTC()).analyze(input(null)).report());
+        var output = (tools.jackson.databind.node.ObjectNode) MAPPER.readTree(MAPPER.writeValueAsString(new DevelopmentPoliticalAnalysisService(
+                DevelopmentScenario.CLASSIFIED, Clock.systemUTC()).analyze(input(null)).report()));
+        output.remove("claimAnalysis");
+        return output.toString();
     }
 
     private Map<String, Object> message(String turnId, String output) {
@@ -133,6 +135,14 @@ class OpenAiPoliticalAnalysisServiceTest {
         assertEquals("Consulta de prueba", request.body().path("input").asString());
         assertFalse(request.body().has("agent"));
         assertFalse(request.body().path("stream").asBoolean());
+    }
+
+    @Test void versionTwoDoesNotFallBackToLegacyOutput() {
+        completed(report());
+        var service = new OpenAiPoliticalAnalysisService(client, endpoint, "test-key", "agent_test",
+                Duration.ofSeconds(3), Duration.ofMillis(10), 2, 2);
+        assertThrows(InvalidAnalysisOutputException.class, () -> service.analyze(input(null)));
+        assertEquals(1, requests.stream().filter(request -> request.method().equals("POST")).count());
     }
 
     @Test void followUpWaitsForNewTurnAndDoesNotReturnPreviousReport() {
@@ -240,6 +250,33 @@ class OpenAiPoliticalAnalysisServiceTest {
             completed(MAPPER.writeValueAsString(output));
             assertThrows(InvalidAnalysisOutputException.class, () -> provider().analyze(input(null)), mutation);
         }
+    }
+
+    @ParameterizedTest @ValueSource(strings = {"2025-?", "2025", "2025-11", "2025-13-01", "2025-02-30"})
+    void rejectsIncompleteOrImpossiblePublicationDates(String date) {
+        var output = (ObjectNode) MAPPER.readTree(report());
+        ((ObjectNode) output.path("sources").get(0)).put("publishedAt", date);
+        completed(MAPPER.writeValueAsString(output));
+        assertThrows(InvalidAnalysisOutputException.class, () -> provider().analyze(input(null)));
+    }
+
+    @Test
+    void rejectsCompletedProviderOutputWithEvidenceAfterCutoffWithoutRetry() {
+        var output = (ObjectNode) MAPPER.readTree(report());
+        var source = (ObjectNode) output.path("sources").get(0);
+        source.put("publishedAt", "2026-06-09");
+        output.put("asOf", "2025-12-31");
+        output.putArray("summarySourceIds").add(source.path("id").asText());
+        completed(MAPPER.writeValueAsString(output));
+        assertThrows(InvalidAnalysisOutputException.class, () -> provider().analyze(input(null)));
+        assertEquals(1, requests.stream().filter(request -> request.method().equals("POST")).count());
+    }
+
+    @Test void acceptsUnknownPublicationDateAsNull() {
+        var output = (ObjectNode) MAPPER.readTree(report());
+        ((ObjectNode) output.path("sources").get(0)).putNull("publishedAt");
+        completed(MAPPER.writeValueAsString(output));
+        assertNull(provider().analyze(input(null)).report().sources().getFirst().publishedAt());
     }
 
     @Test void rejectsOversizedHttpBody() {

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "3",
+  "analysis": {
+    "title": "Ejemplo simulado: frecuencia y precio",
+    "context": "Caso ficticio de dos afirmaciones; no describe una medida real.",
+    "summary": "La frecuencia aumentó, pero la reducción del precio no está respaldada en este ejemplo ficticio.",
+    "summarySourceIds": [],
+    "sources": [
+      {
+        "title": "Publicación ficticia 1",
+        "id": "S1",
+        "contribution": "Ejemplo sintético, sin fuente real",
+        "url": "https://example.org/source-1",
+        "consultedAt": null,
+        "publisher": null,
+        "type": null,
+        "publishedAt": null
+      },
+      {
+        "title": "Publicación ficticia 2",
+        "id": "S2",
+        "contribution": "Ejemplo sintético, sin fuente real",
+        "url": "https://example.org/source-2",
+        "consultedAt": null,
+        "publisher": null,
+        "type": null,
+        "publishedAt": null
+      },
+      {
+        "title": "Publicación ficticia 3",
+        "id": "S3",
+        "contribution": "Ejemplo sintético, sin fuente real",
+        "url": "https://example.org/source-3",
+        "consultedAt": null,
+        "publisher": null,
+        "type": null,
+        "publishedAt": null
+      },
+      {
+        "title": "Publicación ficticia 4",
+        "id": "S4",
+        "contribution": "Ejemplo sintético, sin fuente real",
+        "url": "https://example.org/source-4",
+        "consultedAt": null,
+        "publisher": null,
+        "type": null,
+        "publishedAt": null
+      },
+      {
+        "title": "Publicación ficticia 5",
+        "id": "S5",
+        "contribution": "Ejemplo sintético, sin fuente real",
+        "url": "https://example.org/source-5",
+        "consultedAt": null,
+        "publisher": null,
+        "type": null,
+        "publishedAt": null
+      }
+    ],
+    "publicationPositions": {
+      "availability": "UNAVAILABLE",
+      "reason": "No se agregan posiciones sobre afirmaciones diferentes.",
+      "proposition": null,
+      "selectionCriteria": null,
+      "assessments": []
+    },
+    "limitations": [
+      "Resultado ilustrativo: no corresponde a una consulta real."
+    ],
+    "asOf": null,
+    "schemaVersion": "3",
+    "claimAnalysis": {
+      "analysisTarget": "La medida aumentó la frecuencia y redujo el precio.",
+      "decomposition": {
+        "kind": "MULTIPLE",
+        "basis": "EXPLICIT_CONJUNCTION",
+        "explanation": "Descomposición sintética basada en las partes explícitas de la consulta."
+      },
+      "claims": [
+        {
+          "id": "C1",
+          "inputExcerpt": "aumentó la frecuencia",
+          "proposition": "aumentó la frecuencia",
+          "verdict": {
+            "status": "SUPPORTED",
+            "explanation": "Conclusión sintética para probar la política.",
+            "documentarySupport": "Evidencia ficticia del caso de prueba.",
+            "sourceIds": [
+              "S1"
+            ]
+          }
+        },
+        {
+          "id": "C2",
+          "inputExcerpt": "redujo el precio",
+          "proposition": "redujo el precio",
+          "verdict": {
+            "status": "REFUTED",
+            "explanation": "Conclusión sintética para probar la política.",
+            "documentarySupport": "Evidencia ficticia del caso de prueba.",
+            "sourceIds": [
+              "S1"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "clarification": null
+}

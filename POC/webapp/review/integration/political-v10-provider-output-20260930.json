@@ -1,0 +1,198 @@
+{
+  "analysis": {
+    "asOf": null,
+    "claimAnalysis": {
+      "analysisTarget": "Analizamos si los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023-2025, distinguiendo entre la evidencia empírica disponible en España, la experiencia de Cataluña y las valoraciones publicadas sobre la medida.",
+      "claims": [
+        {
+          "id": "C1",
+          "inputExcerpt": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023–2025?",
+          "proposition": "Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023-2025.",
+          "verdict": {
+            "documentarySupport": "La documentación revisada aporta indicios compatibles con una reducción de la oferta en Cataluña tras la aplicación efectiva del control de rentas, pero no ofrece una estimación causal sólida y nacional para toda España. Además, varias publicaciones consultadas reconocen que faltan estudios cuantitativos que midan con precisión el efecto de los cambios normativos recientes sobre la oferta de alquiler.",
+            "explanation": "La evidencia disponible sugiere una caída de anuncios en el territorio donde el control se aplica, pero no basta para establecer con seguridad que los límites al precio reduzcan la oferta en toda España durante 2023-2025. La relación observada es descriptiva, muy concentrada en Cataluña, y las fuentes que cubren el periodo reconocen lagunas de medición causal.",
+            "sourceIds": [
+              "S1",
+              "S2",
+              "S3"
+            ],
+            "status": "INSUFFICIENT_EVIDENCE"
+          }
+        }
+      ],
+      "decomposition": {
+        "basis": "SINGLE_PROPOSITION",
+        "explanation": "La pregunta plantea una única afirmación causal y nacional sobre el efecto de los límites de precio en la oferta de alquiler en España durante 2023-2025. La petición de contrastar publicaciones solo afecta a la selección de fuentes, no a la descomposición en varias proposiciones.",
+        "kind": "SINGLE"
+      }
+    },
+    "context": "Analizamos si los topes o límites al precio del alquiler, en el marco de la Ley 12/2023 y su aplicación efectiva en Cataluña desde 2024, disminuyen la oferta de vivienda en alquiler. La evidencia directa relevante debe distinguir entre el mercado nacional, el caso catalán y las afirmaciones generales sobre controles de precios; una caída observada en anuncios no equivale por sí sola a una prueba causal para toda España.",
+    "limitations": [
+      "La evidencia empírica disponible es desigual: el caso más documentado es Cataluña, no una estimación causal para toda España.",
+      "Algunas fuentes son descriptivas y señalan coincidencias temporales o territoriales, pero no identifican por sí solas causalidad.",
+      "No se han localizado estudios plenamente causales y comparables para todo el periodo 2023-2025 que midan el efecto nacional de los topes sobre la oferta.",
+      "La muestra de publicaciones es pequeña y no representativa; solo sirve para contrastar posiciones publicadas, no para inferir consenso general."
+    ],
+    "publicationPositions": {
+      "assessments": [
+        {
+          "decision": "COUNT",
+          "explanation": "La autora o el autor sostiene que, donde la norma se aplica, la oferta de anuncios cae con intensidad y que esa contracción es coherente con la teoría del control de precios. Aunque el texto es descriptivo, toma posición clara a favor de la proposición exacta.",
+          "id": "A1",
+          "position": "SUPPORTS",
+          "sourceIds": [
+            "S1"
+          ],
+          "trace": {
+            "arguments": [
+              {
+                "attribution": "AUTHOR",
+                "locator": "L18-L26",
+                "paraphrase": "El resumen ejecutivo dice que la contención de rentas se ha desplegado de forma efectiva en Cataluña y que, allí donde se aplica, la moderación del precio convive con una contracción de la oferta disponible.",
+                "relation": "SUPPORTS",
+                "sourceId": "S1"
+              },
+              {
+                "attribution": "AUTHOR",
+                "locator": "L161-L167",
+                "paraphrase": "El informe afirma que entre 2024 T1 y 2025 T4 la oferta cae un 22,2 % en Barcelona y un 20,5 % en Cataluña, y que esa divergencia es la que anticipa la teoría del control de precios.",
+                "relation": "SUPPORTS",
+                "sourceId": "S1"
+              }
+            ],
+            "scope": {
+              "explanation": "El argumento se centra en Cataluña y Barcelona, pero lo usa como evidencia sobre el efecto del control de rentas en el mercado regulado; la comparación con Madrid y el resto de España funciona como referencia no tratada.",
+              "geography": "Cataluña, Barcelona, Madrid y resto de España sin Cataluña",
+              "match": "MATCH",
+              "outcome": "oferta de anuncios de alquiler residencial de larga duración",
+              "policy": "contención de rentas de la Ley 12/2023 aplicada efectivamente en Cataluña",
+              "studyPeriod": "2024 T1 a 2025 T4"
+            },
+            "stanceHolder": null,
+            "stanceOwner": "AUTHOR",
+            "temporalRelation": "RETROSPECTIVE"
+          }
+        },
+        {
+          "decision": "COUNT",
+          "explanation": "El texto no afirma el efecto como hecho comprobado; lo pone en duda al señalar que no existen estudios fundamentados que midan el efecto de los cambios normativos recientes sobre la oferta. Esa cautela cuestiona la proposición exacta.",
+          "id": "A2",
+          "position": "QUESTIONS",
+          "sourceIds": [
+            "S3"
+          ],
+          "trace": {
+            "arguments": [
+              {
+                "attribution": "AUTHOR",
+                "locator": "L141-L143",
+                "paraphrase": "Tras describir las medidas para topar el alquiler, el artículo dice que la evidencia de otras ciudades muestra reducción de oferta, pero que no conoce estudios fundamentados que midan el efecto de los cambios normativos recientes sobre la oferta de alquiler.",
+                "relation": "QUESTIONS",
+                "sourceId": "S3"
+              }
+            ],
+            "scope": {
+              "explanation": "El artículo trata el mercado del alquiler en España y, en ese marco, comenta la regulación reciente y su posible efecto sobre la oferta; la observación es nacional en su planteamiento, aunque no aporta una medición directa del efecto en España.",
+              "geography": "España",
+              "match": "MATCH",
+              "outcome": "oferta de alquiler",
+              "policy": "medidas para topar el crecimiento del precio del alquiler desde 2022 y cambios normativos recientes",
+              "studyPeriod": "2022-2024"
+            },
+            "stanceHolder": null,
+            "stanceOwner": "AUTHOR",
+            "temporalRelation": "REQUESTED_PERIOD"
+          }
+        },
+        {
+          "decision": "EXCLUDE",
+          "explanation": "El documento del Banco de España aporta contexto útil sobre la evolución del mercado y sobre alternativas como el alquiler de temporada, pero no adopta una postura explícita sobre si los límites al precio reducen la oferta en España durante 2023-2025.",
+          "id": "A3",
+          "position": null,
+          "sourceIds": [
+            "S4"
+          ],
+          "trace": {
+            "arguments": [
+              {
+                "attribution": "DESCRIPTIVE",
+                "locator": "L1135-L1144",
+                "paraphrase": "El documento describe un aumento del alquiler de temporada y una caída de anuncios de alquiler residencial en 2024, sin atribuir esa evolución a los topes de precios como tesis propia.",
+                "relation": "CONTEXT",
+                "sourceId": "S4"
+              }
+            ],
+            "scope": {
+              "explanation": "Aunque el texto trata el mercado español del alquiler, la parte localizada describe cambios de composición de la oferta y no una evaluación directa del efecto de los límites de precio sobre la oferta.",
+              "geography": "España",
+              "match": "PARTIAL",
+              "outcome": "evolución de la oferta de alquiler y del alquiler de temporada",
+              "policy": "contexto general del mercado del alquiler",
+              "studyPeriod": "2024"
+            },
+            "stanceHolder": null,
+            "stanceOwner": "NONE",
+            "temporalRelation": "BACKGROUND"
+          }
+        }
+      ],
+      "availability": "AVAILABLE",
+      "proposition": "Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023-2025.",
+      "reason": "Se evaluó una muestra pequeña de publicaciones accesibles y directamente relevantes: una que apoya la reducción de oferta en el caso catalán y otra que cuestiona la existencia de estudios sólidos sobre el efecto de las medidas recientes. No se produce una distribución combinada entre varias proposiciones porque la pregunta es única.",
+      "selectionCriteria": "Publicaciones accesibles en texto completo, en español o sobre España, publicadas entre 2024 y 2026, que abordaran directamente el posible efecto de los límites de precio del alquiler sobre la oferta de vivienda en alquiler en España o en su principal caso de aplicación, Cataluña."
+    },
+    "schemaVersion": "3",
+    "sources": [
+      {
+        "consultedAt": null,
+        "contribution": "Resolución que aprueba el sistema estatal de índices de referencia y fija el límite máximo de la renta de los nuevos contratos en los supuestos legales; sirve como base normativa del control de precios.",
+        "id": "S1",
+        "publishedAt": "2024-03-14",
+        "publisher": "Boletín Oficial del Estado",
+        "title": "BOE-A-2024-5213 Resolución de 14 de marzo de 2024, de la Secretaría de Estado de Vivienda y Agenda Urbana, por la que se determina el sistema de índices de precios de referencia a los efectos de lo establecido en el artículo 17.7 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos.",
+        "type": "texto normativo",
+        "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-5213"
+      },
+      {
+        "consultedAt": null,
+        "contribution": "Informe retrospectivo que compara Cataluña con territorios no regulados y concluye que la oferta de anuncios cae donde se aplica la contención de rentas; es la fuente principal de apoyo a la tesis.",
+        "id": "S2",
+        "publishedAt": null,
+        "publisher": "Documentos FEDEA",
+        "title": "La Ley 12/2023 por el derecho a la vivienda: un primer balance a partir de la aplicación desigual del control de rentas en España",
+        "type": "informe",
+        "url": "https://documentos.fedea.net/documento/ap2026-15/texto"
+      },
+      {
+        "consultedAt": null,
+        "contribution": "Artículo que describe la evolución del esfuerzo de alquiler y señala que no conoce estudios fundamentados que midan el efecto de los cambios normativos recientes sobre la oferta de alquiler.",
+        "id": "S3",
+        "publishedAt": null,
+        "publisher": "Funcas",
+        "title": "¿Cuál el esfuerzo por vivir de alquiler en España? Evolución y diferencias por comunidades autónomas",
+        "type": "artículo",
+        "url": "https://www.funcas.es/articulos/cual-el-esfuerzo-por-vivir-de-alquiler-en-espana-evolucion-y-diferencias-por-comunidades-autonomas/"
+      },
+      {
+        "consultedAt": null,
+        "contribution": "Documento del Banco de España que describe cambios recientes del mercado del alquiler, incluido el auge del alquiler de temporada y la caída de anuncios residenciales, pero no atribuye explícitamente ese cambio a los límites de precio.",
+        "id": "S4",
+        "publishedAt": "2024-01-01",
+        "publisher": "Banco de España",
+        "title": "El mercado del alquiler de vivienda residencial en España: evolución reciente, determinantes e indicadores de esfuerzo. Documentos Ocasionales N.º 2432",
+        "type": "documento ocasional",
+        "url": "https://www.bde.es/f/webbe/SES/Secciones/Publicaciones/PublicacionesSeriadas/DocumentosOcasionales/24/Fich/do2432.pdf"
+      }
+    ],
+    "summary": "La evidencia revisada no permite afirmar con seguridad que los límites al precio del alquiler reduzcan la oferta de vivienda en alquiler en toda España durante 2023-2025. Sí aparece un patrón compatible con esa tesis en Cataluña, donde una publicación retrospectiva de 2026 atribuye a la contención de rentas una caída de anuncios de alquiler; pero esa misma lectura es descriptiva y no equivale a una estimación causal nacional. En paralelo, Funcas señala que no conoce estudios fundamentados que midan el efecto de los cambios normativos recientes sobre la oferta, lo que deja la hipótesis sin verificación suficiente a escala española.",
+    "summarySourceIds": [
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "title": "Límites al precio del alquiler y oferta en España"
+  },
+  "clarification": null,
+  "schemaVersion": "3"
+}

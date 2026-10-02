@@ -36,11 +36,23 @@ import org.springframework.test.context.ActiveProfiles;
 import tools.jackson.databind.json.JsonMapper;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {"crosscheck.analysis.jobs.enabled=false",
         "crosscheck.analysis.max-input-length=100", "crosscheck.analysis.max-token-length=512"})
 @ActiveProfiles("dev")
 @Import(AnalysisApiTest.ProviderTestConfiguration.class)
 class AnalysisApiTest {
+    @Test
+    @org.junit.jupiter.api.extension.ExtendWith(org.springframework.boot.test.system.OutputCaptureExtension.class)
+    void tracesRequestWithoutLoggingQueryOrConversationToken(org.springframework.boot.test.system.CapturedOutput output) throws Exception {
+        var response = post("{\"text\":\"PRIVATE_QUERY_SENTINEL\"}");
+        assertEquals(200, response.statusCode());
+        String requestId = response.headers().firstValue("X-Request-Id").orElseThrow();
+        assertTrue(output.getOut().contains("Analysis request received: requestId=" + requestId));
+        assertTrue(output.getOut().contains("Analysis request finished: requestId=" + requestId));
+        assertFalse(output.getAll().contains("PRIVATE_QUERY_SENTINEL"));
+        assertFalse(output.getAll().contains((String) body(response).get("conversationToken")));
+    }
+
     private static final String TEST_SECRET = java.util.Base64.getEncoder().encodeToString(
             new java.security.SecureRandom().generateSeed(32));
 
@@ -65,6 +77,7 @@ class AnalysisApiTest {
         provider.scenario = DevelopmentScenario.INSUFFICIENT_EVIDENCE;
         provider.failure = null;
         provider.lastInput = null;
+        provider.reportOverride = null;
     }
 
     @Test
@@ -74,11 +87,13 @@ class AnalysisApiTest {
         assertEquals(200, response.statusCode());
         assertEquals("no-store", response.headers().firstValue("Cache-Control").orElseThrow());
         var payload = body(response);
-        assertEquals(Set.of("conversationToken", "analysis"), payload.keySet());
+        assertEquals(Set.of("conversationToken", "analysis", "clarification"), payload.keySet());
+        assertNull(payload.get("clarification"));
         assertEquals(5, ((String) payload.get("conversationToken")).split("\\.").length);
         var analysis = child(payload, "analysis");
         assertEquals(Set.of("title", "context", "summary", "summarySourceIds", "verdict", "sources",
-                "publicationPositions", "limitations", "analyzedAt", "asOf"), analysis.keySet());
+                "publicationPositions", "limitations", "analyzedAt", "asOf", "claimAnalysis"), analysis.keySet());
+        assertNull(analysis.get("claimAnalysis"));
         assertNull(analysis.get("asOf"));
         assertFalse(Instant.parse((String) analysis.get("analyzedAt")).isBefore(before));
         assertEquals("INSUFFICIENT_EVIDENCE", child(analysis, "verdict").get("status"));
@@ -119,7 +134,8 @@ class AnalysisApiTest {
         assertNotNull(Instant.parse((String) positions.get("consultedAt")));
         var units = (java.util.List<?>) positions.get("units");
         assertEquals(2, units.size());
-        assertEquals(Set.of("id", "sourceIds", "position", "explanation"), ((Map<?, ?>) units.getFirst()).keySet());
+        assertEquals(Set.of("id", "sourceIds", "position", "explanation", "trace"), ((Map<?, ?>) units.getFirst()).keySet());
+        assertNull(((Map<?, ?>) units.getFirst()).get("trace"));
         assertEquals(2, ((java.util.List<?>) ((Map<?, ?>) units.getFirst()).get("sourceIds")).size());
         assertEquals(1, ((java.util.List<?>) positions.get("excluded")).size());
         var sources = (java.util.List<?>) analysis.get("sources");
@@ -145,6 +161,46 @@ class AnalysisApiTest {
             assertTrue(((String) verdict.get("explanation")).startsWith(
                     "La evidencia disponible no permite respaldar ni refutar la afirmación."));
         }
+    }
+
+    @Test
+    void serializesTraceForCountedAndExcludedPublications() throws Exception {
+        var base = new DevelopmentPoliticalAnalysisService(DevelopmentScenario.CLASSIFIED, Clock.systemUTC())
+                .analyze(new AiAnalysisInput("Fixture", AnalysisCategory.POLITICAL_ANALYSIS, "test", null)).report();
+        var positions = base.publicationPositions();
+        var units = positions.units().stream().map(unit -> new com.crosscheck.domain.analysis.PublicationAssessment(
+                unit.id(), unit.sourceIds(), unit.position(), unit.explanation(), trace(unit.sourceIds().getFirst()))).toList();
+        var excluded = positions.excluded().stream().map(item -> new com.crosscheck.domain.analysis.ExcludedPublication(
+                item.sourceId(), item.reason(), trace(item.sourceId()))).toList();
+        provider.reportOverride = new com.crosscheck.domain.analysis.AnalysisReport(base.title(), base.context(),
+                base.summary(), base.summarySourceIds(), base.verdict(), base.sources(),
+                new com.crosscheck.domain.analysis.PublicationPositions(positions.availability(), positions.reason(),
+                        positions.proposition(), positions.period(), positions.consultedAt(), positions.selectionCriteria(),
+                        units, excluded), base.limitations(), base.asOf());
+        var response = post("{\"text\":\"Consulta\"}");
+        assertEquals(200, response.statusCode());
+        var result = mapper.readTree(response.body()).path("analysis").path("publicationPositions");
+        for (String field : java.util.List.of("units", "excluded")) {
+            var trace = result.path(field).get(0).path("trace");
+            assertEquals("AUTHOR", trace.path("stanceOwner").asText());
+            assertTrue(trace.path("stanceHolder").isNull());
+            assertEquals("Oferta", trace.path("scope").path("outcome").asText());
+            assertEquals("REQUESTED_PERIOD", trace.path("temporalRelation").asText());
+            assertEquals("Argumento ilustrativo", trace.path("arguments").get(0).path("paraphrase").asText());
+            assertTrue(trace.path("arguments").get(0).path("locator").isNull());
+        }
+        assertEquals(units.size(), result.path("units").size());
+    }
+
+    private static com.crosscheck.domain.analysis.PublicationTrace trace(String sourceId) {
+        return new com.crosscheck.domain.analysis.PublicationTrace(
+                com.crosscheck.domain.analysis.PublicationTrace.Owner.AUTHOR, null,
+                new com.crosscheck.domain.analysis.PublicationTrace.Scope("Oferta", "España", null, null,
+                        com.crosscheck.domain.analysis.PublicationTrace.Match.MATCH, "Alcance ilustrativo"),
+                com.crosscheck.domain.analysis.PublicationTrace.TemporalRelation.REQUESTED_PERIOD,
+                java.util.List.of(new com.crosscheck.domain.analysis.PublicationTrace.Argument(sourceId, null,
+                        "Argumento ilustrativo", com.crosscheck.domain.analysis.PublicationTrace.Attribution.AUTHOR,
+                        com.crosscheck.domain.analysis.PublicationTrace.Relation.CONTEXT)));
     }
 
     @Test
@@ -316,6 +372,7 @@ class AnalysisApiTest {
     }
 
     static final class ControlledProvider implements AiPoliticalAnalysisService {
+        volatile com.crosscheck.domain.analysis.AnalysisReport reportOverride;
         final AtomicInteger calls = new AtomicInteger();
         final Clock clock;
         volatile DevelopmentScenario scenario = DevelopmentScenario.INSUFFICIENT_EVIDENCE;
@@ -328,6 +385,7 @@ class AnalysisApiTest {
             calls.incrementAndGet();
             lastInput = input;
             if (failure != null) throw failure;
+            if (reportOverride != null) return new AiAnalysisTurn("session_trace", reportOverride);
             return new DevelopmentPoliticalAnalysisService(scenario, clock).analyze(input);
         }
     }

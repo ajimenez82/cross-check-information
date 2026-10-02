@@ -25,3 +25,6 @@ application-local.properties
 # OS
 .DS_Store
 Thumbs.db
+
+# Durable local analysis data
+/data/

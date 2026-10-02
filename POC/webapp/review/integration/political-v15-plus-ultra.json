@@ -1,0 +1,270 @@
+{
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "events": [
+    {
+      "method": "POST",
+      "http": 202,
+      "status": "QUEUED",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 2.76
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 6.57
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 8.057
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 12.052
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 16.053
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 20.031
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 24.051
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 28.047
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 32.042
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 36.055
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 40.059
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 44.043
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 48.046
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 52.056
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 56.026
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 60.028
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 64.042
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 68.058
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 72.061
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 76.039
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "COMPLETED",
+      "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+      "elapsedSeconds": 80.056
+    }
+  ],
+  "posts": 1,
+  "gets": 20,
+  "reloaded": true,
+  "terminal": {
+    "analysisId": "41857859-7531-4e9e-bac2-0f2d69ca4d0d",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-01T15:31:49.463454100Z",
+    "updatedAt": "2026-10-01T15:33:03.036609800Z",
+    "completedAt": "2026-10-01T15:33:03.187031300Z",
+    "expiresAt": "2026-10-02T15:31:49.463454100Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "Zapatero y la supuesta comisión de Plus Ultra",
+        "context": "Analizamos si José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+        "summary": "La evidencia aceptada no demuestra que Zapatero cobrara una comisión por su asesoramiento en Plus Ultra. Solo hay una mención parlamentaria atribuida sobre una supuesta comisión del 1 %, en forma de antecedentes, sin prueba documental independiente del cobro ni de su vínculo directo con un asesoramiento remunerado. Con lo recibido, la afirmación queda sin apoyo suficiente.",
+        "summarySourceIds": [
+          "S1"
+        ],
+        "verdict": {
+          "status": "INSUFFICIENT_EVIDENCE",
+          "explanation": "No hay evidencia documental aceptada que pruebe que José Luis Rodríguez Zapatero ganó efectivamente una comisión por su asesoramiento en el caso Plus Ultra. Lo recibido describe una acusación o pregunta sobre una comisión supuesta, no un cobro acreditado.",
+          "documentarySupport": "La única evidencia aceptada es una afirmación atribuida en una comparecencia parlamentaria sobre una supuesta comisión del 1 % si se aprobaba el rescate de Plus Ultra.",
+          "sourceIds": [
+            "S1"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Diario de Sesiones de Comisión de Investigación sobre los contratos, licencias, concesiones, ayudas y otras operaciones del Gobierno y del sector público, relacionadas con la intermediación de Koldo García Izaguirre y con las demás personas vinculadas a la trama investigada en la Operación Delorme, y respecto a los presuntos delitos relativos a la corrupción que tengan una relación, directa o indirecta, o conexión con las mismas",
+            "url": "https://www.congreso.es/public_oficiales/L15/SEN/DS/CO/DS_C_15_654.PDF",
+            "publisher": "Congreso de los Diputados",
+            "publishedAt": null,
+            "consultedAt": "2026-10-01T15:32:37.498352900Z",
+            "contribution": "En la comparecencia parlamentaria se afirma que un documento policial decía que habría una comisión del 1 % si se aprobaba el rescate de Plus Ultra, y se pregunta si eso lo negociaba Zapatero.",
+            "type": null
+          }
+        ],
+        "publicationPositions": {
+          "availability": "AVAILABLE",
+          "reason": "La muestra evaluable queda vacía porque la única candidata es una fuente no editorial y, además, el hallazgo aceptado solo aporta antecedentes atribuidos sobre una supuesta comisión, no una posición publicada elegible sobre la afirmación exacta. Por eso no cuenta ninguna publicación, aunque la evaluación sí está disponible y la muestra es claramente no representativa.",
+          "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+          "period": null,
+          "consultedAt": null,
+          "selectionCriteria": "Se evalúan publicaciones de análisis o información periodística con hallazgos aceptados sobre la proposición y con alcance y periodo elegibles. Pueden respaldarla, cuestionarla, combinar ambas posiciones o no expresar una posición explícita. No se exige una postura propia ni una demostración causal para incluirlas; los documentos que solo aportan antecedentes fuera del periodo elegible quedan excluidos.",
+          "units": [],
+          "excluded": [
+            {
+              "sourceId": "S1",
+              "reason": "Se excluye porque la fuente es una comparecencia parlamentaria no editorial y la evidencia aceptada solo recoge una afirmación atribuida sobre una supuesta comisión, en tiempo de antecedentes; no cumple las condiciones de elegibilidad para contar como posición publicada sobre la proposición exacta.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de una comisión presuntamente vinculada al rescate de Plus Ultra",
+                  "geography": "España",
+                  "studyPeriod": "2020-2021",
+                  "policy": "Rescate público de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La transcripción recoge una acusación directa sobre una supuesta comisión ligada al rescate de Plus Ultra en España."
+                },
+                "temporalRelation": "BACKGROUND",
+                "arguments": [
+                  {
+                    "sourceId": "S1",
+                    "locator": "Diario de sesiones, p. 2",
+                    "paraphrase": "En la comparecencia parlamentaria se afirma que un documento policial decía que habría una comisión del 1 % si se aprobaba el rescate de Plus Ultra, y se pregunta si eso lo negociaba Zapatero.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "QUESTIONS"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "limitations": [
+          "La muestra examinada es limitada y no representa todas las publicaciones disponibles.",
+          "Documento localizado «Zapatero desmiente ser el facilitador del rescate de Plus Ultra» (efe.com): no se pudo acceder al documento de forma independiente.",
+          "Documento localizado «Zapatero reconoce los cobros de Análisis Relevante por informes escritos y orales, pero niega irregularidades» (elpais.com): no se pudo acceder al documento de forma independiente.",
+          "La fecha exacta de publicación de algunas fuentes no pudo verificarse; no se ha completado artificialmente.",
+          "No se pudo verificar de forma independiente el documento localizado «Zapatero desmiente ser el facilitador del rescate de Plus Ultra» (efe.com).",
+          "No se pudo verificar de forma independiente el documento localizado «Zapatero reconoce los cobros de Análisis Relevante por informes escritos y orales, pero niega irregularidades» (elpais.com)."
+        ],
+        "analyzedAt": "2026-10-01T15:33:03.036609800Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La consulta plantea una sola afirmación factual sobre si Zapatero cobró una comisión vinculada a Plus Ultra por asesoramiento."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+              "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+              "verdict": {
+                "status": "INSUFFICIENT_EVIDENCE",
+                "explanation": "No hay evidencia documental aceptada que pruebe que José Luis Rodríguez Zapatero ganó efectivamente una comisión por su asesoramiento en el caso Plus Ultra. Lo recibido describe una acusación o pregunta sobre una comisión supuesta, no un cobro acreditado.",
+                "documentarySupport": "La única evidencia aceptada es una afirmación atribuida en una comparecencia parlamentaria sobre una supuesta comisión del 1 % si se aprobaba el rescate de Plus Ultra.",
+                "sourceIds": [
+                  "S1"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  },
+  "elapsedSeconds": 81.017,
+  "success": true,
+  "persistedAfterCompletion": true
+}

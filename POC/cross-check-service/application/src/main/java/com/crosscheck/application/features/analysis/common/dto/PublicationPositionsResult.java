@@ -13,8 +13,8 @@ public record PublicationPositionsResult(String availability, String reason, Str
     }
 
     public record PeriodResult(LocalDate from, LocalDate to) {}
-    public record UnitResult(String id, List<String> sourceIds, String position, String explanation) {
+    public record UnitResult(String id, List<String> sourceIds, String position, String explanation, PublicationTraceResult trace) {
         public UnitResult { sourceIds = List.copyOf(sourceIds); }
     }
-    public record ExcludedResult(String sourceId, String reason) {}
+    public record ExcludedResult(String sourceId, String reason, PublicationTraceResult trace) {}
 }

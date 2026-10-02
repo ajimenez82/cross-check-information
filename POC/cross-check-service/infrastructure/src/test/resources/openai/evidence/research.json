@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1",
+  "research": {
+    "analysisTarget": "Analizamos si los límites reducen la oferta.",
+    "decomposition": {
+      "kind": "SINGLE",
+      "basis": "SINGLE_PROPOSITION",
+      "explanation": "Una afirmación."
+    },
+    "targets": [
+      {
+        "id": "C1",
+        "anchorId": "A0",
+        "proposition": "Los límites reducen la oferta en España durante 2023–2025."
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://example.org/research",
+        "title": "Research",
+        "publisher": "Publisher",
+        "authors": [
+          "Author"
+        ],
+        "sourceRole": "ANALYSIS",
+        "stanceOwner": "AUTHOR",
+        "stanceHolder": "Author",
+        "findings": [
+          {
+            "targetId": "C1",
+            "quote": "The report observes fewer rental listings after the policy change.",
+            "locator": "Section 2",
+            "paraphrase": "El autor sostiene que la medida reduce los anuncios, con evidencia descriptiva.",
+            "attribution": "AUTHOR",
+            "method": "DESCRIPTIVE",
+            "scope": {
+              "outcome": "anuncios de alquiler",
+              "geography": "España",
+              "studyPeriod": "2023–2025",
+              "policy": "límites del alquiler",
+              "match": "MATCH",
+              "explanation": "El argumento del autor aborda expresamente la proposición."
+            },
+            "temporalRelation": "REQUESTED_PERIOD",
+            "relation": "SUPPORTS"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Muestra sintética para pruebas offline."
+    ],
+    "asOf": null
+  },
+  "clarification": null
+}

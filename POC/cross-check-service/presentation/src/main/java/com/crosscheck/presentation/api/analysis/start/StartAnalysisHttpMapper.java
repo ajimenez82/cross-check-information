@@ -11,6 +11,6 @@ final class StartAnalysisHttpMapper {
     }
 
     static StartAnalysisResponse toResponse(StartAnalysisResult result) {
-        return new StartAnalysisResponse(result.conversationToken(), result.analysis());
+        return new StartAnalysisResponse(result.conversationToken(), result.analysis(), result.clarification());
     }
 }

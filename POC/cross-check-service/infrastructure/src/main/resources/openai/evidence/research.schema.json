@@ -1,0 +1,336 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": [
+        "1"
+      ]
+    },
+    "research": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "analysisTarget": {
+              "type": "string"
+            },
+            "decomposition": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "SINGLE",
+                    "MULTIPLE"
+                  ]
+                },
+                "basis": {
+                  "type": "string",
+                  "enum": [
+                    "SINGLE_PROPOSITION",
+                    "EXPLICIT_CONJUNCTION",
+                    "EXPLICIT_DIMENSIONS"
+                  ]
+                },
+                "explanation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "kind",
+                "basis",
+                "explanation"
+              ],
+              "additionalProperties": false
+            },
+            "targets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "anchorId": {
+                    "type": "string"
+                  },
+                  "proposition": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "anchorId",
+                  "proposition"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 8
+            },
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "publisher": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "authors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 0,
+                    "maxItems": 8
+                  },
+                  "sourceRole": {
+                    "type": "string",
+                    "enum": [
+                      "ANALYSIS",
+                      "REPORTING",
+                      "LEGAL",
+                      "RAW_DATA"
+                    ]
+                  },
+                  "stanceOwner": {
+                    "type": "string",
+                    "enum": [
+                      "AUTHOR",
+                      "THIRD_PARTY",
+                      "NONE",
+                      "UNDETERMINED"
+                    ]
+                  },
+                  "stanceHolder": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "findings": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "targetId": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "locator": {
+                          "type": "string"
+                        },
+                        "paraphrase": {
+                          "type": "string"
+                        },
+                        "attribution": {
+                          "type": "string",
+                          "enum": [
+                            "AUTHOR",
+                            "THIRD_PARTY",
+                            "DESCRIPTIVE"
+                          ]
+                        },
+                        "method": {
+                          "type": "string",
+                          "enum": [
+                            "DESCRIPTIVE",
+                            "ASSOCIATION",
+                            "CAUSAL_ESTIMATE",
+                            "PREDICTION",
+                            "ATTRIBUTED_ARGUMENT"
+                          ]
+                        },
+                        "scope": {
+                          "type": "object",
+                          "properties": {
+                            "outcome": {
+                              "type": "string"
+                            },
+                            "geography": {
+                              "type": "string"
+                            },
+                            "studyPeriod": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "policy": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "match": {
+                              "type": "string",
+                              "enum": [
+                                "MATCH",
+                                "PARTIAL",
+                                "OUT_OF_SCOPE",
+                                "UNCERTAIN"
+                              ]
+                            },
+                            "explanation": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "outcome",
+                            "geography",
+                            "studyPeriod",
+                            "policy",
+                            "match",
+                            "explanation"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "temporalRelation": {
+                          "type": "string",
+                          "enum": [
+                            "REQUESTED_PERIOD",
+                            "RETROSPECTIVE",
+                            "BACKGROUND",
+                            "UNKNOWN"
+                          ]
+                        },
+                        "relation": {
+                          "type": "string",
+                          "enum": [
+                            "SUPPORTS",
+                            "QUESTIONS",
+                            "CONTEXT"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "targetId",
+                        "quote",
+                        "locator",
+                        "paraphrase",
+                        "attribution",
+                        "method",
+                        "scope",
+                        "temporalRelation",
+                        "relation"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0,
+                    "maxItems": 4
+                  }
+                },
+                "required": [
+                  "url",
+                  "title",
+                  "publisher",
+                  "authors",
+                  "sourceRole",
+                  "stanceOwner",
+                  "stanceHolder",
+                  "findings"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 6
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0,
+              "maxItems": 12
+            },
+            "asOf": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "analysisTarget",
+            "decomposition",
+            "targets",
+            "sources",
+            "limitations",
+            "asOf"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "clarification": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string",
+              "enum": [
+                "MISSING_PERIOD",
+                "MISSING_SCOPE",
+                "AMBIGUOUS_REFERENCE",
+                "OTHER"
+              ]
+            }
+          },
+          "required": [
+            "question",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "research",
+    "clarification"
+  ],
+  "additionalProperties": false
+}

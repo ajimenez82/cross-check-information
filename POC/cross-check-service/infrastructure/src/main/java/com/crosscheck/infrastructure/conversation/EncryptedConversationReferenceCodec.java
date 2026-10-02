@@ -43,9 +43,11 @@ public final class EncryptedConversationReferenceCodec implements ConversationRe
         Objects.requireNonNull(reference);
         try {
             var header = new JWEHeader.Builder(JWEAlgorithm.DIR, EncryptionMethod.A256GCM).type(TYPE).build();
-            var payload = new Payload(Map.of("sessionId", reference.sessionId(),
+            var fields = new java.util.HashMap<String, Object>(Map.of("sessionId", reference.sessionId(),
                     "category", reference.category().name(), "agentRevision", reference.agentRevision(),
                     "expiresAt", reference.expiresAt().toString()));
+            if (reference.contextId() != null) fields.put("contextId", reference.contextId());
+            var payload = new Payload(fields);
             var token = new JWEObject(header, payload);
             token.encrypt(new DirectEncrypter(key));
             String serialized = token.serialize();
@@ -81,13 +83,14 @@ public final class EncryptedConversationReferenceCodec implements ConversationRe
             }
             token.decrypt(new DirectDecrypter(key));
             var payload = token.getPayload().toJSONObject();
-            if (payload == null || !payload.keySet().equals(
-                    Set.of("sessionId", "category", "agentRevision", "expiresAt"))) {
+            if (payload == null || !(payload.keySet().equals(Set.of("sessionId", "category", "agentRevision", "expiresAt"))
+                    || payload.keySet().equals(Set.of("sessionId", "category", "agentRevision", "expiresAt", "contextId")))) {
                 throw new IllegalArgumentException();
             }
             reference = new ConversationReference((String) payload.get("sessionId"),
                     AnalysisCategory.valueOf((String) payload.get("category")),
-                    (String) payload.get("agentRevision"), Instant.parse((String) payload.get("expiresAt")));
+                    (String) payload.get("agentRevision"), Instant.parse((String) payload.get("expiresAt")),
+                    (String) payload.get("contextId"));
         } catch (Exception exception) {
             throw new InvalidConversationReferenceException();
         }

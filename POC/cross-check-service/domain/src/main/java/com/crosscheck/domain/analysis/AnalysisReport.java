@@ -9,7 +9,12 @@ import java.util.Set;
 public record AnalysisReport(String title, String context, String summary, List<String> summarySourceIds,
                              Verdict verdict, List<Evidence> sources,
                              PublicationPositions publicationPositions, List<String> limitations,
-                             LocalDate asOf) {
+                             LocalDate asOf, ClaimAnalysis claimAnalysis) {
+    public AnalysisReport(String title, String context, String summary, List<String> summarySourceIds,
+            Verdict verdict, List<Evidence> sources, PublicationPositions publicationPositions,
+            List<String> limitations, LocalDate asOf) {
+        this(title, context, summary, summarySourceIds, verdict, sources, publicationPositions, limitations, asOf, null);
+    }
     public AnalysisReport {
         title = ReportChecks.text(title, "title");
         context = ReportChecks.text(context, "context");
@@ -26,6 +31,17 @@ public record AnalysisReport(String title, String context, String summary, List<
         }
         checkReferences(sourceIds, summarySourceIds);
         checkReferences(sourceIds, verdict.sourceIds());
+        if (claimAnalysis != null) {
+            ReportChecks.require(verdict.equals(claimAnalysis.aggregate()), "Global verdict differs from claim aggregation");
+            if (claimAnalysis.decomposition().kind() == ClaimAnalysis.Kind.MULTIPLE) {
+                ReportChecks.require(publicationPositions.availability() == ClassificationAvailability.UNAVAILABLE
+                        && publicationPositions.units().isEmpty() && publicationPositions.excluded().isEmpty(),
+                        "Multiple claims require an unavailable publication sample");
+            } else if (publicationPositions.availability() == ClassificationAvailability.AVAILABLE) {
+                ReportChecks.require(claimAnalysis.claims().getFirst().proposition().equals(publicationPositions.proposition()),
+                        "Publication sample must assess the same proposition");
+            }
+        }
 
         Set<String> unitIds = new HashSet<>();
         Set<String> classifiedSources = new HashSet<>();
@@ -38,10 +54,29 @@ public record AnalysisReport(String title, String context, String summary, List<
         }
         Set<String> excludedSources = new HashSet<>();
         for (var excluded : publicationPositions.excluded()) {
+            if (excluded.trace() != null) {
+                for (var argument : excluded.trace().arguments()) checkReferences(sourceIds, List.of(argument.sourceId()));
+            }
             checkReferences(sourceIds, List.of(excluded.sourceId()));
             ReportChecks.require(excludedSources.add(excluded.sourceId()), "Fuente excluida duplicada");
             ReportChecks.require(!classifiedSources.contains(excluded.sourceId()),
                     "Una fuente no puede estar clasificada y excluida");
+        }
+        var period = publicationPositions.period();
+        for (var source : sources) {
+            var publishedAt = source.publishedAt();
+            if (publishedAt == null) continue;
+            if (period != null && classifiedSources.contains(source.id())) {
+                ReportChecks.require(!publishedAt.isBefore(period.from()) && !publishedAt.isAfter(period.to()),
+                        "Publication date is outside the classified sample period");
+            }
+            // Editorial exclusion does not remove a source used as documentary evidence.
+            boolean usedAsEvidence = !excludedSources.contains(source.id())
+                    || summarySourceIds.contains(source.id()) || verdict.sourceIds().contains(source.id());
+            if (asOf != null && usedAsEvidence) {
+                ReportChecks.require(!publishedAt.isAfter(asOf),
+                        "Evidence publication date is after the evidence cutoff");
+            }
         }
     }
 

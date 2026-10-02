@@ -1,0 +1,262 @@
+{
+  "query": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España? Analiza el periodo 2023–2025 y contrasta publicaciones con distintas posiciones.",
+  "events": [
+    {
+      "method": "POST",
+      "http": 202,
+      "status": "QUEUED",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 3.007
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 6.747
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 8.148
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 12.135
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 16.139
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 20.155
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 24.153
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 28.148
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 32.141
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 36.165
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 40.15
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 44.138
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 48.147
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 52.146
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 56.16
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 60.144
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "COMPLETED",
+      "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+      "elapsedSeconds": 64.204
+    }
+  ],
+  "posts": 1,
+  "gets": 16,
+  "reloaded": true,
+  "terminal": {
+    "analysisId": "81a2eac9-9776-42e6-be25-a0984fd76982",
+    "status": "COMPLETED",
+    "createdAt": "2026-09-30T12:25:57.470035100Z",
+    "updatedAt": "2026-09-30T12:26:57.044524400Z",
+    "completedAt": "2026-09-30T12:26:57.092717900Z",
+    "expiresAt": "2026-10-01T12:25:57.470035100Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "Efecto de los límites al alquiler sobre la oferta en España",
+        "context": "Analizamos si la regulación estatal y autonómica de límites al precio del alquiler en España durante 2023–2025 reduce la oferta de vivienda en alquiler. La cuestión distingue entre la existencia de la norma y su efecto económico; también diferencia evidencia nacional de evidencia localizada en Cataluña y Barcelona, que solo sirve como apoyo parcial para una conclusión sobre toda España.",
+        "summary": "La evidencia encontrada apunta a que los límites al alquiler pueden reducir la oferta en las zonas donde se aplican, sobre todo Cataluña y Barcelona. Sin embargo, para afirmar ese efecto como conclusión general para toda España entre 2023 y 2025 falta evidencia nacional homogénea; por eso el dictamen global es INSUFFICIENT_EVIDENCE.",
+        "summarySourceIds": [
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "verdict": {
+          "status": "INSUFFICIENT_EVIDENCE",
+          "explanation": "La mejor evidencia disponible apunta a un efecto negativo sobre la oferta en las zonas reguladas, pero la pregunta nacional no queda cerrada porque los estudios más directos se concentran en Cataluña/Barcelona y el alcance a toda España sigue siendo limitado.",
+          "documentarySupport": "La evidencia identificada es consistente con una reducción de la oferta en Cataluña y Barcelona: un estudio empírico sobre la regulación catalana encuentra salida de viviendas sin entrada compensatoria, y un balance retrospectivo de 2026 para España/Cataluña informa de una caída de anuncios donde se aplica la ley. Pero esa evidencia es sobre todo territorialmente parcial y no basta para demostrar con seguridad el efecto en toda España durante todo 2023–2025.",
+          "sourceIds": [
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Ley 12/2023, de 24 de mayo, por el derecho a la vivienda",
+            "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2023-12203",
+            "publisher": "Boletín Oficial del Estado",
+            "publishedAt": "2023-05-24",
+            "consultedAt": null,
+            "contribution": "Ley estatal que fija el marco de los límites al alquiler en zonas tensionadas; sirve para definir la política, no para medir su efecto sobre la oferta.",
+            "type": "norma"
+          },
+          {
+            "id": "S2",
+            "title": "OECD Economic Surveys: Spain 2025",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/11/oecd-economic-surveys-spain-2025_cd5c7d04/abc5c435-en.pdf",
+            "publisher": "OECD",
+            "publishedAt": "2025-11-01",
+            "consultedAt": null,
+            "contribution": "Informe retrospectivo sobre España que cita evidencia de Barcelona y sostiene que los topes redujeron la oferta de alquiler con salida de viviendas o traslado a alquiler temporal.",
+            "type": "informe"
+          },
+          {
+            "id": "S3",
+            "title": "The Effect of Second-Generation Rent Controls: New Evidence from Catalonia",
+            "url": "https://www.frbsf.org/wp-content/uploads/wp2023-28.pdf",
+            "publisher": "Federal Reserve Bank of San Francisco",
+            "publishedAt": "2023-09-01",
+            "consultedAt": null,
+            "contribution": "Estudio empírico sobre Cataluña que encuentra que la política de control de rentas redujo precios y afectó a la oferta, con salida en la parte alta no compensada por entrada en la parte baja.",
+            "type": "working paper"
+          },
+          {
+            "id": "S4",
+            "title": "Presenting the results of the latest monitoring report on Barcelona’s ZMRT",
+            "url": "https://www.ohb.cat/en/presenting-the-results-of-the-latest-monitoring-report-on-barcelonas-zmrt/",
+            "publisher": "O-HB",
+            "publishedAt": "2025-10-30",
+            "consultedAt": null,
+            "contribution": "Seguimiento de Barcelona tras la entrada en vigor de la regulación en marzo de 2024; muestra estabilización del número de nuevos contratos y un balance positivo de contratos activos pese a tensiones de oferta.",
+            "type": "monitoring report"
+          },
+          {
+            "id": "S5",
+            "title": "La Ley 12/2023 por el derecho a la vivienda: un primer balance a partir de la aplicación desigual del control de rentas en España",
+            "url": "https://documentos.fedea.net/documento/ap2026-15/texto",
+            "publisher": "FEDEA",
+            "publishedAt": "2026-09-29",
+            "consultedAt": null,
+            "contribution": "Balance retrospectivo y descriptivo sobre la aplicación desigual del control de rentas en España; informa de caída de anuncios en Barcelona y Cataluña y compara con territorios no regulados.",
+            "type": "documento de trabajo"
+          }
+        ],
+        "publicationPositions": {
+          "availability": "UNAVAILABLE",
+          "reason": "No se produce una distribución de posiciones publicables comparable para toda España porque las piezas relevantes son mayoritariamente sobre Cataluña/Barcelona o son descriptivas y, por alcance, no constituyen una muestra homogénea que permita contar posiciones nacionales sobre la proposición completa.",
+          "proposition": null,
+          "period": null,
+          "consultedAt": null,
+          "selectionCriteria": null,
+          "units": [],
+          "excluded": []
+        },
+        "limitations": [
+          "La evidencia empírica más sólida encontrada se concentra en Cataluña y Barcelona, no en todo el territorio español.",
+          "Algunas piezas son retrospectivas o descriptivas y no estimaciones causales puras.",
+          "No se dispone de una serie homogénea 2023–2025 para toda España que aísle únicamente el efecto de los límites de precio.",
+          "La normativa estatal fija el marco, pero por sí sola no prueba el efecto sobre cantidades."
+        ],
+        "analyzedAt": "2026-09-30T12:26:57.044524400Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "Analizamos si los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023–2025.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La pregunta formula una única proposición causal sobre el efecto de los límites al alquiler en la oferta de vivienda en alquiler en España dentro del periodo 2023–2025."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "¿Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España? Analiza el periodo 2023–2025 y contrasta publicaciones con distintas posiciones.",
+              "proposition": "Los límites al precio del alquiler reducen la oferta de vivienda en alquiler en España durante 2023–2025.",
+              "verdict": {
+                "status": "INSUFFICIENT_EVIDENCE",
+                "explanation": "La mejor evidencia disponible apunta a un efecto negativo sobre la oferta en las zonas reguladas, pero la pregunta nacional no queda cerrada porque los estudios más directos se concentran en Cataluña/Barcelona y el alcance a toda España sigue siendo limitado.",
+                "documentarySupport": "La evidencia identificada es consistente con una reducción de la oferta en Cataluña y Barcelona: un estudio empírico sobre la regulación catalana encuentra salida de viviendas sin entrada compensatoria, y un balance retrospectivo de 2026 para España/Cataluña informa de una caída de anuncios donde se aplica la ley. Pero esa evidencia es sobre todo territorialmente parcial y no basta para demostrar con seguridad el efecto en toda España durante todo 2023–2025.",
+                "sourceIds": [
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  },
+  "elapsedSeconds": 64.847,
+  "success": true,
+  "persistedAfterCompletion": true
+}

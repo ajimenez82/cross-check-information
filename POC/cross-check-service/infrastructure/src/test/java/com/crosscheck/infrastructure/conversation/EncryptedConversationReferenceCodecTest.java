@@ -37,6 +37,15 @@ class EncryptedConversationReferenceCodecTest {
         assertThrows(InvalidConversationReferenceException.class, () -> codec(newSecret(), clock).decode(token));
     }
 
+    @Test void contextIdentifierIsAuthenticatedWithoutEmbeddingConversationText() {
+        var reference = new ConversationReference("session-context", AnalysisCategory.POLITICAL_ANALYSIS,
+                "political-v3-test", NOW.plusSeconds(60), UUID.randomUUID().toString());
+        var token = codec.encode(reference);
+        assertEquals(reference, codec.decode(token));
+        assertFalse(token.contains(reference.contextId()));
+        assertThrows(InvalidConversationReferenceException.class, () -> codec(newSecret(), clock).decode(token));
+    }
+
     @Test
     void changingProtectedHeaderIvCiphertextOrTagIsRejected() {
         String token = codec.encode(reference(NOW.plusSeconds(3600)));

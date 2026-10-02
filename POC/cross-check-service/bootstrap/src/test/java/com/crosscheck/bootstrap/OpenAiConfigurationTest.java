@@ -39,10 +39,16 @@ class OpenAiConfigurationTest {
         runner("dev", "openai").run(context -> assertNotNull(context.getStartupFailure()));
     }
 
+    @Test void evidencePipelineRequiresDurableAsyncJobs() {
+        runner("openai").withPropertyValues("crosscheck.openai.evidence-pipeline-enabled=true", "crosscheck.analysis.jobs.enabled=false")
+                .run(context -> assertNotNull(context.getStartupFailure()));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"OPENAI_API_KEY=", "crosscheck.openai.political-analysis-agent-id=", "crosscheck.openai.timeout=PT0S",
             "crosscheck.openai.timeout=PT6M", "crosscheck.openai.poll-interval=PT0S",
-            "crosscheck.openai.poll-interval=PT90S", "crosscheck.openai.max-concurrent-requests=0"})
+            "crosscheck.openai.poll-interval=PT90S", "crosscheck.openai.max-concurrent-requests=0",
+            "crosscheck.openai.report-schema-version=0", "crosscheck.openai.report-schema-version=4"})
     void rejectsIncompleteOrInvalidConfiguration(String property) {
         runner("openai").withPropertyValues(property).run(context -> assertNotNull(context.getStartupFailure()));
     }

@@ -1,3 +1,4 @@
+// Historical synchronous-transport checks. For the current frontend run verify-async.cjs.
 // Browser integration checks; no extra project dependency is required.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');

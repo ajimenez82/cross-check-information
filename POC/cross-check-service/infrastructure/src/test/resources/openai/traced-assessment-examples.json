@@ -1,0 +1,167 @@
+{
+  "notice": "Synthetic review examples; not model outputs. Each case uses its own fictional S1 source. Not the active API contract.",
+  "cases": [
+    {
+      "id": "U1",
+      "sourceIds": [
+        "S1"
+      ],
+      "position": "SUPPORTS",
+      "explanation": "El autor sostiene el efecto sobre la oferta delimitada.",
+      "decision": "COUNT",
+      "trace": {
+        "stanceOwner": "AUTHOR",
+        "stanceHolder": "Autor del análisis",
+        "scope": {
+          "outcome": "Oferta de vivienda en alquiler habitual",
+          "geography": "España",
+          "studyPeriod": "2023–2025",
+          "policy": "Límites al precio del alquiler",
+          "match": "MATCH",
+          "explanation": "La pieza analiza expresamente la proposición delimitada."
+        },
+        "temporalRelation": "REQUESTED_PERIOD",
+        "arguments": [
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 1 del texto ficticio",
+            "paraphrase": "El autor atribuye a los límites una reducción de viviendas disponibles durante 2023–2025.",
+            "attribution": "AUTHOR",
+            "relation": "SUPPORTS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "U2",
+      "sourceIds": [
+        "S1"
+      ],
+      "position": "QUESTIONS",
+      "explanation": "El análisis retrospectivo cuestiona el efecto en el periodo solicitado.",
+      "decision": "COUNT",
+      "trace": {
+        "stanceOwner": "AUTHOR",
+        "stanceHolder": "Autor del análisis",
+        "scope": {
+          "outcome": "Oferta de vivienda en alquiler habitual",
+          "geography": "España",
+          "studyPeriod": "2023–2025",
+          "policy": "Límites al precio del alquiler",
+          "match": "MATCH",
+          "explanation": "La pieza analiza expresamente la proposición delimitada."
+        },
+        "temporalRelation": "RETROSPECTIVE",
+        "arguments": [
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 1 del texto ficticio",
+            "paraphrase": "El autor analiza en 2026 datos de 2023–2025 y no encuentra una reducción atribuible a la medida.",
+            "attribution": "AUTHOR",
+            "relation": "QUESTIONS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "U3",
+      "sourceIds": [
+        "S1"
+      ],
+      "position": "MIXED",
+      "explanation": "El autor formula argumentos propios en ambas direcciones sin resolverlos.",
+      "decision": "COUNT",
+      "trace": {
+        "stanceOwner": "AUTHOR",
+        "stanceHolder": "Autor del análisis",
+        "scope": {
+          "outcome": "Oferta de vivienda en alquiler habitual",
+          "geography": "España",
+          "studyPeriod": "2023–2025",
+          "policy": "Límites al precio del alquiler",
+          "match": "MATCH",
+          "explanation": "La pieza analiza expresamente la proposición delimitada."
+        },
+        "temporalRelation": "REQUESTED_PERIOD",
+        "arguments": [
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 1 del texto ficticio",
+            "paraphrase": "El autor considera que la retirada de viviendas apoya una reducción atribuible a la medida.",
+            "attribution": "AUTHOR",
+            "relation": "SUPPORTS"
+          },
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 2 del texto ficticio",
+            "paraphrase": "El autor también señala que la incorporación de viviendas contradice ese efecto neto en el mismo periodo y mercado.",
+            "attribution": "AUTHOR",
+            "relation": "QUESTIONS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "U4",
+      "sourceIds": [
+        "S1"
+      ],
+      "position": "NO_EXPLICIT_POSITION",
+      "explanation": "La noticia recoge la postura de una asociación, sin adoptar una propia.",
+      "decision": "COUNT",
+      "trace": {
+        "stanceOwner": "THIRD_PARTY",
+        "stanceHolder": "Asociación citada",
+        "scope": {
+          "outcome": "Oferta de vivienda en alquiler habitual",
+          "geography": "España",
+          "studyPeriod": "2023–2025",
+          "policy": "Límites al precio del alquiler",
+          "match": "MATCH",
+          "explanation": "La pieza analiza expresamente la proposición delimitada."
+        },
+        "temporalRelation": "REQUESTED_PERIOD",
+        "arguments": [
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 1 del texto ficticio",
+            "paraphrase": "La noticia atribuye a una asociación una caída de oferta, sin concluir que esa afirmación sea correcta.",
+            "attribution": "THIRD_PARTY",
+            "relation": "SUPPORTS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "U5",
+      "sourceIds": [
+        "S1"
+      ],
+      "position": null,
+      "explanation": "Se excluye de la muestra: solo estudia la regulación de 2020–2022.",
+      "decision": "EXCLUDE",
+      "trace": {
+        "stanceOwner": "AUTHOR",
+        "stanceHolder": "Autor del análisis",
+        "scope": {
+          "outcome": "Oferta de vivienda en alquiler habitual",
+          "geography": "Cataluña",
+          "studyPeriod": "2020–2022",
+          "policy": "Regulación catalana anterior",
+          "match": "OUT_OF_SCOPE",
+          "explanation": "La pieza estudia una política anterior, sin evaluar el periodo solicitado."
+        },
+        "temporalRelation": "BACKGROUND",
+        "arguments": [
+          {
+            "sourceId": "S1",
+            "locator": "Párrafo 1 del texto ficticio",
+            "paraphrase": "El estudio trata exclusivamente los efectos de una regulación anterior en 2020–2022.",
+            "attribution": "AUTHOR",
+            "relation": "CONTEXT"
+          }
+        ]
+      }
+    }
+  ]
+}
