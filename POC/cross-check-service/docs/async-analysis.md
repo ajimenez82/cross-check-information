@@ -1,13 +1,5 @@
 # Trabajos de análisis asíncronos
 
-## Actualización political-v11 — 01/10/2026
-
-El proveedor de evidencia ejecuta RESEARCH, CAPTURE y SYNTHESIS dentro del mismo trabajo. Persiste el expediente, la etapa, la huella de entrada y el historial de sesiones, turnos y uso. NEXT_STAGE conserva el punto previo al siguiente envío; la reconciliación evita repetir un envío ambiguo. CAPTURE procesa una fuente por paso y SYNTHESIS usa otra sesión remota. La conversación lógica conserva su identidad y sus reservas entre etapas.
-
-El plazo total sigue siendo diez minutos: no se reinicia por etapa. Una interrupción prolongada puede caducar el trabajo aunque OpenAI haya terminado. La retención purga también el expediente; el estado HTTP no expone sus textos ni IDs remotos. `OPENAI_EVIDENCE_PIPELINE_ENABLED` requiere async activo. La publicación v11 sí actualizó el agente remoto y la configuración local; las notas inferiores sobre no modificarlos pertenecen a la entrega anterior.
-
-La prueba real v11 falló; no debe confundirse con la prueba asíncrona anterior satisfactoria. [Diagnóstico completo](openai/political-v11-live-review.md).
-
 Fases 2 y 3 implementadas, 29/09/2026. API asíncrona activada por defecto y frontend integrado. Validación offline completada y primera prueba real correcta el 30/09/2026; véase la revisión enlazada al final.
 El diseño y los criterios de aceptación están en `Docs/propuesta-entrega-asincrona.md`.
 

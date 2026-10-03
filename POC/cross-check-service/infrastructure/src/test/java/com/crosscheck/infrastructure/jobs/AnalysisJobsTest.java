@@ -48,6 +48,30 @@ class AnalysisJobsTest {
         worker.tick();assertEquals(RUNNING,jobs.get(id,credential).status());
         reopen();assertEquals(COMPLETED,finish(id).status());assertEquals(1,remote.submissions);
     }
+
+    @Test void oldCaptureJobIsRetiredWithoutSubmittingNewInference() {
+        var id=create().analysisId();
+        store.transact(tx -> {var job=tx.find(id);job.providerIdentity="openai-evidence:old:1";
+            job.status=RUNNING;job.stage="CAPTURE";job.phase=AnalysisJob.Phase.POLL;job.reserved=true;
+            job.deadline=clock.instant().plusSeconds(60);tx.save(job);return null;});
+        worker.tick();
+        assertEquals(FAILED,jobs.get(id,credential).status());
+        assertEquals("ANALYSIS_REVISION_UNAVAILABLE",jobs.get(id,credential).error().code());
+        assertFalse(store.<Boolean>transact(tx->tx.find(id).reserved));
+        assertEquals(0,remote.submissions);
+    }
+
+    @Test void previousRevisionInFlightIsReconciledWithoutResubmission() {
+        remote.initialSubmission=true;
+        var id=create().analysisId();worker.tick();
+        store.transact(tx -> {var job=tx.find(id);job.providerIdentity="previous-revision";tx.save(job);return null;});
+        step(3);
+        assertEquals(FAILED,jobs.get(id,credential).status());
+        assertEquals("UNKNOWN",jobs.get(id,credential).error().executionState());
+        step(60);
+        assertFalse(store.<Boolean>transact(tx->tx.find(id).reserved));
+        assertEquals(1,remote.submissions);
+    }
     @Test void lostInitialSessionResponseRecoversWithoutSubmittingAnEvent() {
         remote.initialSubmission=true;remote.loseResponse=true;
         var id=create().analysisId();worker.tick();assertEquals(RECOVERING,jobs.get(id,credential).status());

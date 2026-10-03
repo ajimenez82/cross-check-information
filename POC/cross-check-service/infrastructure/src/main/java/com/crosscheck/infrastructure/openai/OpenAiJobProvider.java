@@ -26,7 +26,7 @@ final class OpenAiJobProvider implements JobProvider {
     public Remote prepare(AnalysisJob job) {
         long end=deadline(job);
         if (job.sessionId==null) {
-            var session=transport.request("agents/sessions",Map.of("agent_id",agentId,"environment",Map.of("type","none"),
+            var session=transport.request("agents/sessions",Map.of("agent_id",agentId,"agent",UnifiedAgentConfiguration.value(),"environment",Map.of("type","none"),
                     "metadata",Map.of("crosscheck_job",job.id),"input",inputText(job),"stream",false),end,false,false,"crosscheck-"+job.id);
             return new Remote(id(session,"id"),null);
         }
@@ -76,6 +76,7 @@ final class OpenAiJobProvider implements JobProvider {
         if (sessionId==null) {
             var matches=pages("agents/sessions?order=desc&limit=100",end).stream()
                     .filter(x -> job.id.equals(x.path("metadata").path("crosscheck_job").asString())
+                            && (job.stage==null || job.stage.equals(x.path("metadata").path("crosscheck_stage").asString()))
                             && agentId.equals(x.path("agent").path("id").asString())).toList();
             if(matches.size()!=1) return Observation.pending(null,null);
             sessionId=id(matches.getFirst(),"id");

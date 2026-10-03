@@ -80,11 +80,6 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
         return new OpenAiJobProvider(transport, agentId, revision, this);
     }
 
-    public com.crosscheck.application.features.analysis.jobs.JobProvider evidenceJobProvider(String revision, java.time.Clock clock) {
-        if (reportSchemaVersion != 3) throw new IllegalArgumentException("Evidence pipeline requires public schema version 3");
-        return new OpenAiEvidenceJobProvider(transport, this, new com.crosscheck.infrastructure.evidence.PublicSourceCapture(clock), agentId, revision);
-    }
-
     @Override
     public AiAnalysisTurn analyze(AiAnalysisInput input) {
         long started = System.nanoTime();
@@ -129,8 +124,12 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
             requestText = MAPPER.writeValueAsString(envelope);
         }
         if (sessionId == null) {
-            var session = transport.request("agents/sessions", Map.of("agent_id", agentId,
-                    "environment", Map.of("type", "none"), "input", requestText, "stream", false),
+            var configuration = new java.util.LinkedHashMap<String,Object>();
+            configuration.put("agent_id",agentId);
+            configuration.put("environment",Map.of("type","none"));
+            configuration.put("input",requestText);configuration.put("stream",false);
+            if (reportSchemaVersion == 3) configuration.put("agent",UnifiedAgentConfiguration.value());
+            var session = transport.request("agents/sessions", configuration,
                     deadline, false, false);
             sessionId = id(session, "id");
         } else {

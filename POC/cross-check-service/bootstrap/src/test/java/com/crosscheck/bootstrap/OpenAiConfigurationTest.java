@@ -39,10 +39,6 @@ class OpenAiConfigurationTest {
         runner("dev", "openai").run(context -> assertNotNull(context.getStartupFailure()));
     }
 
-    @Test void evidencePipelineRequiresDurableAsyncJobs() {
-        runner("openai").withPropertyValues("crosscheck.openai.evidence-pipeline-enabled=true", "crosscheck.analysis.jobs.enabled=false")
-                .run(context -> assertNotNull(context.getStartupFailure()));
-    }
 
     @ParameterizedTest
     @ValueSource(strings = {"OPENAI_API_KEY=", "crosscheck.openai.political-analysis-agent-id=", "crosscheck.openai.timeout=PT0S",

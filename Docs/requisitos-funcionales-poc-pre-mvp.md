@@ -1,18 +1,18 @@
+## Actualización 03/10/2026 — political-v17
+
+La investigación de publicaciones es central incluso sin resolución oficial. Para controversias ampliamente cubiertas se busca una muestra de 8–12 publicaciones de al menos cinco medios, incluyendo información, investigación, análisis y opinión de prensa y televisión, con límites de acceso declarados y sin cuotas artificiales. Una noticia sin postura propia no se excluye por ese motivo. Para una afirmación con evidencia factual insuficiente, el predominio único de respaldo o cuestionamiento determina el veredicto final SUPPORTED_BY_PUBLICATIONS o QUESTIONED_BY_PUBLICATIONS. Se mantienen las reglas de empate, posiciones mixtas o sin posición y la limitación actual para múltiples afirmaciones. Java conserva el contrato y el cálculo existentes; no vuelve a verificar fuentes.
+
 # Requisitos y funcionalidad — PoC inicial (pre-MVP)
 
-Actualización political-v15: una publicación sin postura explícita puede contar si tiene hallazgos aceptados y cumple alcance, periodo y demás criterios editoriales. No se exige causalidad demostrada ni postura propia como condición general. La aplicación suministra esta explicación en los criterios de selección, sin códigos internos. [Pruebas](../POC/cross-check-service/docs/openai/political-v15-review.md).
+## Flujo vigente — 02/10/2026
 
-Actualización political-v14: explicaciones en español sin códigos internos; documentos inaccesibles identificados como localizados, no verificados. La ausencia de causalidad no basta para excluir una postura editorial. Se mantienen los criterios de alcance, periodo, atribución y tipo de fuente. [Implementación y límites](../POC/cross-check-service/docs/openai/political-v14-review.md).
+Una ejecución del agente OpenAI investiga y devuelve el informe completo. Java valida el contrato y las referencias internas, persiste el trabajo y entrega el informe al frontend. No descarga páginas o PDFs, no coteja citas, no confirma fechas documentalmente y no elimina fuentes por accesibilidad local. La IA es la autoridad del contenido, no una garantía de verdad factual.
 
-Actualización political-v13: la síntesis debe explicar siempre el resultado de la muestra de publicaciones, incluido por qué ninguna cuenta si todas quedan excluidas. No se sustituye esa explicación por texto generado automáticamente en Java. La síntesis real sobre evidencia guardada pasó con INSUFFICIENT_EVIDENCE y cero publicaciones contables; quedan aspectos editoriales y semánticos por revisar. [Contrato y pruebas](../POC/cross-check-service/docs/openai/political-v13-review.md).
+Se mantienen los trabajos asíncronos, la recuperación tras recarga, las conversaciones y el contrato público v3. Las agrupaciones y porcentajes siguen siendo cálculos mecánicos del contrato sobre las valoraciones devueltas por la IA. El modo dev no cambia. La comprobación documental independiente y su expediente intermedio se han retirado, junto con sus pruebas, revisiones y capturas de prueba.
 
-Actualización political-v12 (01/10/2026): las publicaciones sin hallazgos aceptados no reciben valoraciones de postura. Las fuentes de contexto fuera del periodo pueden citarse en el análisis, pero quedan excluidas del porcentaje; NO_EXPLICIT_POSITION no elimina ese requisito. Las referencias de síntesis son IDs de hallazgos, no de fuentes. [Validación offline y límites](../POC/cross-check-service/docs/openai/political-v12-review.md).
+Configuración activa: political-v16. Instrucciones y esquema en `POC/cross-check-service/infrastructure/src/main/resources/openai/unified`. Los trabajos de otra revisión no se reenvían; los completados se conservan y los envíos remotos pendientes se reconcilian. [Guía vigente](../POC/cross-check-service/docs/openai/unified-analysis.md).
 
-## Actualización implementada — 01/10/2026
-
-El análisis político realiza investigación, captura independiente y síntesis por etapas. Solo los fragmentos encontrados en los documentos capturados se convierten en hallazgos; documentos inaccesibles quedan como limitación. Una URL exacta repetida no aporta votos duplicados. La síntesis no puede crear fuentes ni fechas y debe referenciar los IDs aceptados. Se mantienen las valoraciones acordadas y la ubicación del posicionamiento de publicaciones en la interfaz.
-
-Una fuente de contexto fuera del periodo elegible no se cuenta como postura, aunque no tenga posición explícita. Sin hallazgos aceptados se devuelve un fallo técnico antes de sintetizar; una salida inválida tampoco se presenta como «evidencia insuficiente». **La prueba real v11 no está aprobada:** el proveedor incumplió esas restricciones y el servicio rechazó su respuesta. [Resultado y límites](../POC/cross-check-service/docs/openai/political-v11-live-review.md). Las comprobaciones textuales no sustituyen la evaluación semántica.
+## Especificación funcional y arquitectura conservadas
 
 - **Versión:** 1.2
 - **Fecha:** 16 de septiembre de 2026
@@ -754,31 +754,3 @@ No cambian el agente, el modelo ni las instrucciones. La prueba no superó 90 s 
 una caída de Java; esos escenarios permanecen verificados localmente.
 
 [Informe y captura](../POC/cross-check-service/docs/openai/async-live-review.md).
-
-
-## Revisión local de fuentes — candidata political-v10 (30/09/2026)
-
-La [auditoría de las cinco fuentes](auditoria-fuentes-informe-2026-09-30.md) detectó problemas de fechas, periodo estudiado, indicadores y uso de citas en la síntesis. Se han preparado instrucciones locales para comprobar esos aspectos y separar la postura de una publicación de la suficiencia de sus pruebas. Se conservan los requisitos de elegibilidad COUNT y el contrato v3.
-
-La propuesta distingue una muestra SINGLE evaluada sin publicaciones contables (AVAILABLE con exclusiones) de una evaluación que no pudo realizarse (UNAVAILABLE). Mantiene la regla de MULTIPLE y no modifica la disposición del frontend ni los veredictos existentes.
-
-Estado: candidata local, no publicada; la revisión activa continúa en political-v9. Véanse los [cambios y validación](../POC/cross-check-service/docs/openai/political-v10-review.md) y los [16 casos semánticos pendientes](../POC/cross-check-service/docs/openai/political-v10-source-review-cases.md). Las 39 comprobaciones estructurales superadas no demuestran todavía cumplimiento semántico del modelo.
-
-
-## Publicación y prueba de political-v10 (30/09/2026)
-
-Political-v10 ya está publicada; la configuración remota y las instrucciones de la sesión ejecutada coinciden con la versión local. El perfil, ejemplo y configuración local utilizan esa revisión. La única consulta real autorizada terminó en INVALID_ANALYSIS_OUTPUT: el agente reformuló el anclaje que debía copiar literalmente. El rechazo se reprodujo offline. También se detectaron referencias de fuentes cruzadas, dos fechas erróneas y una clasificación de postura no suficientemente justificada. No se considera resuelta la calidad de fuentes.
-
-OpenAiApiTest: 3 pruebas superadas y 2 opcionales omitidas. Los 16 casos sintéticos siguen pendientes. No hubo segunda inferencia ni relajación de validadores. [Ejecución, evidencia y siguiente fase propuesta](../POC/cross-check-service/docs/openai/political-v10-live-review.md).
-
-
-## Diseño pendiente: evidencia por fuente antes de síntesis
-
-Se ha preparado una [propuesta de extracción y validación por fuente](propuesta-extraccion-evidencia-por-fuente.md), con expediente interno, referencias estables, límites de verificación y recuperación asíncrona por etapas. Es un diseño para revisión: no cambia todavía el contrato público v3, la UI ni el agente political-v10. La implementación y cualquier nueva prueba de pago pertenecen a fases posteriores.
-
-
-## Expediente de evidencia: contrato offline implementado
-
-Se incorpora el contrato interno v1 EvidenceDossier y la proyección de fuentes/referencias EvidenceAssembler. Valida anclajes literales, identidad de referencias, coincidencia de fragmentos con capturas, precisión y revisión de fechas. La suite de dominio supera 56 pruebas, incluidas 15 nuevas, sin omisiones. EV01 tiene regresión automática; EV02 tiene comprobaciones estructurales; EV03/EV04 utilizan metadatos de prueba revisados. EV05 continúa pendiente de revisión semántica.
-
-No hay adquisición de documentos, persistencia del expediente ni integración con OpenAI todavía. El frontend, contrato público v3 y agente political-v10 no cambian. [Implementación, garantías y límites](../POC/cross-check-service/docs/evidence-dossier.md).

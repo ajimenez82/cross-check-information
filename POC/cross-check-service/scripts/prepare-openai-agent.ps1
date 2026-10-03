@@ -7,6 +7,10 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+if ($SchemaVersion -eq 3) {
+    & (Join-Path $PSScriptRoot 'prepare-unified-agent.ps1') -Model $Model
+    return
+}
 $serviceDirectory = Split-Path -Parent $PSScriptRoot
 $definitionPath = Join-Path $serviceDirectory 'docs/openai/political-agent.template.json'
 $instructionsPath = Join-Path $serviceDirectory 'docs/openai/political-analysis-instructions.md'

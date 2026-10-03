@@ -85,18 +85,8 @@ assert response_schema["properties"]["analysis"]["anyOf"][0] == version_three
 print("PASS: v3 template matches the response schema, inner report and existing agent settings")
 
 
-for stage in ("research", "synthesis"):
-    schema = read(service / f"infrastructure/src/main/resources/openai/evidence/{stage}.schema.json")
-    Draft202012Validator.check_schema(schema)
-    Draft202012Validator(schema).validate(read(service / f"infrastructure/src/test/resources/openai/evidence/{stage}.json"))
-print("PASS: research and synthesis schemas and offline examples; no inference executed")
-
-synthesis_validator = Draft202012Validator(read(service / "infrastructure/src/main/resources/openai/evidence/synthesis.schema.json"))
-for reason in (None, "", "   ", "\n\t"):
-    invalid = read(service / "infrastructure/src/test/resources/openai/evidence/synthesis.json")
-    invalid["publicationPositions"]["reason"] = reason
-    assert not synthesis_validator.is_valid(invalid), "Synthesis reason must contain non-whitespace text"
-invalid = read(service / "infrastructure/src/test/resources/openai/evidence/synthesis.json")
-del invalid["publicationPositions"]["reason"]
-assert not synthesis_validator.is_valid(invalid), "Synthesis reason is mandatory"
-print("PASS: synthesis rejects missing, null, empty and whitespace-only reasons")
+unified_schema = read(service / "infrastructure/src/main/resources/openai/unified/response.schema.json")
+Draft202012Validator.check_schema(unified_schema)
+for name in ('political-response-v3.example.json', 'political-clarification-v3.example.json'):
+    Draft202012Validator(unified_schema).validate(read(workspace / 'Docs/proposals' / name))
+print("PASS: unified response and clarification; no inference executed")

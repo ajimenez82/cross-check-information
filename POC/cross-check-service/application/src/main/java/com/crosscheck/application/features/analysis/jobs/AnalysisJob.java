@@ -13,6 +13,7 @@ public final class AnalysisJob {
     public Phase phase;
     public Instant createdAt, updatedAt, completedAt, expiresAt, deadline, nextPollAt, leaseUntil;
     public String sessionId, previousTurnId, turnId, leaseOwner, remoteInputHash;
+    // Legacy fields remain readable until existing stored jobs expire; no new staged executions are created.
     public String stage, stagePayload, conversationSessionId, stageUsage;
     public java.util.List<StageRecord> stages = new java.util.ArrayList<>();
     public record StageRecord(String stage, String sessionId, String turnId, String inputHash, Instant completedAt, String usage) {}

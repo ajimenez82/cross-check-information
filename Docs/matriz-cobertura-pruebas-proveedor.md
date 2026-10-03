@@ -1,16 +1,8 @@
 # Matriz de cobertura de pruebas del proveedor
 
-Actualización political-v15: 342 pruebas registradas, 340 superadas y dos omitidas. Regresiones para criterio público controlado por Java y admisión de publicaciones elegibles sin postura propia; respuesta real v14 reensamblada offline sin inferencia. [Detalle](../POC/cross-check-service/docs/openai/political-v15-review.md).
+Estado vigente: flujo unificado political-v16. Se conserva la cobertura de contratos, trabajos asíncronos, contextos, seguridad y frontend; se retira la suite de adquisición documental y expediente. Nuevas comprobaciones verifican configuración de una sola ejecución y cierre/reconciliación de trabajos de revisiones anteriores. [Resultados actuales](../POC/cross-check-service/docs/openai/unified-analysis.md).
 
-Actualización political-v14: 340 pruebas registradas, 338 superadas y dos omitidas. Regresión para evitar publicación automática de impresiones de investigación no verificadas e identificación de documentos omitidos. El cumplimiento editorial del modelo queda pendiente de prueba real. [Detalle](../POC/cross-check-service/docs/openai/political-v14-review.md).
-
-Actualización political-v13: 339 pruebas registradas, 337 superadas y dos omitidas. Regresión Java y pruebas de esquema para explicación obligatoria, no nula ni vacía; no se ha repetido inferencia. [Detalle](../POC/cross-check-service/docs/openai/political-v13-review.md).
-
-Actualización political-v12: 338 pruebas registradas, 336 superadas y dos omitidas. Tres nuevas regresiones cubren candidatos inaccesibles, exclusión temporal con evidencia citable e IDs elegibles. Se revisó el expediente real guardado sin otra inferencia; no equivale a aceptación real del modelo. [Detalle](../POC/cross-check-service/docs/openai/political-v12-review.md).
-
-## Actualización political-v11 — 01/10/2026
-
-Suite completa: 335 pruebas registradas, 333 superadas, dos opcionales omitidas y cero fallos. Navegador independiente: 16 escenarios offline superados. Se añaden pruebas de expediente, adquisición HTML/PDF, límites de red, fechas, ensamblado, duplicados y recuperación por etapas. La ejecución real tuvo una investigación y una síntesis; terminó INVALID_ANALYSIS_OUTPUT por periodo y referencias inválidas. No se considera cubierta la calidad semántica de todas las respuestas ni aprobada la aceptación real. [Detalle](../POC/cross-check-service/docs/openai/political-v11-live-review.md).
+## Cobertura del contrato conservado
 
 Fecha de revisión: 26/09/2026.
 
@@ -200,25 +192,3 @@ en unos 65 s con recarga en RUNNING y conservación tras una recarga final. Cinc
 una afirmación y valoración declarada INSUFFICIENT_EVIDENCE; no constituye verificación
 factual. No demuestra duración real superior a 90 s ni caída real de Java durante inferencia.
 [Informe completo](../POC/cross-check-service/docs/openai/async-live-review.md).
-
-
-## Candidata political-v10: fuentes y síntesis (30/09/2026)
-
-- Preparación local del agente y comparación exacta del JSON generado con la plantilla y las instrucciones: correctas.
-- Validación offline con jsonschema 4.26.0: 36 comprobaciones existentes y 3 adicionales de respuesta v3 superadas; plantilla y contratos coincidentes.
-- [SR-01 a SR-16: evaluación semántica](../POC/cross-check-service/docs/openai/political-v10-source-review-cases.md): NOT_RUN. Son escenarios sintéticos y criterios de revisión, no pruebas automáticas ejecutadas ni resultados del modelo.
-- No se ha publicado la candidata, cambiado la revisión activa o realizado inferencia de pago. La mejora de exactitud y posicionamiento queda pendiente de evaluar.
-
-
-## Publicación y prueba de political-v10 (30/09/2026)
-
-Political-v10 ya está publicada; la configuración remota y las instrucciones de la sesión ejecutada coinciden con la versión local. El perfil, ejemplo y configuración local utilizan esa revisión. La única consulta real autorizada terminó en INVALID_ANALYSIS_OUTPUT: el agente reformuló el anclaje que debía copiar literalmente. El rechazo se reprodujo offline. También se detectaron referencias de fuentes cruzadas, dos fechas erróneas y una clasificación de postura no suficientemente justificada. No se considera resuelta la calidad de fuentes.
-
-OpenAiApiTest: 3 pruebas superadas y 2 opcionales omitidas. Los 16 casos sintéticos siguen pendientes. No hubo segunda inferencia ni relajación de validadores. [Ejecución, evidencia y siguiente fase propuesta](../POC/cross-check-service/docs/openai/political-v10-live-review.md).
-
-
-## Expediente de evidencia: contrato offline implementado
-
-Se incorpora el contrato interno v1 EvidenceDossier y la proyección de fuentes/referencias EvidenceAssembler. Valida anclajes literales, identidad de referencias, coincidencia de fragmentos con capturas, precisión y revisión de fechas. La suite de dominio supera 56 pruebas, incluidas 15 nuevas, sin omisiones. EV01 tiene regresión automática; EV02 tiene comprobaciones estructurales; EV03/EV04 utilizan metadatos de prueba revisados. EV05 continúa pendiente de revisión semántica.
-
-No hay adquisición de documentos, persistencia del expediente ni integración con OpenAI todavía. El frontend, contrato público v3 y agente political-v10 no cambian. [Implementación, garantías y límites](../POC/cross-check-service/docs/evidence-dossier.md).

@@ -1,0 +1,257 @@
+{
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "posts": 1,
+  "gets": 13,
+  "events": [
+    {
+      "method": "POST",
+      "http": 202,
+      "status": "QUEUED",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 1.642
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 5.537
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 7.075
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 11.094
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 15.08
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 19.074
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 23.083
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 27.078
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 31.085
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 35.081
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 39.083
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 43.074
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "RUNNING",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 47.068
+    },
+    {
+      "method": "GET",
+      "http": 200,
+      "status": "COMPLETED",
+      "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+      "elapsedSeconds": 51.156
+    }
+  ],
+  "reloaded": true,
+  "terminal": {
+    "analysisId": "c86ceb5c-a3d3-4441-951f-07dfb9bb4e92",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-02T16:11:16.708829Z",
+    "updatedAt": "2026-10-02T16:12:04.172964300Z",
+    "completedAt": "2026-10-02T16:12:04.239782800Z",
+    "expiresAt": "2026-10-03T16:11:16.708829Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "Zapatero y la supuesta comisión de Plus Ultra",
+        "context": "Analizamos si la afirmación se refiere a un cobro personal de José Luis Rodríguez Zapatero por su asesoramiento en el caso Plus Ultra, no solo a la existencia de investigaciones, contratos o sospechas sobre terceros vinculados. La diferencia entre una imputación judicial, una comisión prevista para una sociedad y un pago efectivamente recibido por él es material para el sentido de la frase.",
+        "summary": "La evidencia consultada no demuestra que Zapatero haya cobrado personalmente una comisión por su asesoramiento en el caso Plus Ultra. Lo que aparece es una investigación judicial sobre un posible contrato del 1% y una estructura para canalizar fondos, junto con su negativa pública; además, el auto accesible señala que no consta pago alguno ejecutado en ese contrato.",
+        "summarySourceIds": [
+          "S1",
+          "S2"
+        ],
+        "verdict": {
+          "status": "INSUFFICIENT_EVIDENCE",
+          "explanation": "Las fuentes disponibles muestran una investigación y unas acusaciones sobre un posible cobro ligado al rescate, pero no prueban que Zapatero haya recibido efectivamente esa comisión. La evidencia consultada tampoco permite separar con claridad una eventual comisión societaria de un cobro personal del expresidente, por lo que la afirmación no queda establecida.",
+          "documentarySupport": "La documentación consultada recoge una investigación judicial que atribuye a la sociedad de Julio Martínez un contrato del 1% ligado al rescate de Plus Ultra y habla de una posible canalización del cobro, pero también señala que no consta pago alguno ejecutado en ese contrato. Además, Zapatero negó haber mediado en el rescate y lo desvinculó de sus cobros por consultorías. Con este material no queda acreditado que él haya cobrado personalmente esa comisión.",
+          "sourceIds": [
+            "S1",
+            "S2"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Zapatero niega su mediación en el rescate de Plus Ultra y lo desvincula de sus cobros por “consultorías”",
+            "url": "https://elpais.com/espana/2026-02-03/zapatero-niega-su-mediacion-en-el-rescate-de-plus-ultra-y-lo-desvincula-de-sus-cobros-por-consultorias.html?ssm=FB_CM",
+            "publisher": "EL PAÍS",
+            "publishedAt": "2026-02-03",
+            "consultedAt": null,
+            "contribution": "Artículo informativo que recoge la negativa de Zapatero a haber mediado en el rescate de Plus Ultra y su desvinculación de los cobros por consultorías; útil como contraste, pero no acredita por sí solo el cobro personal de una comisión.",
+            "type": "artículo periodístico"
+          },
+          {
+            "id": "S2",
+            "title": "Auto-Rodriguez-Zapatero",
+            "url": "https://www.primicias.ec/uploads/files/2026/05/20/Auto-Rodriguez-Zapatero.pdf",
+            "publisher": "Primicias",
+            "publishedAt": "2026-05-18",
+            "consultedAt": null,
+            "contribution": "Copia accesible de un auto judicial de la Audiencia Nacional; describe indicios sobre un contrato del 1% y señala que no consta pago alguno ejecutado, pero no prueba un cobro personal de Zapatero.",
+            "type": "copia de resolución judicial"
+          }
+        ],
+        "publicationPositions": {
+          "availability": "AVAILABLE",
+          "reason": "No se produce una distribución de posturas porque las piezas consultadas son informativas o judiciales, sin una postura editorial propia claramente contable sobre la verdad de la afirmación.",
+          "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso de Plus Ultra.",
+          "period": null,
+          "consultedAt": null,
+          "selectionCriteria": "Se revisaron piezas accesibles sobre el caso Plus Ultra que mencionan la supuesta comisión, la negativa de Zapatero y la resolución judicial disponible públicamente.",
+          "units": [],
+          "excluded": [
+            {
+              "sourceId": "S1",
+              "reason": "Es una pieza informativa sobre la negativa de Zapatero y sobre sus cobros por consultorías, pero no expresa una postura editorial propia claramente contable a favor o en contra de la afirmación factual analizada.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "cobro de comisión por asesoramiento",
+                  "geography": "España",
+                  "studyPeriod": "2020-2021",
+                  "policy": "caso Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La pieza trata el caso Plus Ultra y los cobros asociados, pero lo hace como cobertura informativa y no como opinión editorial sobre la verdad de la afirmación analizada."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S1",
+                    "locator": "L75-L77",
+                    "paraphrase": "El texto recoge que Zapatero negó su mediación en el rescate de Plus Ultra y desvinculó esos hechos de sus cobros por consultorías.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            },
+            {
+              "sourceId": "S2",
+              "reason": "Es una resolución judicial o copia accesible de un auto: describe indicios, contratos y ausencia de pago constatado, pero no es una pieza editorial con postura propia que pueda contarse como apoyo o duda de la afirmación.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "cobro de comisión por asesoramiento",
+                  "geography": "España",
+                  "studyPeriod": "2021-2026",
+                  "policy": "caso Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "El documento se refiere al rescate de Plus Ultra y a la supuesta estructura de cobro, pero su naturaleza judicial lo deja fuera del cómputo de posiciones editoriales."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S2",
+                    "locator": "L1244-L1249",
+                    "paraphrase": "El auto indica que el contrato vinculaba una remuneración del 1% más IVA a la ayuda aprobada y que no consta que se haya efectuado pago alguno en ejecución de dicho contrato.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "limitations": [
+          "La evidencia consultada procede de cobertura periodística y de una copia accesible de una resolución judicial; no se dispuso del expediente completo ni de una confirmación documental de pago personal a Zapatero.",
+          "La resolución judicial consultada formula indicios y menciona que no consta pago alguno ejecutado en el contrato citado, por lo que no basta para afirmar que él ganó personalmente la comisión.",
+          "No se localizó una fuente primaria que acreditara de forma directa el cobro personal de la comisión por parte de Zapatero."
+        ],
+        "analyzedAt": "2026-10-02T16:12:04.172964300Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "Analizamos si José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso de Plus Ultra.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La solicitud plantea una única afirmación factual: si Zapatero cobró o ganó una comisión por su asesoramiento en el caso de Plus Ultra."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+              "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso de Plus Ultra.",
+              "verdict": {
+                "status": "INSUFFICIENT_EVIDENCE",
+                "explanation": "Las fuentes disponibles muestran una investigación y unas acusaciones sobre un posible cobro ligado al rescate, pero no prueban que Zapatero haya recibido efectivamente esa comisión. La evidencia consultada tampoco permite separar con claridad una eventual comisión societaria de un cobro personal del expresidente, por lo que la afirmación no queda establecida.",
+                "documentarySupport": "La documentación consultada recoge una investigación judicial que atribuye a la sociedad de Julio Martínez un contrato del 1% ligado al rescate de Plus Ultra y habla de una posible canalización del cobro, pero también señala que no consta pago alguno ejecutado en ese contrato. Además, Zapatero negó haber mediado en el rescate y lo desvinculó de sus cobros por consultorías. Con este material no queda acreditado que él haya cobrado personalmente esa comisión.",
+                "sourceIds": [
+                  "S1",
+                  "S2"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  },
+  "elapsedSeconds": 51.72,
+  "success": true,
+  "persisted": true
+}

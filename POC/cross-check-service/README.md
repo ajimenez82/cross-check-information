@@ -1,16 +1,8 @@
 # Cross Check Service
 
-Revisión vigente: **political-v15**. Java proporciona los criterios públicos de selección y admite explícitamente publicaciones elegibles sin posición propia. Verificada con pruebas y una consulta completa desde el frontend. [Prueba Plus Ultra y límites de calidad](docs/openai/political-v15-plus-ultra-review.md), [cambios](docs/openai/political-v15-review.md).
+Flujo vigente: **political-v17**, una ejecución de OpenAI para investigación e informe completo, sin descarga ni verificación de fuentes en Java. [Configuración, pruebas y límites](docs/openai/unified-analysis.md). El modo `dev` mantiene sus escenarios actuales.
 
-Revisión vigente: **political-v14**, separación de observaciones no verificadas y ajustes editoriales de síntesis. Verificada offline y con una síntesis real aceptada; cumplimiento editorial todavía parcial. [Cambios y límites](docs/openai/political-v14-review.md). Las referencias siguientes conservan el historial.
-
-Revisión vigente: **political-v13**, explicación de publicaciones obligatoria en esquema e instrucciones de síntesis. Verificada offline y con una síntesis real aceptada sobre el expediente guardado; quedan límites semánticos y editoriales. [Detalle](docs/openai/political-v13-review.md). Las revisiones inferiores son históricas.
-
-Actualización actual: **political-v12** explicita los candidatos, las referencias y las restricciones temporales de síntesis. La prueba real respeta esos cambios, pero se rechaza por falta de explicación cuando todas las publicaciones están excluidas. [Cambios y pruebas](docs/openai/political-v12-review.md). Esta revisión sustituye a v11 en la configuración; las notas siguientes conservan el historial.
-
-Estado vigente (01/10/2026): **political-v11 incorpora investigación, captura independiente y síntesis por etapas**. `mvn verify` pasa; la prueba real sigue rechazada por una salida inválida y no se considera cerrada. Consulta el [expediente de evidencia](docs/evidence-dossier.md) y la [revisión v11](docs/openai/political-v11-live-review.md).
-
-Las instrucciones actuales están en `infrastructure/src/main/resources/openai/evidence/research.md` y `synthesis.md`, con sus esquemas junto a ellas. `./scripts/prepare-openai-evidence.ps1` prepara ambas configuraciones sin publicar ni consumir la API. Las plantillas y el script anterior se conservan como integración histórica. El perfil `openai,local` activa la nueva canalización con `OPENAI_EVIDENCE_PIPELINE_ENABLED: true` y requiere trabajos asíncronos; `dev,local` sigue simulado.
+Preparar configuración: `./scripts/prepare-unified-agent.ps1`. Recursos activos: `infrastructure/src/main/resources/openai/unified/instructions.md` y `response.schema.json`.
 
 Backend Java de CrossCheck. **Entrega asíncrona integrada con el frontend y activada por defecto**. El nuevo ciclo se ha verificado con proveedor simulado y con una consulta real el 30/09/2026; consulta la [revisión real](docs/openai/async-live-review.md). Una aplicación ejecutable, organizada en cinco módulos Maven.
 

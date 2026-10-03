@@ -34,7 +34,7 @@ import static com.crosscheck.infrastructure.openai.OpenAiJson.MAPPER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = CrossCheckApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {"crosscheck.analysis.jobs.enabled=false", "crosscheck.openai.evidence-pipeline-enabled=false", "OPENAI_API_KEY=offline-test-key", "crosscheck.openai.political-analysis-agent-id=agent_test"})
+        properties = {"crosscheck.analysis.jobs.enabled=false", "OPENAI_API_KEY=offline-test-key", "crosscheck.openai.political-analysis-agent-id=agent_test"})
 @ActiveProfiles("openai")
 @Import(OpenAiApiTest.LocalProvider.class)
 class OpenAiApiTest {
@@ -195,7 +195,7 @@ class OpenAiApiTest {
                         .path("trace").path("temporalRelation").asText());
                 token = MAPPER.readTree(response.body()).path("conversationToken").asString();
                 assertEquals("sess_local", codec.decode(token).sessionId());
-                assertEquals("political-v15", codec.decode(token).agentRevision());
+                assertEquals("political-v17", codec.decode(token).agentRevision());
             }
             assertEquals(before + 2, turn.get());
         }

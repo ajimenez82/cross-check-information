@@ -18,10 +18,9 @@ import org.springframework.context.annotation.*;
 public class AnalysisJobsConfiguration {
     @Bean(destroyMethod="close") JdbcJobStore jobStore(JobProperties properties,Clock clock) {return new JdbcJobStore(Path.of(properties.databasePath()),clock);}
     @Bean JobPolicy jobPolicy(JobProperties properties) {return properties.policy();}
-    @Bean JobProvider jobProvider(AiPoliticalAnalysisService service,AnalysisPolicy policy,Clock clock,org.springframework.core.env.Environment environment) {
+    @Bean JobProvider jobProvider(AiPoliticalAnalysisService service,AnalysisPolicy policy) {
         if (service instanceof OpenAiPoliticalAnalysisService openai) {
-            return environment.getProperty("crosscheck.openai.evidence-pipeline-enabled",Boolean.class,false)
-                    ? openai.evidenceJobProvider(policy.agentRevision(),clock) : openai.jobProvider(policy.agentRevision());
+            return openai.jobProvider(policy.agentRevision());
         }
         return new DevelopmentJobProvider(service,policy.agentRevision());
     }

@@ -10,14 +10,7 @@ public interface JobProvider {
     default boolean remoteMayBeRunning(AnalysisJob job) { return job.phase != AnalysisJob.Phase.READY && job.phase != AnalysisJob.Phase.NEXT_STAGE; }
     default void initialize(AnalysisJob job) {}
     record Remote(String sessionId, String previousTurnId) {}
-    record Advance(String stage, String payload, boolean submit) {}
-    record Observation(String sessionId, String turnId, AiAnalysisTurn result, String failure, boolean remoteTerminal, Advance advance, String usage) {
-        public Observation(String sessionId, String turnId, AiAnalysisTurn result, String failure, boolean remoteTerminal) {
-            this(sessionId, turnId, result, failure, remoteTerminal, null, null);
-        }
-        public Observation(String sessionId, String turnId, AiAnalysisTurn result, String failure, boolean remoteTerminal, Advance advance) {
-            this(sessionId, turnId, result, failure, remoteTerminal, advance, null);
-        }
+    record Observation(String sessionId, String turnId, AiAnalysisTurn result, String failure, boolean remoteTerminal) {
         public static Observation pending(String session, String turn) { return new Observation(session, turn, null, null, false); }
     }
     default String submissionFingerprint(AnalysisJob job) { return null; }
