@@ -158,8 +158,10 @@ class AnalysisApiTest {
                 ? "INSUFFICIENT_EVIDENCE" : scenario.name(), verdict.get("status"));
         assertEquals("No evaluado: respuesta simulada", verdict.get("documentarySupport"));
         if (scenario != DevelopmentScenario.TIED_PUBLICATIONS) {
-            assertTrue(((String) verdict.get("explanation")).startsWith(
-                    "La evidencia disponible no permite respaldar ni refutar la afirmación."));
+            String expectedPrefix = scenario == DevelopmentScenario.SUPPORTED_BY_PUBLICATIONS
+                    ? "Predomina el respaldo en la muestra de publicaciones analizadas. "
+                    : "Predomina el cuestionamiento en la muestra de publicaciones analizadas. ";
+            assertTrue(((String) verdict.get("explanation")).startsWith(expectedPrefix));
         }
     }
 

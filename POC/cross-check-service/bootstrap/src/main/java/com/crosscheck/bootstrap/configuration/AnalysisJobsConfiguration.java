@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 @Configuration(proxyBeanMethods=false)
-@Profile({"dev","openai"})
+@Profile({"dev","openai","replay"})
 @ConditionalOnProperty(name="crosscheck.analysis.jobs.enabled",havingValue="true")
 @EnableConfigurationProperties(JobProperties.class)
 public class AnalysisJobsConfiguration {

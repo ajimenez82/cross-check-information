@@ -1,6 +1,6 @@
 # Análisis político unificado
 
-Revisión `political-v17`, 03/10/2026. Esta guía describe el flujo vigente.
+Revisión `political-v19`, 03/10/2026. Esta guía describe el flujo vigente.
 
 ## Flujo y responsabilidades
 
@@ -23,7 +23,7 @@ Recursos canónicos:
 
 `./scripts/prepare-unified-agent.ps1` genera `bootstrap/target/political-agent-unified.request.json` sin red ni claves. Modelo gpt-5.4-mini, razonamiento low, servicio default, búsqueda web y multi-agent desactivado. La creación de cada sesión incluye esta configuración para no depender de una versión antigua del agente guardado. [Configuración oficial de Agents](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 
-En `config/application-local.yml`: OPENAI_API_KEY, OPENAI_POLITICAL_ANALYSIS_AGENT_ID y POLITICAL_AGENT_REVISION: political-v17. Perfil real `openai,local`; `dev,local` conserva su proveedor simulado y no cambia en esta entrega. La antigua variable de activación de captura se retira. Reiniciar el servicio y comenzar una conversación nueva tras cambiar revisión.
+En `config/application-local.yml`: OPENAI_API_KEY, OPENAI_POLITICAL_ANALYSIS_AGENT_ID y POLITICAL_AGENT_REVISION: political-v19. Perfil real `openai,local`; `dev,local` conserva su proveedor simulado y no cambia en esta entrega. La antigua variable de activación de captura se retira. Reiniciar el servicio y comenzar una conversación nueva tras cambiar revisión.
 
 ## Trabajos anteriores
 
@@ -61,3 +61,25 @@ Para SINGLE con valoración factual insuficiente, el predominio único de SUPPOR
 Las métricas y capturas anteriores corresponden a v16: no acreditan la calidad del nuevo comportamiento. La ampliación de investigación puede aumentar tiempo y consumo; requiere una nueva evaluación real para comprobar cobertura y clasificación.
 
 Validación v17 (03/10/2026): Maven verify correcto, incluidas las pruebas existentes de predominio, empate y conservación de los demás veredictos. Configuración publicada en el agente guardado y verificada por lectura, conservando nombre y modelo. No se ha ejecutado una nueva inferencia real en esta revisión. Reiniciar el servicio y abrir una conversación nueva para usar political-v17.
+
+
+## political-v18: alcance, diversidad y corte temporal
+
+Revisión del 03/10/2026. Las afirmaciones coloquiales sobre remuneración pueden abarcar beneficios directos o canalizados mediante terceros cuando se sustente la conexión con la intervención o beneficio de la persona. El informe debe explicar el alcance y distinguir receptor, pago, contrato y beneficio; no equipara automáticamente persona y entorno ni atribuye responsabilidad penal.
+
+Se exige buscar expresamente análisis/opiniones y cobertura televisiva en controversias amplias, explicar las categorías ausentes y atribuir las opiniones a quien las expresa. Las 8–12 publicaciones son periodísticas; los documentos oficiales no completan esa cifra. Reproducciones de agencia no crean aportaciones independientes.
+
+Sin corte temporal establecido, asOf debe ser null. La fecha de la última publicación no fija el límite de la investigación. Las consultas actuales requieren buscar novedades y declarar las lagunas de cobertura.
+
+Se conserva el contrato v3, el modelo y la lógica Java/FE. La prueba real documentada de v17 sigue siendo histórica y no valida esta revisión.
+
+Validación v18: Maven verify correcto (290 pruebas registradas, 288 superadas, 2 omitidas). Configuración publicada y verificada por lectura en OpenAI, manteniendo nombre y modelo. No se ha ejecutado una nueva inferencia. Reiniciar el servicio y comenzar conversación nueva para utilizar esta revisión.
+
+
+## political-v19: dos niveles de conexión mediante terceros
+
+Se generaliza el alcance a actuaciones, decisiones, intermediaciones y beneficios, además de pagos. Para respaldar el hecho, la conexión con la persona debe estar sustentada. Para contabilizar una posición, el AUTHOR puede defender o cuestionar esa misma conexión aunque no esté probada: la falta de prueba concluyente no excluye su argumento ni lo convierte en hecho.
+
+Se mantienen las decisiones acordadas: objetivo de 8–12 publicaciones de cinco medios con limitaciones explicadas, posiciones solo para SINGLE, argumentos propios del AUTHOR y conservación de INSUFFICIENT_EVIDENCE en empate, predominio mixto/sin posición o muestra no evaluable. No cambian el contrato ni la lógica Java/FE.
+
+Validación v19: Maven verify correcto (288 pruebas superadas y 2 omitidas). Configuración publicada y comprobada por lectura en OpenAI. No se ha ejecutado una nueva inferencia real; esta verificación no demuestra por sí sola el cumplimiento del modelo. Reiniciar el servicio y abrir una conversación nueva para usar la revisión.

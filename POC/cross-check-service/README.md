@@ -1,6 +1,6 @@
 # Cross Check Service
 
-Flujo vigente: **political-v17**, una ejecución de OpenAI para investigación e informe completo, sin descarga ni verificación de fuentes en Java. [Configuración, pruebas y límites](docs/openai/unified-analysis.md). El modo `dev` mantiene sus escenarios actuales.
+Flujo vigente: **political-v19**, una ejecución de OpenAI para investigación e informe completo, sin descarga ni verificación de fuentes en Java. [Configuración, pruebas y límites](docs/openai/unified-analysis.md). El modo `dev` mantiene sus escenarios actuales.
 
 Preparar configuración: `./scripts/prepare-unified-agent.ps1`. Recursos activos: `infrastructure/src/main/resources/openai/unified/instructions.md` y `response.schema.json`.
 
@@ -112,3 +112,7 @@ Con los perfiles `dev,local`, usar uno de estos argumentos de IntelliJ para revi
 - `--crosscheck.development.scenario=TIED_PUBLICATIONS`
 
 Son respuestas ficticias sin llamadas a OpenAI. Los dos primeros escenarios parten de evidencia insuficiente y dejan que Java derive el estado final; el tercero conserva `INSUFFICIENT_EVIDENCE`.
+
+## Reproducir pruebas reales sin OpenAI
+
+Perfil `replay,local`, con `--crosscheck.replay.scenario=PLUS_ULTRA_V19`. [Escenarios, consultas exactas e instrucciones para IntelliJ](docs/openai/replay.md).

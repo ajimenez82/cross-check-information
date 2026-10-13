@@ -1,0 +1,23 @@
+{
+  "scenario": "ACLARACION_V19",
+  "query": "¿Está volviendo la situación a la normalidad?",
+  "posts": 1,
+  "terminal": {
+    "analysisId": "31089383-5162-4634-8c27-4896a0f4712e",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-09T14:08:39.082005200Z",
+    "updatedAt": "2026-10-09T14:08:43.804406600Z",
+    "completedAt": "2026-10-09T14:08:43.911013900Z",
+    "expiresAt": "2026-10-10T14:08:39.082005200Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": null,
+      "clarification": {
+        "question": "¿A qué situación, lugar o evento te refieres exactamente?",
+        "reason": "AMBIGUOUS_REFERENCE"
+      }
+    },
+    "error": null
+  }
+}

@@ -49,8 +49,21 @@ class FinalVerdictPolicyTest {
         var original = verdict(VerdictStatus.INSUFFICIENT_EVIDENCE);
         var result = FinalVerdictPolicy.resolve(original, positions(4, 3, 2, 1));
         assertEquals(VerdictStatus.SUPPORTED_BY_PUBLICATIONS, result.status());
-        assertTrue(result.explanation().startsWith("La evidencia disponible no permite respaldar ni refutar la afirmación."));
-        assertTrue(result.explanation().contains(original.explanation()));
+        assertEquals("Predomina el respaldo en la muestra de publicaciones analizadas. "
+                + original.explanation(), result.explanation());
+        assertEquals(original.documentarySupport(), result.documentarySupport());
+        assertEquals(original.sourceIds(), result.sourceIds());
+    }
+
+    @Test
+    void preservesEvidenceLimitsAndThirdPartyAttributionWhenQuestioningPredominates() {
+        var original = new Verdict(VerdictStatus.INSUFFICIENT_EVIDENCE,
+                "No se acredita el cobro personal; las referencias describen pagos a terceros.",
+                "Los documentos no establecen el destinatario final.", List.of("S1", "S2"));
+        var result = FinalVerdictPolicy.resolve(original, positions(1, 4, 2, 0));
+        assertEquals(VerdictStatus.QUESTIONED_BY_PUBLICATIONS, result.status());
+        assertEquals("Predomina el cuestionamiento en la muestra de publicaciones analizadas. "
+                + original.explanation(), result.explanation());
         assertEquals(original.documentarySupport(), result.documentarySupport());
         assertEquals(original.sourceIds(), result.sourceIds());
     }

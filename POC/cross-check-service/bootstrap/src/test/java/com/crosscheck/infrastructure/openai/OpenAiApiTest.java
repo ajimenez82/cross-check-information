@@ -195,7 +195,7 @@ class OpenAiApiTest {
                         .path("trace").path("temporalRelation").asText());
                 token = MAPPER.readTree(response.body()).path("conversationToken").asString();
                 assertEquals("sess_local", codec.decode(token).sessionId());
-                assertEquals("political-v17", codec.decode(token).agentRevision());
+                assertEquals("political-v21", codec.decode(token).agentRevision());
             }
             assertEquals(before + 2, turn.get());
         }

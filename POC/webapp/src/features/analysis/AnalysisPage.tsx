@@ -53,21 +53,32 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
   return <div className={s.report}>
     <article className={s.article}>
       <div className={s.author}><img src="/assets/brand.svg" alt="" /><strong>Contrasta</strong><time dateTime={data.analyzedAt}>{formatDate(data.analyzedAt)}</time></div>
-      <h2 className={s.reportTitle}>{data.title}</h2>
-      {data.asOf && <p>Corte de las evidencias: {data.asOf}</p>}
-      <section className={s.textSection}><FileText /><div><h3>Contexto</h3><p>{data.context}</p></div></section>
-      <section className={s.textSection}><List /><div><h3>Síntesis</h3><p>{data.summary}</p><ReferenceButtons ids={data.summarySourceIds} sources={data.sources} onSource={onSource} /></div></section>
-      <section className={s.verdict} data-verdict={data.verdict.status}><span className={s.flag} aria-hidden="true"><VerdictIcon /></span><div><h3>Valoración final</h3><strong className={s.verdictLabel}>{verdictLabels[data.verdict.status]}</strong><p>{data.verdict.explanation}</p><p>Respaldo documental: {data.verdict.documentarySupport}</p><ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} /></div></section>
-      {data.claimAnalysis && <section className={s.trace} aria-label="Valoración por afirmaciones">
-        <h3>Valoración por afirmaciones</h3><p>{data.claimAnalysis.analysisTarget}</p>
-        <p>{data.claimAnalysis.decomposition.explanation}</p>
-        {data.claimAnalysis.claims.map(claim => <section key={claim.id} className={s.breakdown}>
-          <h4>{claim.proposition}</h4><strong>{verdictLabels[claim.verdict.status]}</strong>
-          <p>{claim.verdict.explanation}</p><p>Respaldo documental: {claim.verdict.documentarySupport}</p>
-          <ReferenceButtons ids={claim.verdict.sourceIds} sources={data.sources} onSource={onSource} />
-        </section>)}
-      </section>}
-      {data.limitations.length > 0 && <section className={s.limitations}><h3>Limitaciones</h3><ul>{data.limitations.map((limit, index) => <li key={index}>{limit}</li>)}</ul></section>}
+      <section className={s.verdict} data-verdict={data.verdict.status} aria-label="Valoración final">
+        <div className={s.verdictContent}>
+          <h3 className={s.verdictEyebrow}>Valoración final</h3>
+          <div className={s.verdictHeading}><span className={s.flag} aria-hidden="true"><VerdictIcon /></span><strong className={s.verdictLabel}>{verdictLabels[data.verdict.status]}</strong></div>
+          <h2 className={s.reportTitle}>{data.title}</h2>
+          <p>{data.verdict.explanation}</p>
+          <ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} />
+          <div className={s.verdictMeta}><span>{data.sources.length} fuentes citadas</span>{data.asOf && <span>Corte de las evidencias: {data.asOf}</span>}</div>
+        </div>
+      </section>
+      <section className={s.analysisBody} aria-label="Análisis">
+        {data.summary.trim() !== data.verdict.explanation.trim() && <section className={s.textSection}><List aria-hidden="true" /><div><h3>Claves del análisis</h3><p>{data.summary}</p><ReferenceButtons ids={data.summarySourceIds} sources={data.sources} onSource={onSource} /></div></section>}
+        <details className={s.disclosure}><summary>Qué estamos analizando</summary><p>{data.context}</p></details>
+        <details className={s.disclosure}><summary>Ver explicación documental completa</summary><p>{data.verdict.documentarySupport}</p><ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} /></details>
+        {data.claimAnalysis && data.claimAnalysis.claims.length > 1 && <section className={s.trace} aria-label="Valoración por afirmaciones">
+          <h3>Valoración por afirmaciones</h3><p>{data.claimAnalysis.analysisTarget}</p>
+          <p>{data.claimAnalysis.decomposition.explanation}</p>
+          {data.claimAnalysis.claims.map(claim => <section key={claim.id} className={s.breakdown}>
+            <h4>{claim.proposition}</h4><strong>{verdictLabels[claim.verdict.status]}</strong>
+            <p>{claim.verdict.explanation}</p>
+            <details className={s.disclosure}><summary>Respaldo documental de esta afirmación</summary><p>{claim.verdict.documentarySupport}</p></details>
+            <ReferenceButtons ids={claim.verdict.sourceIds} sources={data.sources} onSource={onSource} />
+          </section>)}
+        </section>}
+        {data.limitations.length > 0 && <details className={s.disclosure}><summary>Limitaciones del análisis ({data.limitations.length})</summary><ul>{data.limitations.map((limit, index) => <li key={index}>{limit}</li>)}</ul></details>}
+      </section>
     </article>
     <aside className={s.positions}>
       <h3>Posiciones en las publicaciones</h3>
@@ -85,7 +96,12 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
       {classification.excluded.length > 0 && <details><summary>Publicaciones excluidas ({classification.excluded.length})</summary>{classification.excluded.map(item => <section className={s.breakdown} key={item.sourceId}><p>{item.reason}</p><ReferenceButtons ids={[item.sourceId]} sources={data.sources} onSource={onSource} /><TraceDetails trace={item.trace} sources={data.sources} onSource={onSource} /></section>)}</details>}
       <p className={s.scope}>Describe la muestra examinada; no mide opinión pública ni probabilidad de verdad. Las reproducciones agrupadas cuentan como una sola unidad.</p>
     </aside>
-    <section className={s.sources}><h3><LinkIcon />Fuentes</h3>{data.sources.length ? <div>{data.sources.map(source => <button key={source.id} onClick={() => onSource(source)}><FileText /><span><strong>[{source.id}] {source.title}</strong><small>{source.contribution}</small></span></button>)}</div> : <p>No se han aportado fuentes para este resultado.</p>}</section>
+    <section className={s.sources} aria-label="Fuentes"><h3><LinkIcon aria-hidden="true" />Fuentes <small>{data.sources.length} referencias</small></h3>
+      {data.sources.length ? <>
+        <div className={s.sourceGrid}>{data.sources.slice(0, 4).map(source => <button key={source.id} onClick={() => onSource(source)}><FileText aria-hidden="true" /><span><small>{source.publisher ?? 'Publicación no disponible'} · {source.id}</small><strong>{source.title}</strong><small>{source.publishedAt ?? 'Fecha no disponible'}</small></span></button>)}</div>
+        {data.sources.length > 4 && <details className={s.moreSources}><summary>Ver las otras {data.sources.length - 4} fuentes</summary><div className={s.sourceGrid}>{data.sources.slice(4).map(source => <button key={source.id} onClick={() => onSource(source)}><FileText aria-hidden="true" /><span><small>{source.publisher ?? 'Publicación no disponible'} · {source.id}</small><strong>{source.title}</strong><small>{source.publishedAt ?? 'Fecha no disponible'}</small></span></button>)}</div></details>}
+      </> : <p>No se han aportado fuentes para este resultado.</p>}
+    </section>
   </div>;
 }
 function PendingTurn({ turn }: { turn: Turn }) {

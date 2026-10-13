@@ -1,0 +1,25 @@
+{
+  "scenario": "VOTO_OBLIGATORIO_V19",
+  "query": "En España es obligatorio votar en las elecciones generales.",
+  "revision": "political-v19",
+  "model": "gpt-5.4-mini",
+  "startedAt": "2026-10-03T12:42:58.643265+00:00",
+  "capturedAt": "2026-10-03T12:46:06.646242+00:00",
+  "instructionsSha256": "dc608c066d60a492b260cdcfd56b544063aced555bffe75b1a5dce4683eb8621",
+  "responseSha256": "002908e5ee6427c839554197f7ac9078d62aa448d778e47ae8b4c13d3a03681e",
+  "usage": {
+    "input_tokens": 692951,
+    "input_tokens_details": {
+      "cached_tokens": 646144
+    },
+    "output_tokens": 3161,
+    "output_tokens_details": {
+      "reasoning_tokens": 284
+    },
+    "total_tokens": 696112
+  },
+  "remoteStatus": "completed",
+  "previousContext": null,
+  "instructionsVerified": true,
+  "turnCount": 1
+}

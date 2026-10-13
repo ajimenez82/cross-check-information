@@ -34,8 +34,7 @@ final class FinalVerdictPolicy {
                 ? "Predomina el respaldo en la muestra de publicaciones analizadas."
                 : "Predomina el cuestionamiento en la muestra de publicaciones analizadas.";
         return new Verdict(status,
-                "La evidencia disponible no permite respaldar ni refutar la afirmación. "
-                        + qualification + " " + verdict.explanation(),
+                qualification + " " + verdict.explanation(),
                 verdict.documentarySupport(), verdict.sourceIds());
     }
 }

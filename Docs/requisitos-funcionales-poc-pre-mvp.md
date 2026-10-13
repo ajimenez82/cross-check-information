@@ -1,3 +1,11 @@
+## Actualización 03/10/2026 — political-v19
+
+La conexión mediante terceros se aplica a actuaciones, decisiones, intermediaciones y beneficios. Se separan la evidencia necesaria para respaldar el hecho y el argumento propio del autor que permite clasificar una publicación aunque esa conexión no esté demostrada. Se mantienen los criterios de cobertura, SINGLE, AUTHOR y ausencia de predominio acordados.
+
+## Actualización 03/10/2026 — political-v18
+
+Las instrucciones precisan el beneficio directo o mediante terceros con conexión sustentada, sin equiparar automáticamente persona y entorno. Refuerzan la búsqueda de análisis, opinión y televisión y exigen explicar categorías ausentes. La fecha de la última fuente no se usa como corte temporal: asOf permanece null salvo corte establecido. No cambia el contrato ni la lógica Java/FE.
+
 ## Actualización 03/10/2026 — political-v17
 
 La investigación de publicaciones es central incluso sin resolución oficial. Para controversias ampliamente cubiertas se busca una muestra de 8–12 publicaciones de al menos cinco medios, incluyendo información, investigación, análisis y opinión de prensa y televisión, con límites de acceso declarados y sin cuotas artificiales. Una noticia sin postura propia no se excluye por ese motivo. Para una afirmación con evidencia factual insuficiente, el predominio único de respaldo o cuestionamiento determina el veredicto final SUPPORTED_BY_PUBLICATIONS o QUESTIONED_BY_PUBLICATIONS. Se mantienen las reglas de empate, posiciones mixtas o sin posición y la limitación actual para múltiples afirmaciones. Java conserva el contrato y el cálculo existentes; no vuelve a verificar fuentes.

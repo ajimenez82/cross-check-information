@@ -1,0 +1,434 @@
+{
+  "scenario": "PLUS_ULTRA_V20",
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "posts": 1,
+  "terminal": {
+    "analysisId": "37be0fbe-6422-43c9-8605-9b19ef32ebe7",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-13T08:52:51.079949600Z",
+    "updatedAt": "2026-10-13T08:52:55.690390500Z",
+    "completedAt": "2026-10-13T08:52:55.797130800Z",
+    "expiresAt": "2026-10-14T08:52:51.079949600Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "La comisión atribuida a Zapatero en el caso Plus Ultra",
+        "context": "Analizamos si José Luis Rodríguez Zapatero cobró una comisión por su asesoramiento en el caso Plus Ultra, incluyendo la posibilidad de pagos canalizados por intermediarios o sociedades vinculadas. La cuestión es si existe base suficiente para afirmar ese beneficio económico concreto, no solo si hubo acusaciones, contactos o un contrato de asesoría.",
+        "summary": "La cobertura accesible sí muestra una línea consistente de acusaciones y escritos judiciales que hablan de una comisión del 1% ligada al rescate de Plus Ultra y de un contrato de asesoramiento conectado con el entorno de Zapatero. También aparecen negativas explícitas del propio Zapatero y textos que solo describen el caso sin probar el cobro personal. Con lo consultado, queda claro que existe una fuerte base periodística para la acusación, pero no una verificación concluyente de que Zapatero cobrara personalmente esa comisión por su asesoramiento.",
+        "summarySourceIds": [
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8",
+          "S1",
+          "S2"
+        ],
+        "verdict": {
+          "status": "SUPPORTED_BY_PUBLICATIONS",
+          "explanation": "Predomina el respaldo en la muestra de publicaciones analizadas. La evidencia disponible no alcanza para establecer con certeza que Zapatero cobrara personalmente una comisión por su asesoramiento en el caso Plus Ultra. Sí hay indicios y alegaciones sobre un 1% y contratos de asesoramiento, pero el vínculo directo entre ese pago y un cobro personal suyo queda sin demostrar de forma independiente y concluyente.",
+          "documentarySupport": "Las piezas accesibles muestran que varios escritos y declaraciones judiciales sostienen que hubo una comisión del 1% vinculada al rescate y que se relaciona con el entorno de Zapatero, además de un contrato de asesoramiento con Análisis Relevante. Pero la evidencia consultada no verifica de forma concluyente que Zapatero, personalmente, cobrara esa comisión por su asesoramiento, ni despeja con certeza si el pago fue a un intermediario o a una estructura societaria vinculada.",
+          "sourceIds": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6",
+            "S7",
+            "S8",
+            "S9"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Plus Ultra sitúa el primer contacto con Zapatero casi un año antes del rescate de la aerolínea",
+            "url": "https://elpais.com/espana/2026-07-21/plus-ultra-situa-el-primer-contacto-con-zapatero-casi-un-ano-antes-del-rescate-de-la-aerolinea.html",
+            "publisher": "EL PAÍS",
+            "publishedAt": "2026-07-21",
+            "consultedAt": null,
+            "contribution": "Explica el primer contacto entre Plus Ultra y Zapatero y recoge el escrito que habla de honorarios y del contrato de asesoramiento; útil para valorar la existencia de un encargo, pero no prueba por sí solo el cobro personal de la comisión.",
+            "type": "article"
+          },
+          {
+            "id": "S2",
+            "title": "¿Por qué se investiga a Zapatero? ¿De qué se lo acusa? Preguntas y respuestas del ‘caso Plus Ultra’",
+            "url": "https://elpais.com/espana/2026-05-19/por-que-se-investiga-a-zapatero-de-que-se-le-acusa-preguntas-y-respuestas-del-caso-plus-ultra.html",
+            "publisher": "EL PAÍS",
+            "publishedAt": "2026-05-19",
+            "consultedAt": null,
+            "contribution": "Resumen explicativo del caso y de la negativa de Zapatero; aporta la defensa del afectado y la contextualiza sin verificar el cobro de la comisión.",
+            "type": "article"
+          },
+          {
+            "id": "S3",
+            "title": "Rescate Plus Ultra: Julio Martínez confiesa que Zapatero medió",
+            "url": "https://www.rtve.es/noticias/20260720/julio-martinez-juez-confiesa-zapatero-medio-rescate-plus-ultra/17162498.shtml",
+            "publisher": "RTVE",
+            "publishedAt": "2026-07-20",
+            "consultedAt": null,
+            "contribution": "Recoge escritos remitidos al juez que dicen que Zapatero y Martínez tenían pretensión de cobrar y que hubo un 1% por acompañamiento; apoya la tesis de la comisión alegada.",
+            "type": "news"
+          },
+          {
+            "id": "S4",
+            "title": "Expresidente de Plus Ultra afirma haber pagado comisión del 1% al grupo Zapatero",
+            "url": "https://stories.rtve.es/noticias/newstory/stories/3f7c86f3fd8ce844766c",
+            "publisher": "RTVE",
+            "publishedAt": "2026-09-07",
+            "consultedAt": null,
+            "contribution": "Noticia breve sobre la ratificación judicial de una comisión del 1% al grupo Zapatero; apoya la tesis de que existió ese pago.",
+            "type": "news"
+          },
+          {
+            "id": "S5",
+            "title": "L’expresident de Plus Ultra admet haver pagat una comissió de l’1% al “grup Zapatero”",
+            "url": "https://www.lavanguardia.com/encatala/20260908/11629528/l-expresident-plus-ultra-admet-haver-pagat-comissio-l-1-grup-zapatero.amp.html",
+            "publisher": "La Vanguardia",
+            "publishedAt": "2026-09-08",
+            "consultedAt": null,
+            "contribution": "Versión en catalán de la noticia de la comisión del 1% al grupo Zapatero; confirma el mismo hecho alegado por la cabecera.",
+            "type": "news"
+          },
+          {
+            "id": "S6",
+            "title": "El expresidente de Plus Ultra admite que pactó pagar el 1 % del rescate al «grupo Zapatero»",
+            "url": "https://media.lavozdegalicia.es/noticia/espana/2026/09/08/expresidente-plus-ultra-admite-pacto-pagar-1-rescate-grupo-zapatero-investiga-contrato-ficticio-15-millones/0003_202609G8P2995.htm",
+            "publisher": "La Voz de Galicia",
+            "publishedAt": "2026-09-08",
+            "consultedAt": null,
+            "contribution": "Pieza informativa sobre la admisión de una comisión del 1% al grupo Zapatero; aporta la misma línea de alegación sobre el pago.",
+            "type": "news"
+          },
+          {
+            "id": "S7",
+            "title": "\"Pana Zapatero\", \"núcleo decisor\" o \"vértice\" con \"liderazgo estratégico\" y \"contactos de alto nivel\": el papel del expresidente en el auto del caso Plus Ultra",
+            "url": "https://www.lasexta.com/noticias/nacional/pana-zapatero-nucleo-decisor-vertice-liderazgo-estrategico-contactos-alto-nivel-papel-expresidente-auto-caso-plus-ultra_202605196a0cb430b5b0662996163763.html",
+            "publisher": "laSexta",
+            "publishedAt": "2026-05-19",
+            "consultedAt": null,
+            "contribution": "Explica el auto y la investigación policial, atribuyendo al expresidente un papel y comisiones; útil como cobertura de la tesis acusatoria, no como prueba independiente del cobro.",
+            "type": "news"
+          },
+          {
+            "id": "S8",
+            "title": "El auditor de Plus Ultra dice que la comisión del 1% del rescate para el 'grupo de Zapatero' aparecía en la contabilidad",
+            "url": "https://www.elespanol.com/invertia/empresas/20260520/auditor-plus-ultra-dice-comision-rescate-amigo-zapatero-aparecia-contabilidad/1003744253091_0.html",
+            "publisher": "El Español",
+            "publishedAt": "2026-05-20",
+            "consultedAt": null,
+            "contribution": "Se apoya en el testimonio del auditor para afirmar que la comisión del 1% figuraba en contabilidad y que el pago se vinculó a los servicios de Zapatero; es una pieza relevante a favor de la tesis del cobro.",
+            "type": "article"
+          },
+          {
+            "id": "S9",
+            "title": "Pedro Sánchez deja en manos de Zapatero la decisión de si debería entregar las joyas",
+            "url": "https://amp.lasexta.com/noticias/nacional/caso-plus-ultra-zapatero_202606186a33e0618774b34d61e2724b.html",
+            "publisher": "laSexta",
+            "publishedAt": "2026-07-23",
+            "consultedAt": null,
+            "contribution": "No se usó como voto de posición; solo como contexto de la negativa pública de Zapatero en otra cobertura del mismo caso.",
+            "type": "article"
+          }
+        ],
+        "publicationPositions": {
+          "availability": "AVAILABLE",
+          "reason": "Se ha podido evaluar una muestra accesible y relevante de cobertura periodística sobre el caso, pero no se cuenta con prueba independiente y concluyente del cobro personal de Zapatero; la mayoría de piezas relevantes adoptan o reproducen la tesis de la comisión, mientras otras solo informan de la negativa del propio afectado.",
+          "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+          "period": {
+            "from": "2026-05-19",
+            "to": "2026-09-08"
+          },
+          "consultedAt": null,
+          "selectionCriteria": "Muestra no representativa de 8 piezas periodísticas accesibles sobre el caso Plus Ultra, seleccionadas para cubrir seguimiento reciente, escritos judiciales, declaraciones de las partes y explicación del expediente. Se incluyeron 7 medios distintos o ediciones distintas y se dejó fuera la opinión explícita porque no apareció una columna claramente centrada en la comisión dentro del presupuesto de búsqueda.",
+          "units": [
+            {
+              "id": "P1",
+              "sourceIds": [
+                "S3"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza adopta la tesis de que hubo una pretensión de cobrar ligada a Zapatero y a su entorno, apoyándose en escritos remitidos al juez y en la descripción de pagos por asesoramiento.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisión por asesoramiento o gestiones vinculadas al rescate",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate/financiación pública de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La pieza trata el mismo caso nacional y el mismo supuesto cobro vinculado al rescate de Plus Ultra, no otro conflicto distinto."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S3",
+                    "locator": "L74-L76",
+                    "paraphrase": "El texto afirma que Plus Ultra y sus responsables apuntan a que Zapatero y Julio Martínez Martínez tenían la pretensión de cobrar por las gestiones y que se asumió un pago del 1% vinculado a labores de acompañamiento.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P2",
+              "sourceIds": [
+                "S4"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza informa de una ratificación judicial de un pago del 1% al grupo Zapatero para obtener el rescate, presentado como comisión ligada a la operación.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "pago de una comisión",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate público de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "El artículo se refiere exactamente al rescate de Plus Ultra y al pago de una comisión asociada a esa operación."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S4",
+                    "locator": "L5",
+                    "paraphrase": "El texto dice que Julio Martínez Solá ratificó ante el juez que pagó una comisión del 1% al grupo Zapatero para obtener el rescate de la aerolínea.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P3",
+              "sourceIds": [
+                "S5"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza sostiene que el expresidente de Plus Ultra acordó con el grupo Zapatero el pago de una comisión del 1% en caso de éxito de la ayuda pública.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisión ligada al rescate",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La cobertura se centra en la misma ayuda pública a Plus Ultra y en la comisión supuestamente pactada por esa gestión."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S5",
+                    "locator": "L139",
+                    "paraphrase": "El texto afirma que se acordó con el grupo Zapatero el pago de una comisión del 1% por el éxito de la ayuda de 53 millones para el rescate.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P4",
+              "sourceIds": [
+                "S6"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza presenta como hecho que se pactó una comisión del 1% al grupo Zapatero por conseguir el rescate, vinculando el pago a la intermediación.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisión del 1%",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "Trata exactamente del rescate de Plus Ultra y de la comisión asociada a esa operación."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S6",
+                    "locator": "L12",
+                    "paraphrase": "La noticia afirma que se pactó pagar una comisión del 1% al grupo Zapatero si la empresa conseguía el rescate de 53 millones.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P5",
+              "sourceIds": [
+                "S7"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza adopta la interpretación de que Zapatero influyó en el rescate a cambio de comisiones y que el entramado canalizaba pagos hacia él o su entorno.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisiones ligadas al rescate",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescates y tráfico de influencias",
+                  "match": "MATCH",
+                  "explanation": "La pieza se refiere al mismo caso Plus Ultra y a la supuesta comisión vinculada al rescate, en ámbito nacional."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S7",
+                    "locator": "L30-L33",
+                    "paraphrase": "El texto dice que los investigadores sospechan que Zapatero influyó en decisiones públicas a cambio de comisiones y que el juez le atribuye casi dos millones en comisiones.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P6",
+              "sourceIds": [
+                "S8"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza sostiene que la comisión del 1% figuraba en la contabilidad y que la empresa contrató los servicios de Zapatero, lo que la presenta como prueba del cobro ligado a su asesoramiento.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisión del 1% y asesoramiento",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La cobertura aborda exactamente la comisión de Plus Ultra y su relación con Zapatero en España."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S8",
+                    "locator": "L144-L151",
+                    "paraphrase": "El artículo afirma que el auditor dijo que la comisión del 1% estaba reflejada en la contabilidad y que la empresa que la recibió contrató los servicios de Zapatero.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P7",
+              "sourceIds": [
+                "S1"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "La pieza informa del asunto con tono descriptivo y recoge la tesis de la comisión, pero no adopta por sí misma una conclusión propia más allá de relatar declaraciones y escrituras.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "comisión y asesoramiento",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "rescate de Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "Aunque trata el mismo caso, la pieza funciona como relato informativo de escritos judiciales y no toma partido propio sobre el cobro personal."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S1",
+                    "locator": "L74-L81",
+                    "paraphrase": "El texto resume el escrito de Plus Ultra, el contrato de asesoramiento y la posibilidad de que hubiera cobros por intermediación, sin formular una tesis editorial propia sobre la veracidad del cobro personal de Zapatero.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P8",
+              "sourceIds": [
+                "S2"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "La pieza es una pregunta-respuesta informativa que recoge la negativa de Zapatero, pero no desarrolla una tesis propia a favor o en contra del cobro de la comisión.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "acusaciones y defensa sobre Plus Ultra",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026",
+                  "policy": "caso Plus Ultra",
+                  "match": "MATCH",
+                  "explanation": "La pieza aborda el mismo caso, pero como explicación general del expediente y de las acusaciones, sin tomar una postura propia sobre el cobro personal."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S2",
+                    "locator": "L73-L76",
+                    "paraphrase": "El texto resume la defensa de Zapatero, su negativa a haber cobrado comisión y la referencia a Análisis Relevante, sin asumir una conclusión editorial propia.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            }
+          ],
+          "excluded": []
+        },
+        "limitations": [
+          "Las pruebas accesibles son en gran parte informaciones periodísticas basadas en escritos judiciales, declaraciones e informes policiales, no una comprobación documental independiente del cobro personal.",
+          "Varias piezas hablan de comisión para el 'grupo Zapatero', Análisis Relevante o sociedades vinculadas, pero no despejan por sí solas si el pago llegó directamente a Zapatero.",
+          "No se accedió al sumario completo ni a todos los documentos primarios citados por las noticias, así que quedan lagunas sobre el circuito exacto del dinero."
+        ],
+        "analyzedAt": "2026-10-13T08:52:55.690390500Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "Determinar si José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra, entendiendo la afirmación como un beneficio económico ligado a sus gestiones o asesoramiento, incluso si el pago pudo canalizarse a través de terceros o sociedades vinculadas.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La petición formula una sola afirmación verificable: si Zapatero obtuvo una comisión por su asesoramiento en el caso Plus Ultra. No pide separar periodos, territorios ni dimensiones distintas."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+              "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+              "verdict": {
+                "status": "INSUFFICIENT_EVIDENCE",
+                "explanation": "La evidencia disponible no alcanza para establecer con certeza que Zapatero cobrara personalmente una comisión por su asesoramiento en el caso Plus Ultra. Sí hay indicios y alegaciones sobre un 1% y contratos de asesoramiento, pero el vínculo directo entre ese pago y un cobro personal suyo queda sin demostrar de forma independiente y concluyente.",
+                "documentarySupport": "Las piezas accesibles muestran que varios escritos y declaraciones judiciales sostienen que hubo una comisión del 1% vinculada al rescate y que se relaciona con el entorno de Zapatero, además de un contrato de asesoramiento con Análisis Relevante. Pero la evidencia consultada no verifica de forma concluyente que Zapatero, personalmente, cobrara esa comisión por su asesoramiento, ni despeja con certeza si el pago fue a un intermediario o a una estructura societaria vinculada.",
+                "sourceIds": [
+                  "S1",
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5",
+                  "S6",
+                  "S7",
+                  "S8",
+                  "S9"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  }
+}

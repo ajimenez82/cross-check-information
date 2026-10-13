@@ -132,3 +132,51 @@
 }
 
 .trace { overflow-wrap: anywhere; }
+
+
+/* Result hierarchy: verdict first, supporting detail progressively disclosed. */
+.report { align-items: start; border-radius: 14px; }
+.article { min-width: 0; }
+.article .author { margin-bottom: 18px; color: var(--muted); }
+.article .verdict { display: block; padding: 26px; border-radius: 14px; }
+.verdictContent { min-width: 0; }
+.verdict .verdictEyebrow { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin: 0 0 14px; }
+.verdictHeading { display: flex; gap: 13px; align-items: center; margin-bottom: 18px; }
+.verdict .verdictLabel { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.15; margin: 0; overflow-wrap: anywhere; }
+.verdict .flag { width: 42px; height: 42px; border-width: 2px; border-color: currentColor; }
+.verdict .reportTitle { font-size: 21px; line-height: 1.4; margin: 0 0 12px; }
+.verdictMeta { display: flex; flex-wrap: wrap; gap: 8px 18px; border-top: 1px solid var(--border); margin-top: 16px; padding-top: 12px; font-size: 12px; color: var(--muted); }
+.analysisBody { padding-top: 10px; }
+.analysisBody .textSection { margin-left: 0; border-top: 0; gap: 12px; padding: 20px 0; }
+.analysisBody .textSection > svg { width: 23px; height: 23px; }
+.analysisBody .trace { margin: 22px 0; }
+.disclosure { border-top: 1px solid var(--border); padding: 15px 0; }
+.disclosure summary, .moreSources summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+.disclosure p, .disclosure ul { margin-top: 12px; color: var(--muted); font-size: 14px; }
+.disclosure ul { padding-left: 22px; }
+.disclosure li + li { margin-top: 8px; }
+.disclosure summary:focus-visible, .moreSources summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 3px; }
+.sources h3 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sources h3 small { font-size: 12px; font-weight: 400; color: var(--muted); }
+.sources .sourceGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.sourceGrid button { align-items: start; min-width: 0; overflow-wrap: anywhere; }
+.sourceGrid button > svg { width: 20px; height: 20px; margin-top: 3px; }
+.sourceGrid strong { font-size: 13px; margin: 8px 0; }
+.sourceGrid small { color: var(--muted); }
+.moreSources { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+.moreSources summary { color: var(--green); margin-bottom: 14px; }
+@media (max-width: 1200px) { .sources .sourceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .article .verdict { padding: 20px 16px; }
+  .verdict .verdictLabel { font-size: 28px; }
+  .verdict .reportTitle { font-size: 18px; }
+  .verdict .flag { width: 36px; height: 36px; }
+  .verdictHeading { gap: 10px; }
+  .verdictMeta { font-size: 11px; }
+  .article .author { font-size: 12px; gap: 4px; }
+  .analysisBody .textSection p { font-size: 14px; }
+  .sources .sourceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .sourceGrid button { display: block; padding: 10px; }
+  .sourceGrid button > svg { display: none; }
+  .sourceGrid strong { font-size: 12px; }
+}

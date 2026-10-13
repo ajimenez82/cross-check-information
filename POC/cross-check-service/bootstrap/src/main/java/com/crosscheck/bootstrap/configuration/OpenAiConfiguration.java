@@ -23,8 +23,8 @@ public class OpenAiConfiguration {
     @Bean
     OpenAiPoliticalAnalysisService openAiAnalysisService(Environment environment,
             OpenAiProperties properties, HttpClient openAiHttpClient) {
-        if (environment.acceptsProfiles(Profiles.of("dev"))) {
-            throw new IllegalStateException("Choose either dev or openai, not both.");
+        if (environment.acceptsProfiles(Profiles.of("dev", "replay"))) {
+            throw new IllegalStateException("Use openai without dev or replay.");
         }
         // Keep secrets outside configuration binding diagnostics and record toString methods.
         return new OpenAiPoliticalAnalysisService(openAiHttpClient,

@@ -1,0 +1,16 @@
+# Offline replay: select replay,local without dev or openai.
+server:
+  address: 127.0.0.1
+
+crosscheck:
+  replay:
+    scenario: ${REPLAY_SCENARIO:PLUS_ULTRA_V19}
+  analysis:
+    max-input-length: 10000
+    max-token-length: 4096
+    # Runtime policy additionally binds conversation compatibility to the fixture hash.
+    agent-revision: replay
+    conversation-ttl: PT2H
+    jobs:
+      enabled: true
+      database-path: ${REPLAY_DATABASE_PATH:data/replay}

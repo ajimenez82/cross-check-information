@@ -1,0 +1,232 @@
+{
+  "scenario": "VOTO_OBLIGATORIO_V19",
+  "query": "En España es obligatorio votar en las elecciones generales.",
+  "posts": 1,
+  "terminal": {
+    "analysisId": "6e3736bf-2408-491c-aeaf-e713765eef3a",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-05T10:26:31.630856200Z",
+    "updatedAt": "2026-10-05T10:26:36.180821800Z",
+    "completedAt": "2026-10-05T10:26:36.281504700Z",
+    "expiresAt": "2026-10-06T10:26:31.630856200Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "¿Es obligatorio votar en las elecciones generales en España?",
+        "context": "Analizamos si el voto en España en las elecciones generales es obligatorio o si, por el contrario, se trata de un derecho de ejercicio voluntario. La distinción relevante es que la obligatoriedad jurídica del voto no debe confundirse con el deber cívico o con la participación elevada; aquí se evalúa exclusivamente si existe una obligación legal de votar en esas elecciones.",
+        "summary": "La normativa consultada y las explicaciones periodísticas coinciden en que en España votar en las elecciones generales no es obligatorio. El sufragio se formula como un derecho libre y voluntario, y las piezas revisadas describen la abstención como una opción legítima, no sancionada por el simple hecho de no acudir a votar.",
+        "summarySourceIds": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "verdict": {
+          "status": "REFUTED",
+          "explanation": "La afirmación es falsa: en España votar en las elecciones generales no es obligatorio, sino un derecho de ejercicio libre y voluntario.",
+          "documentarySupport": "La LOREG regula el derecho de sufragio en las elecciones generales como un derecho ejercido de forma «consciente, libre y voluntariamente», y las explicaciones institucionales y periodísticas consultadas describen el voto en España como un derecho, no como una obligación. No he encontrado una norma vigente que imponga sanción por no votar en unas elecciones generales españolas.",
+          "sourceIds": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Ley Orgánica 5/1985, de 19 de junio, del Régimen Electoral General",
+            "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672&p=20250714&tn=2",
+            "publisher": "BOE",
+            "publishedAt": "1985-06-20",
+            "consultedAt": null,
+            "contribution": "Texto legal consolidado de la LOREG; en la redacción consultada establece que el sufragio se ejerce de forma consciente, libre y voluntariamente, sin formular una obligación general de votar.",
+            "type": "norma consolidada"
+          },
+          {
+            "id": "S2",
+            "title": "Constitución Española",
+            "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229&p=20260520",
+            "publisher": "BOE",
+            "publishedAt": "1978-12-29",
+            "consultedAt": null,
+            "contribution": "Constitución española consultada en texto consolidado; aporta el marco general del derecho de participación política y la sujeción al ordenamiento, pero no impone una obligación de votar en elecciones generales.",
+            "type": "texto constitucional consolidado"
+          },
+          {
+            "id": "S3",
+            "title": "Voto en blanco, nulo o abstención: diferencias y consecuencias",
+            "url": "https://www.rtve.es/noticias/20260515/voto-blanco-nulo-abstencion-diferencias-consecuencias/17031546.shtml",
+            "publisher": "RTVE",
+            "publishedAt": "2026-05-15",
+            "consultedAt": null,
+            "contribution": "Reportaje explicativo sobre abstención, voto en blanco y voto nulo; afirma que los ciudadanos tienen derecho tanto a votar como a no hacerlo.",
+            "type": "noticia explicativa"
+          },
+          {
+            "id": "S4",
+            "title": "La alegría de votar",
+            "url": "https://www.eldiario.es/navarra/contrapunto/alegria-votar_132_1878428.html",
+            "publisher": "elDiario.es",
+            "publishedAt": "2018-10-21",
+            "consultedAt": null,
+            "contribution": "Artículo de opinión que afirma que en España prácticamente nunca se ha obligado a votar y propone facilitar la participación, no imponerla.",
+            "type": "opinión"
+          },
+          {
+            "id": "S5",
+            "title": "Por qué no es obligatorio votar en España y en otros países sí lo es (con penas hasta de prisión)",
+            "url": "https://www.lasexta.com/elecciones/generales/que-obligatorio-votar-espana-otros-paises-penas-prision_2023072364b6abf81f11910001f6b51c.html",
+            "publisher": "laSexta",
+            "publishedAt": "2023-07-23",
+            "consultedAt": null,
+            "contribution": "Pieza explicativa sobre por qué no es obligatorio votar en España; declara de forma explícita que el voto en España es un derecho y no una obligación.",
+            "type": "noticia explicativa"
+          }
+        ],
+        "publicationPositions": {
+          "availability": "AVAILABLE",
+          "reason": "Se contó una muestra pequeña pero suficiente de piezas accesibles y claramente posicionadas sobre la obligatoriedad del voto en España. No se buscó una distribución representativa de toda la prensa, sino ejemplos directos y legibles que respondieran exactamente a la proposición.",
+          "proposition": "En España es obligatorio votar en las elecciones generales.",
+          "period": {
+            "from": "2018-10-21",
+            "to": "2026-05-15"
+          },
+          "consultedAt": null,
+          "selectionCriteria": "Se seleccionaron tres publicaciones accesibles y explícitas sobre la obligatoriedad del voto en España: una explicación informativa de RTVE, un artículo de opinión en elDiario.es y una pieza explicativa de laSexta. Todas adoptan una postura clara y directamente relevante sobre si votar es obligatorio o no en las elecciones españolas.",
+          "units": [
+            {
+              "id": "P1",
+              "sourceIds": [
+                "S3"
+              ],
+              "position": "QUESTIONS",
+              "explanation": "La pieza de RTVE adopta la tesis de que la abstención es una opción legítima y que en España los ciudadanos tienen derecho tanto a votar como a no hacerlo; por tanto, cuestiona la idea de que el voto sea obligatorio.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": "RTVE.es",
+                "scope": {
+                  "outcome": "carácter obligatorio o no del voto",
+                  "geography": "España",
+                  "studyPeriod": "situación vigente en 2026",
+                  "policy": "régimen electoral español",
+                  "match": "MATCH",
+                  "explanation": "La pieza habla de España y del régimen electoral español en general, aplicable a elecciones generales como parte de ese sistema; no se limita a una comunidad autónoma concreta."
+                },
+                "temporalRelation": "REQUESTED_PERIOD",
+                "arguments": [
+                  {
+                    "sourceId": "S3",
+                    "locator": "L92-L95",
+                    "paraphrase": "Define la abstención como la decisión de no acudir a votar y afirma que los ciudadanos tienen derecho tanto a ir a votar como a no hacerlo.",
+                    "attribution": "AUTHOR",
+                    "relation": "QUESTIONS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P2",
+              "sourceIds": [
+                "S4"
+              ],
+              "position": "QUESTIONS",
+              "explanation": "El artículo de opinión sostiene explícitamente que en España prácticamente nunca se ha obligado a votar y pide facilitar, no imponer, la participación; eso cuestiona directamente la obligatoriedad del voto.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": "Félix Taberna",
+                "scope": {
+                  "outcome": "obligatoriedad del voto",
+                  "geography": "España",
+                  "studyPeriod": "práctica histórica y actual del voto en España",
+                  "policy": "sufragio en elecciones españolas",
+                  "match": "MATCH",
+                  "explanation": "Aunque aparece en un blog de opinión navarro, el argumento se formula sobre la práctica general española de voto y sobre las elecciones en España, no sobre un caso local distinto."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S4",
+                    "locator": "L214-L221",
+                    "paraphrase": "Dice que en España prácticamente nunca se ha obligado a votar y propone fomentar la participación, no imponerla.",
+                    "attribution": "AUTHOR",
+                    "relation": "QUESTIONS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P3",
+              "sourceIds": [
+                "S5"
+              ],
+              "position": "QUESTIONS",
+              "explanation": "La pieza de laSexta afirma de forma directa que en España el voto no es obligatorio y que el ciudadano decide si vota o no, por lo que cuestiona la proposición consultada.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": "Marina G. Mangas",
+                "scope": {
+                  "outcome": "obligatoriedad del voto",
+                  "geography": "España",
+                  "studyPeriod": "situación vigente",
+                  "policy": "voto en elecciones españolas",
+                  "match": "MATCH",
+                  "explanation": "El artículo trata específicamente sobre por qué no es obligatorio votar en España, con mención expresa a elecciones españolas, por lo que encaja exactamente con la proposición consultada."
+                },
+                "temporalRelation": "REQUESTED_PERIOD",
+                "arguments": [
+                  {
+                    "sourceId": "S5",
+                    "locator": "lead y entradilla",
+                    "paraphrase": "Sostiene que en España el voto es un derecho y no una obligación, y que decidir votar o no depende del ciudadano.",
+                    "attribution": "AUTHOR",
+                    "relation": "QUESTIONS"
+                  }
+                ]
+              }
+            }
+          ],
+          "excluded": []
+        },
+        "limitations": [
+          "La cobertura periodística revisada se centra en piezas explicativas y de opinión fácilmente accesibles; no realicé una muestra amplia de cobertura televisiva o editoriales sobre una controversia abierta, porque la cuestión está resuelta de forma bastante clara por la normativa vigente.",
+          "La Ley Orgánica del Régimen Electoral General disponible en el BOE es un texto consolidado; aun así, su redacción vigente consultada deja claro el carácter libre y voluntario del sufragio, sin que aparezca una obligación general de votar en elecciones generales."
+        ],
+        "analyzedAt": "2026-10-05T10:26:36.180821800Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "Analizamos si en España es obligatorio votar en las elecciones generales.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La pregunta formula una sola proposición verificable: si votar es obligatorio en España en las elecciones generales."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "En España es obligatorio votar en las elecciones generales.",
+              "proposition": "En España es obligatorio votar en las elecciones generales.",
+              "verdict": {
+                "status": "REFUTED",
+                "explanation": "La afirmación es falsa: en España votar en las elecciones generales no es obligatorio, sino un derecho de ejercicio libre y voluntario.",
+                "documentarySupport": "La LOREG regula el derecho de sufragio en las elecciones generales como un derecho ejercido de forma «consciente, libre y voluntariamente», y las explicaciones institucionales y periodísticas consultadas describen el voto en España como un derecho, no como una obligación. No he encontrado una norma vigente que imponga sanción por no votar en unas elecciones generales españolas.",
+                "sourceIds": [
+                  "S1",
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  }
+}

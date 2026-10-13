@@ -15,15 +15,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration(proxyBeanMethods = false)
-@Profile({"dev", "openai"})
+@Profile({"dev", "openai", "replay"})
 @EnableConfigurationProperties(AnalysisProperties.class)
 public class AnalysisConfiguration {
     @Bean Clock analysisClock() { return Clock.systemUTC(); }
 
     @Bean
-    AnalysisPolicy analysisPolicy(AnalysisProperties properties) {
+    AnalysisPolicy analysisPolicy(AnalysisProperties properties, AiPoliticalAnalysisService provider) {
         return new AnalysisPolicy(properties.maxInputLength(), properties.maxTokenLength(),
-                properties.agentRevision(), properties.conversationTtl());
+                (provider instanceof com.crosscheck.infrastructure.openai.ReplayPoliticalAnalysisService replay
+                        ? replay.revision() : properties.agentRevision()), properties.conversationTtl());
     }
 
     @Bean

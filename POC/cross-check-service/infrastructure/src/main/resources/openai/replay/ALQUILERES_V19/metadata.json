@@ -1,0 +1,25 @@
+{
+  "scenario": "ALQUILERES_V19",
+  "query": "La limitación de los precios del alquiler ha reducido la oferta de viviendas en alquiler en Cataluña entre 2024 y 2025.",
+  "revision": "political-v19",
+  "model": "gpt-5.4-mini",
+  "startedAt": "2026-10-03T12:46:06.837662+00:00",
+  "capturedAt": "2026-10-03T12:50:35.117623+00:00",
+  "instructionsSha256": "dc608c066d60a492b260cdcfd56b544063aced555bffe75b1a5dce4683eb8621",
+  "responseSha256": "b41fe3d93c3255b06fd5ee346819d058e1acda4b214117cd3c6e60ee44bae100",
+  "usage": {
+    "input_tokens": 833585,
+    "input_tokens_details": {
+      "cached_tokens": 747008
+    },
+    "output_tokens": 5736,
+    "output_tokens_details": {
+      "reasoning_tokens": 1130
+    },
+    "total_tokens": 839321
+  },
+  "remoteStatus": "completed",
+  "previousContext": null,
+  "instructionsVerified": true,
+  "turnCount": 1
+}

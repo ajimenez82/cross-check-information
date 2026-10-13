@@ -1,0 +1,25 @@
+{
+  "scenario": "ACLARACION_V19",
+  "query": "¿Está volviendo la situación a la normalidad?",
+  "revision": "political-v19",
+  "model": "gpt-5.4-mini",
+  "startedAt": "2026-10-03T12:50:35.311791+00:00",
+  "capturedAt": "2026-10-03T12:50:54.644335+00:00",
+  "instructionsSha256": "dc608c066d60a492b260cdcfd56b544063aced555bffe75b1a5dce4683eb8621",
+  "responseSha256": "884f769b97bfc1aee008bc33e55542388feed936b5e15842c6b2aa4678bcbfe8",
+  "usage": {
+    "input_tokens": 18634,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 70,
+    "output_tokens_details": {
+      "reasoning_tokens": 20
+    },
+    "total_tokens": 18704
+  },
+  "remoteStatus": "completed",
+  "previousContext": null,
+  "instructionsVerified": true,
+  "turnCount": 1
+}

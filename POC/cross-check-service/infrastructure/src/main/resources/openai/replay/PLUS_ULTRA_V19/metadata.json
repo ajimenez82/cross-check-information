@@ -1,0 +1,25 @@
+{
+  "scenario": "PLUS_ULTRA_V19",
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "revision": "political-v19",
+  "model": "gpt-5.4-mini",
+  "startedAt": "2026-10-03T12:41:32.215345+00:00",
+  "capturedAt": "2026-10-03T12:42:58.464114+00:00",
+  "instructionsSha256": "dc608c066d60a492b260cdcfd56b544063aced555bffe75b1a5dce4683eb8621",
+  "responseSha256": "69d2771464ecf05f94a5ec858065cff800eb8c1c6b3896ed43567f9afd1d4d1d",
+  "usage": {
+    "input_tokens": 288379,
+    "input_tokens_details": {
+      "cached_tokens": 241664
+    },
+    "output_tokens": 5826,
+    "output_tokens_details": {
+      "reasoning_tokens": 1300
+    },
+    "total_tokens": 294205
+  },
+  "remoteStatus": "completed",
+  "previousContext": null,
+  "instructionsVerified": true,
+  "turnCount": 1
+}
