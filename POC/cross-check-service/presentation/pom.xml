@@ -10,6 +10,11 @@
     <artifactId>cross-check-presentation</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.crosscheck</groupId>
             <artifactId>cross-check-application</artifactId>
             <version>${project.version}</version>

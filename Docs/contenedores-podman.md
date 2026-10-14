@@ -199,3 +199,7 @@ Remove-Item Env:DOCKER_HOST -ErrorAction SilentlyContinue
 ```
 
 La opcion persistente queda documentada; no se ha aplicado automaticamente al equipo.
+
+## Swagger
+
+Documentacion disponible tras reconstruir las imagenes: http://localhost:8088/api/swagger-ui.html; JSON en /api/docs. API_DOCS_ENABLED controla ambos recursos. Compose local la habilita por defecto; configurar false para desactivarla. Instrucciones de uso y validacion en [swagger-api.md](swagger-api.md).

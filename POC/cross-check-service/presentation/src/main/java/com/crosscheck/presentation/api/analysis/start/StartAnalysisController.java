@@ -17,6 +17,8 @@ public class StartAnalysisController {
         this.handler=handler; this.asyncEnabled=asyncEnabled;
     }
 
+    @io.swagger.v3.oas.annotations.Operation(summary="Legacy synchronous analysis", deprecated=true,
+            description="Returns 409 ASYNC_ANALYSIS_REQUIRED when asynchronous jobs are enabled (the default). Use /api/analysis/jobs instead.")
     @PostMapping(value = "/api/analysis/start", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public StartAnalysisResponse start(@Valid @RequestBody StartAnalysisRequest request) {

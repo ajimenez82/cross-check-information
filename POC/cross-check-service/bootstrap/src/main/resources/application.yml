@@ -24,3 +24,14 @@ crosscheck:
     jobs:
       enabled: ${ASYNC_ANALYSIS_ENABLED:true}
       database-path: ${ANALYSIS_DATABASE_PATH:data/cross-check}
+
+springdoc:
+  api-docs:
+    enabled: ${API_DOCS_ENABLED:false}
+    path: /api/docs
+  swagger-ui:
+    enabled: ${API_DOCS_ENABLED:false}
+    path: /api/swagger-ui.html
+    disable-swagger-default-url: true
+    persist-authorization: false
+  paths-to-match: /api/analysis/**
