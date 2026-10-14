@@ -1,0 +1,9 @@
+node_modules
+dist
+review
+scripts
+.env
+.env.*
+*.tsbuildinfo
+.git
+.idea

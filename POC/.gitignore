@@ -1,0 +1,4 @@
+# Container runtime configuration
+.env
+.env.*
+!.env.example

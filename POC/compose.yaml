@@ -1,0 +1,48 @@
+services:
+  api:
+    build:
+      context: ./cross-check-service
+      dockerfile: Containerfile
+    image: localhost/cross-check-api:beta
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: ${ANALYSIS_PROFILE:-replay}
+      SERVER_ADDRESS: 0.0.0.0
+      SERVER_PORT: 8080
+      ANALYSIS_DATABASE_PATH: /app/data/cross-check
+      REPLAY_DATABASE_PATH: /app/data/replay
+      REPLAY_SCENARIO: ${REPLAY_SCENARIO:-PLUS_ULTRA_V20}
+      CONVERSATION_TOKEN_SECRET: ${CONVERSATION_TOKEN_SECRET:?Set a Base64 encoded 32-byte secret in .env}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_POLITICAL_ANALYSIS_AGENT_ID: ${OPENAI_POLITICAL_ANALYSIS_AGENT_ID:-}
+      POLITICAL_AGENT_REVISION: ${POLITICAL_AGENT_REVISION:-political-v21}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:--Xms64m -Xmx384m -XX:ActiveProcessorCount=2}
+    volumes:
+      - analysis-data:/app/data
+    mem_limit: 640m
+    stop_grace_period: 45s
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+  web:
+    build:
+      context: ./webapp
+      dockerfile: Containerfile
+    image: localhost/cross-check-web:beta
+    restart: unless-stopped
+    ports:
+      - "${WEB_BIND_ADDRESS:-127.0.0.1}:${WEB_PORT:-8088}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    mem_limit: 96m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+volumes:
+  analysis-data:

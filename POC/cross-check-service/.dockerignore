@@ -1,0 +1,14 @@
+**/target
+**/.idea
+**/*.log
+**/*.mv.db
+**/*.trace.db
+config
+data
+.git
+.env
+.env.*
+**/application-local.*
+docs
+scripts
+README.md

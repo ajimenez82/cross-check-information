@@ -1,0 +1,17 @@
+FROM docker.io/library/maven:3.9.16-eclipse-temurin-26-alpine AS build
+WORKDIR /build
+COPY pom.xml lombok.config ./
+COPY domain/ domain/
+COPY application/ application/
+COPY infrastructure/ infrastructure/
+COPY presentation/ presentation/
+COPY bootstrap/ bootstrap/
+RUN mvn -B -ntp verify
+
+FROM docker.io/library/eclipse-temurin:26-jdk-alpine
+RUN addgroup -S app && adduser -S -G app app && mkdir -p /app/data && chown -R app:app /app
+WORKDIR /app
+COPY --from=build --chown=app:app /build/bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar /app/service.jar
+USER app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/service.jar"]
