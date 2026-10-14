@@ -1,0 +1,7 @@
+[Unit]
+Description=Consistent H2 backup for CrossCheck beta
+After=crosscheck-beta.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/crosscheck/backup-h2.sh

@@ -1,0 +1,18 @@
+[Unit]
+Description=CrossCheck beta containers
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/crosscheck
+Environment=PODMAN_COMPOSE_PROVIDER=/usr/bin/podman-compose
+UnsetEnvironment=DOCKER_HOST CONTAINER_HOST CONTAINER_CONNECTION
+ExecStart=/usr/bin/podman compose --env-file .env -f compose.yaml up -d
+ExecStop=/usr/bin/podman compose --env-file .env -f compose.yaml down
+TimeoutStartSec=300
+TimeoutStopSec=180
+
+[Install]
+WantedBy=multi-user.target

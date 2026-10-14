@@ -203,3 +203,7 @@ La opcion persistente queda documentada; no se ha aplicado automaticamente al eq
 ## Swagger
 
 Documentacion disponible tras reconstruir las imagenes: http://localhost:8088/api/swagger-ui.html; JSON en /api/docs. API_DOCS_ENABLED controla ambos recursos. Compose local la habilita por defecto; configurar false para desactivarla. Instrucciones de uso y validacion en [swagger-api.md](swagger-api.md).
+
+## Preparacion para Lightsail
+
+Archivos de servidor y exportacion de releases en POC/deploy/lightsail. Guia: [despliegue-aws-lightsail.md](despliegue-aws-lightsail.md). Compose local sigue en POC; el de Lightsail es independiente, con imagenes precompiladas y sin build en el servidor. Instancia AWS y DNS aun pendientes.

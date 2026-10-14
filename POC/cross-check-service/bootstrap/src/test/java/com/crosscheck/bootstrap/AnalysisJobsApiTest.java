@@ -58,6 +58,27 @@ class AnalysisJobsApiTest {
         assertEquals(401,send("GET",location,null,null,null).statusCode());
         assertEquals(404,send("GET",location,null,credential.replaceFirst("A","B"),null).statusCode());
     }
+    @Test void jobHeaderWorksAlongsideBasicAndRetainsBearerCompatibility() throws Exception {
+        try (var client=HttpClient.newHttpClient()) {
+            var create=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/analysis/jobs"))
+                    .header("Authorization","Basic dGVzdDp0ZXN0")
+                    .header("X-Job-Credential",credential)
+                    .header("Idempotency-Key",UUID.randomUUID().toString())
+                    .header("Content-Type","application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString("{\"text\":\"Header test\"}")).build();
+            var accepted=client.send(create,HttpResponse.BodyHandlers.ofString());
+            assertEquals(202,accepted.statusCode());
+            String path=accepted.headers().firstValue("Location").orElseThrow();
+            assertEquals(200,send("GET",path,null,credential,null).statusCode());
+            var poll=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+path))
+                    .header("X-Job-Credential",credential).GET().build();
+            assertEquals(200,client.send(poll,HttpResponse.BodyHandlers.ofString()).statusCode());
+            var conflicting=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+path))
+                    .header("X-Job-Credential",credential)
+                    .header("Authorization","Bearer different").GET().build();
+            assertEquals(401,client.send(conflicting,HttpResponse.BodyHandlers.ofString()).statusCode());
+        }
+    }
     @Test void syncRouteCannotBypassAsyncReservations() throws Exception {
         var response=send("POST","/api/analysis/start",null,null,"{\"text\":\"Offline test\"}");
         assertEquals(409,response.statusCode());assertEquals("ASYNC_ANALYSIS_REQUIRED",json.readTree(response.body()).path("code").asString());

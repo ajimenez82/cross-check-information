@@ -27,8 +27,9 @@ public final class AnalysisJobsController {
     @PostMapping(value="/api/analysis/jobs",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AnalysisJob.View> create(@Parameter(required=true,description="UUID v4; reuse for retries of the same request") @RequestHeader(value="Idempotency-Key",required=false) String key,
             @Parameter(hidden=true) @RequestHeader(value="Authorization",required=false) String authorization,
+            @Parameter(hidden=true) @RequestHeader(value="X-Job-Credential",required=false) String credential,
             @Valid @RequestBody StartAnalysisRequest body,HttpServletRequest request) {
-        var accepted=jobs.create(key,token(authorization),new StartAnalysisCommand(body.text(),body.conversationToken()),
+        var accepted=jobs.create(key,token(authorization,credential),new StartAnalysisCommand(body.text(),body.conversationToken()),
                 String.valueOf(request.getAttribute(RequestIdFilter.ATTRIBUTE)));
         var view=accepted.job();
         return ResponseEntity.status(accepted.replay() && view.pollAfterSeconds()==null?200:202)
@@ -39,13 +40,19 @@ public final class AnalysisJobsController {
             description="Polling only reads the persisted job. It does not start another provider request. COMPLETED may contain an analysis or a clarification; FAILED contains an error.")
     @GetMapping(value="/api/analysis/jobs/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AnalysisJob.View> get(@PathVariable String id,
-            @Parameter(hidden=true) @RequestHeader(value="Authorization",required=false) String authorization) {
-        var view=jobs.get(id,token(authorization));
+            @Parameter(hidden=true) @RequestHeader(value="Authorization",required=false) String authorization,
+            @Parameter(hidden=true) @RequestHeader(value="X-Job-Credential",required=false) String credential) {
+        var view=jobs.get(id,token(authorization,credential));
         var response=ResponseEntity.ok().cacheControl(CacheControl.noStore());
         if(view.pollAfterSeconds()!=null) response.header("Retry-After",view.pollAfterSeconds().toString());
         return response.body(view);
     }
-    private static String token(String header) {
+    private static String token(String header,String credential) {
+        if (credential!=null) {
+            if (header!=null && header.startsWith("Bearer ") && !header.substring(7).equals(credential))
+                throw new JobException(401,"INVALID_JOB_CREDENTIAL");
+            return credential;
+        }
         if(header==null || !header.startsWith("Bearer ")) throw new JobException(401,"INVALID_JOB_CREDENTIAL");
         return header.substring(7);
     }

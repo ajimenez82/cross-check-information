@@ -64,8 +64,8 @@ export async function requestJob(job: PendingJob, signal: AbortSignal): Promise<
   const timer = window.setTimeout(abort, 15000);
   try {
     const response = await fetch(job.analysisId ? `/api/analysis/jobs/${job.analysisId}` : '/api/analysis/jobs', {
-      method: job.analysisId ? 'GET' : 'POST', cache: 'no-store', signal: controller.signal,
-      headers: { Accept: 'application/json', Authorization: `Bearer ${job.accessToken}`,
+      method: job.analysisId ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store', signal: controller.signal,
+      headers: { Accept: 'application/json', 'X-Job-Credential': job.accessToken,
         ...(!job.analysisId ? { 'Content-Type': 'application/json', 'Idempotency-Key': job.key } : {}) },
       ...(!job.analysisId ? { body: JSON.stringify(job.body) } : {}),
     });

@@ -1,0 +1,13 @@
+{
+    email {$ACME_EMAIL}
+    admin off
+}
+{$DOMAIN} {
+    encode gzip
+    basic_auth {
+        {$BETA_USERNAME} {$BETA_PASSWORD_HASH}
+    }
+    reverse_proxy web:8080 {
+        header_up -Authorization
+    }
+}

@@ -71,7 +71,7 @@ Este método coordina la aceptación del trabajo. Todavía no envía la consulta
 | Parámetro | Procedencia | Uso |
 |---|---|---|
 | `key` | Cabecera `Idempotency-Key`, generada por el frontend con `crypto.randomUUID()` | Reconocer un POST repetido y recuperar su trabajo sin duplicarlo. |
-| `credential` | Valor de `Authorization: Bearer …`, extraído por el controlador | Autorizar el acceso al trabajo. El frontend genera 32 bytes aleatorios y los codifica en Base64URL sin padding. |
+| `credential` | Valor de `X-Job-Credential` (frontend actual), o `Authorization: Bearer …` para clientes anteriores, extraído por el controlador | Autorizar el acceso al trabajo. El frontend genera 32 bytes aleatorios y los codifica en Base64URL sin padding. |
 | `command` | `StartAnalysisCommand`, construido con `text` y `conversationToken` del cuerpo | Contener la consulta y, si existe, la referencia a la conversación anterior. |
 | `requestId` | Atributo establecido por `RequestIdFilter` | Asociar el trabajo y sus posibles errores con la petición HTTP. |
 

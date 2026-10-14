@@ -51,7 +51,7 @@ async function until(check, message) {
           const saved = await history(page);
           const turn = saved[0].turns.at(-1);
           assert.equal(turn.job.key, request.headers()['idempotency-key'], 'Persist before submit');
-          assert.equal(`Bearer ${turn.job.accessToken}`, request.headers().authorization);
+          assert.equal(turn.job.accessToken, request.headers()['x-job-credential']);
           assert.deepEqual(turn.job.body, request.postDataJSON());
           if (posts === 2) {
             assert.equal(request.postDataJSON().conversationToken, fixture.conversationToken);

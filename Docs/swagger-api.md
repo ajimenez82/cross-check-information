@@ -32,16 +32,16 @@ Variable de entorno: API_DOCS_ENABLED=true o false. Controla tanto la interfaz c
 - openai y configuracion general: desactivados por defecto.
 - Compose local: activados por defecto mediante API_DOCS_ENABLED. Para desactivarlos, poner API_DOCS_ENABLED=false en POC/.env y ejecutar podman compose up -d --force-recreate.
 
-El despliegue publico debera establecer API_DOCS_ENABLED=false o proteger el acceso. La interfaz documenta la API, no incorpora autenticacion de usuarios. El bearer de los trabajos es una credencial de acceso al trabajo.
+El despliegue publico debera establecer API_DOCS_ENABLED=false o proteger el acceso. La interfaz documenta la API, no incorpora autenticacion de usuarios. X-Job-Credential es una credencial de acceso al trabajo.
 
 ## Probar trabajos asincronos
 
 1. Preferir replay o dev para pruebas sin consumo del proveedor. En openai, un POST real puede generar consumo OpenAI.
 2. Generar una credencial aleatoria de 32 bytes codificada como Base64url sin padding. Esta credencial NO es CONVERSATION_TOKEN_SECRET, una API key ni una cuenta de usuario.
-3. Pulsar Authorize e introducir la credencial, sin el prefijo Bearer. Swagger lo incorpora al header Authorization. No se persiste al recargar la interfaz.
+3. Pulsar Authorize e introducir la credencial, sin el prefijo Bearer. Swagger lo incorpora al header X-Job-Credential. Authorization queda disponible para el acceso Basic de la beta. No se persiste al recargar la interfaz.
 4. En POST /api/analysis/jobs indicar Idempotency-Key como UUID v4 y un body con text; conversationToken puede ser null en el primer turno.
 5. La respuesta 202 incluye analysisId, Location y Retry-After. Repetir GET /api/analysis/jobs/{id} con la misma credencial hasta COMPLETED o FAILED. Un GET no inicia otra consulta al proveedor.
-6. COMPLETED puede contener un informe o una aclaracion. FAILED contiene un error. Para reintentar el POST original, conservar clave, body y bearer; cambiar el body con la misma clave produce conflicto. Para otra consulta usar otra clave.
+6. COMPLETED puede contener un informe o una aclaracion. FAILED contiene un error. Para reintentar el POST original, conservar clave, body y credencial; cambiar el body con la misma clave produce conflicto. Para otra consulta usar otra clave.
 
 En el replay inicial usar exactamente: Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra.
 
@@ -66,3 +66,5 @@ POST /api/analysis/start se muestra como deprecated y explica que devuelve 409 A
 Maven verify correcto. Comprobacion HTTP sobre el JAR en dev: JSON OpenAPI con rutas de trabajos, bearer, Idempotency-Key requerido y esquemas View; endpoint antiguo marcado deprecated; actuador excluido del contrato. Swagger UI, su configuracion y recursos JavaScript cargan bajo /api. Con API_DOCS_ENABLED=false, contrato e interfaz devuelven 404. Sin llamadas a OpenAI y procesos de prueba cerrados al finalizar.
 
 La comprobacion HTTP se hizo con Java directo; la imagen desplegada debe reconstruirse para incluir la dependencia nueva. El proxy conserva /api/ y no requiere rutas adicionales de Nginx.
+
+Actualizacion de acceso beta: el frontend envia X-Job-Credential; Java acepta tambien Authorization: Bearer para clientes anteriores. Si ambos transportan credenciales distintas, la solicitud se rechaza. La credencial de trabajo no sustituye el usuario/password del proxy.
