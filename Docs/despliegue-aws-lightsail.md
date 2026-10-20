@@ -1,6 +1,6 @@
 # Despliegue beta en AWS Lightsail
 
-Preparacion del 14/10/2026. Dominio indicado: www.contrastaloquetecuenten.com. Instancia aun no creada. Los archivos estan en POC/deploy/lightsail; esta preparacion no crea recursos AWS ni modifica el DNS.
+Preparacion actualizada el 19/10/2026. Dominio indicado: www.contrastaloquetecuentan.com. Instancia creada, segun confirmacion del usuario: alejimenez.dev, region Europa (Espana), eu-south-2, con IP estatica 15.216.113.27. Los archivos estan en POC/deploy/lightsail; esta preparacion no crea recursos AWS ni modifica el DNS.
 
 ## Capacidad y plan
 
@@ -39,7 +39,7 @@ El script compila y verifica Java, compila la web para linux/amd64, exporta api.
 
 ## 2. Crear Lightsail
 
-En la consola AWS elegir una region europea disponible, Linux/Unix y Ubuntu 24.04 LTS sin pila preinstalada. Seleccionar plan tras decidir la capacidad. Nombre sugerido crosscheck-beta. Crear y asociar una IP estatica.
+En la consola AWS elegir una region europea disponible, Linux/Unix y Ubuntu 24.04 LTS sin pila preinstalada. Seleccionar plan tras decidir la capacidad. Instancia elegida: alejimenez.dev. IP estatica asociada: 15.216.113.27. Plan acordado: 1 GB con IPv4 publica.
 
 Firewall Lightsail: abrir TCP 80 y 443; restringir SSH 22 a la IP del administrador. Mantener API 8080 sin publicar. Si se habilita IPv6, configurar tambien sus reglas; no crear un registro AAAA si no se ha probado esa ruta. Crear aviso de presupuesto AWS; los avisos no detienen automaticamente el gasto.
 
@@ -47,7 +47,7 @@ Fuentes: https://docs.aws.amazon.com/lightsail/latest/userguide/understanding-fi
 
 ## 3. DNS en Hostalia
 
-Crear registro A de www.contrastaloquetecuenten.com hacia la IP estatica. Si www tiene un CNAME incompatible, sustituir solo ese registro. Conservar los registros de correo. Esta configuracion atiende www; el dominio sin www no se incluye automaticamente.
+En la zona DNS de contrastaloquetecuentan.com, crear un registro A con nombre www y valor 15.216.113.27 (IP estatica). Si www tiene un CNAME incompatible, sustituir solo ese registro. Conservar los registros de correo y los demas registros DNS. La configuracion publica solo www.contrastaloquetecuentan.com; contrastaloquetecuentan.com sin www no se redirige ni sirve automaticamente.
 
 Comprobar la resolucion antes de iniciar Caddy. Mantener abiertos 80 y 443 para emision y renovacion del certificado.
 
@@ -58,7 +58,8 @@ Usar la clave SSH de Lightsail desde tu equipo y scp/SFTP para copiar el conteni
 ```bash
 sha256sum -c SHA256SUMS
 sudo bash install-runtime.sh
-sudo cp compose.yaml Caddyfile nginx.conf backup-h2.sh /opt/crosscheck/
+sudo cp compose.yaml Caddyfile nginx.conf start-web.sh backup-h2.sh /opt/crosscheck/
+sudo cp -r sites /opt/crosscheck/
 sudo podman load -i api.tar
 sudo podman load -i web.tar
 sudo podman pull docker.io/library/caddy:2-alpine
@@ -98,13 +99,13 @@ La primera validacion usa ANALYSIS_PROFILE=replay. Para openai, aportar OPENAI_A
 
 ```bash
 cd /opt/crosscheck
-sudo env PODMAN_COMPOSE_PROVIDER=/usr/bin/podman-compose podman compose config --quiet
+sudo env PODMAN_COMPOSE_PROVIDER=/opt/crosscheck-tools/bin/podman-compose podman compose config --quiet
 sudo systemctl enable --now crosscheck-beta.service
-sudo env PODMAN_COMPOSE_PROVIDER=/usr/bin/podman-compose podman compose ps
+sudo env PODMAN_COMPOSE_PROVIDER=/opt/crosscheck-tools/bin/podman-compose podman compose ps
 sudo podman stats --no-stream
 ```
 
-Abrir https://www.contrastaloquetecuenten.com con el usuario y password de beta. Comprobar password de acceso, redireccion HTTP a HTTPS, etiqueta beta, informe replay y recarga de una consulta completada. Probar la web y /api/analysis/jobs sin credenciales y con password incorrecto: deben responder 401 antes de llegar a Java. Verificar memoria, logs sin errores, persistencia y recuperacion de jobs al reiniciar Java. Reiniciar la instancia de forma controlada para validar el arranque automatico.
+Abrir https://www.contrastaloquetecuentan.com con el usuario y password de beta. Comprobar password de acceso, redireccion HTTP a HTTPS, etiqueta beta, informe replay y recarga de una consulta completada. Probar la web y /api/analysis/jobs sin credenciales y con password incorrecto: deben responder 401 antes de llegar a Java. Verificar memoria, logs sin errores, persistencia y recuperacion de jobs al reiniciar Java. Reiniciar la instancia de forma controlada para validar el arranque automatico.
 
 Para cambiar .env, recrear servicios mediante systemctl restart crosscheck-beta.service. Esto causa una breve interrupcion y conserva volumen. Solo despues de estas pruebas activar openai y efectuar una prueba real de consumo controlado.
 
@@ -139,8 +140,60 @@ Guardar release tag y paquete anterior. Hacer copia H2, parar el servicio, carga
 
 ## Estado y limites de esta preparacion
 
-Validados localmente: Compose con valores ficticios, Caddy y Nginx mediante sus validadores reales, sintaxis de scripts Bash y PowerShell. No se han creado recursos AWS, modificado DNS, emitido certificados del dominio ni ejecutado OpenAI. No se ha probado Ubuntu/systemd real, copias/restauracion ni capacidad de 512 MB. Los contenedores locales actuales no se han recreado ni sus volumenes modificado.
+Validados localmente: Compose con valores ficticios, Caddy y Nginx mediante sus validadores reales, sintaxis de scripts Bash y PowerShell. El usuario ha creado la instancia y asociado la IP estatica; estos recursos no fueron creados desde la automatizacion. No se ha confirmado aun el cambio DNS, emision de certificados del dominio ni despliegue remoto. No se ha ejecutado OpenAI en estas validaciones. No se ha probado Ubuntu/systemd real, copias/restauracion ni capacidad de 512 MB. Los contenedores locales actuales no se han recreado ni sus volumenes modificado.
 
 Medicion puntual del entorno local el 14/10/2026: API aproximadamente 202 MB y web 8 MB. No incluye Caddy ni memoria del sistema operativo, carga simultanea o picos; no acredita viabilidad de 512 MB. El timer de copia fue validado con systemd-analyze calendar para 04:00 UTC.
 
 Actualizacion de proteccion: lista de IP retirada por decision del usuario. Prueba integral en contenedores aislados: web/API sin credenciales y password incorrecto devuelven 401; navegador autenticado crea y consulta un trabajo COMPLETED usando X-Job-Credential. Maven verify y build frontend correctos; sin consumo OpenAI. Entorno de prueba eliminado al terminar. TLS real del dominio sigue pendiente del despliegue AWS.
+
+## Varios subdominios en la misma instancia
+
+Dominio principal: contrastaloquetecuentan.com. Sitio actual: www.contrastaloquetecuentan.com. Caddyfile contiene opciones globales e importa sites/*.caddy; sites/contrasta.caddy contiene el sitio actual y su proteccion con password.
+
+Para otra aplicacion, crear otro archivo .caddy con su dominio y reverse_proxy a su contenedor web, anadir sus servicios a la red accesible por Caddy y apuntar su registro A a la misma IP estatica. Solo Caddy publica 80/443: los demas contenedores tienen puertos internos. Cada aplicacion debe tener volumenes y configuracion propios. Si se separan las aplicaciones en proyectos Compose distintos, definir una red externa compartida para sus frontends y Caddy antes de enlazarlos; los servicios Java y las bases no necesitan compartir esa red.
+
+El paquete de release incluye sites y sus huellas. Al actualizar, conservar los archivos de sitios adicionales que se hayan creado en el servidor; no sustituir ni borrar la carpeta completa a ciegas. Reiniciar el servicio Caddy cuando cambien sus archivos. El Caddy actual sigue formando parte del stack Contrasta: parar todo ese stack tambien parara el proxy de los otros sitios. Antes de desplegar una segunda aplicacion independiente, separar el ciclo de vida del proxy como servicio compartido y medir memoria de la instancia.
+
+El nombre AWS alejimenez.dev identifica la instancia, no configura el dominio por si mismo. Los nombres internos de Compose, servicio systemd y volumen H2 siguen siendo crosscheck-beta y no dependen del nombre de la instancia.
+
+Cambio de dominio del 19/10/2026: usar DOMAIN=www.contrastaloquetecuentan.com tambien en el .env privado del servidor si ya existe. El ejemplo de configuracion no sobrescribe ese archivo. Caddy usa DOMAIN para seleccionar el sitio y emitir su certificado; el nombre de la instancia AWS alejimenez.dev se conserva. DNS y HTTPS del dominio definitivo siguen pendientes de comprobacion.
+
+## DNS confirmado (20/10/2026)
+
+El usuario confirma el registro del dominio y el registro A www. Verificacion publica mediante el resolvedor 1.1.1.1: www.contrastaloquetecuentan.com resuelve a 15.216.113.27. No se obtuvo registro AAAA en esa comprobacion. HTTPS y preparacion remota del servidor siguen pendientes.
+
+## Preparacion remota realizada (20/10/2026)
+
+Acceso SSH verificado como ubuntu a 15.216.113.27. Clave local en Deployment/LightsailDefaultKey-eu-south-2.pem, excluida de Git. OpenSSH rechazo inicialmente sus permisos; se restringio la ACL al usuario Windows actual sin cambiar el contenido de la clave. La identidad del servidor quedo registrada en Deployment/known_hosts, tambien excluido de Git.
+
+Servidor confirmado: Ubuntu 24.04.4 LTS, unos 909 MiB de RAM y 35 GB de disco disponibles. Instalados Podman 4.9.3 y podman-compose 1.0.6 desde Ubuntu. Unidades systemd instaladas y verificadas mediante systemd-analyze verify. podman-restart.service habilitado; la aplicacion aun no se ha iniciado. El instalador informa de un kernel nuevo pendiente de reinicio.
+
+Los scripts transferidos para la instalacion estan en /home/ubuntu/crosscheck-setup. El log remoto de instalacion es install.log en esa carpeta. No contiene claves del proveedor.
+
+Compatibilidad del servidor: podman-compose 1.0.6 del repositorio Ubuntu fallo al iniciar la cadena de dependencias API -> web -> Caddy. El instalador se actualiza para usar podman-compose 1.6.0 fijado en un entorno virtual dedicado /opt/crosscheck-tools. La unidad systemd y las copias seleccionan ese proveedor explicitamente. La salida de Compose se omite del journal para que los proveedores que imprimen argumentos no expongan variables privadas; consultar salud y logs de los contenedores para diagnostico.
+
+## Estado de despliegue (20/10/2026)
+
+Release beta-20261020-2 compilado localmente con Maven verify correcto y frontend correcto; imagenes transferidas y cargadas en Lightsail. Archivos operativos en /opt/crosscheck; paquete en /home/ubuntu/crosscheck-releases/beta-20261020-2. Las correcciones operativas del primer arranque se incorporaron al paquete y a sus huellas.
+
+Aplicacion arrancada en replay, con PLUS_ULTRA_V20. API y web saludables; Caddy en ejecucion. Credenciales aleatorias del usuario beta y secreto de conversacion generados directamente en el servidor, sin imprimirlos. Copia local de acceso en Deployment/beta-access.txt, excluida de Git y con ACL restringida al usuario Windows. .env remoto privado; no contiene una clave OpenAI y no se ejecutan inferencias reales.
+
+Correcciones del servidor Ubuntu: proveedor podman-compose 1.6.0 en entorno virtual y plugin golang-github-containernetworking-plugin-dnsname para la red CNI. No se borraron los volumenes del stack durante estas correcciones. La copia selecciona el contenedor mediante labels Podman en vez de ps -q api, que no acepta el proveedor instalado.
+
+Certificado de Lets Encrypt emitido para www.contrastaloquetecuentan.com. HTTPS local en el servidor devuelve 401 sin credenciales, como corresponde. Desde el entorno externo de comprobacion, TCP 443 da timeout; verificar/abrir HTTPS TCP 443 en el firewall IPv4 de Lightsail. HTTP 80 permitio validar el certificado. UFW del servidor esta inactivo. La prueba integral desde el dominio publico sigue pendiente de ese acceso.
+
+Copia consistente H2 ejecutada y timer diario activo. Probada restauracion a un volumen distinto: una API replay aislada arranco saludable con esa copia; despues se eliminaron solo el contenedor y volumen de prueba. No se ha probado aun recuperar un resultado concreto despues de un reinicio de la instancia. Las copias siguen en el mismo servidor; la copia externa cifrada sigue pendiente.
+
+Memoria observada en reposo: API aproximadamente 165 MB, web 3 MB, Caddy 13 MB. No constituye prueba de concurrencia. Kernel nuevo instalado, reinicio controlado y comprobacion posterior pendientes. Los logs de contenedores se consultan con sudo podman logs; la salida de Compose se oculta en el servicio para evitar registrar variables privadas.
+
+Recuperacion del proxy tras reiniciar Java: Nginx resuelve api en cada nueva ventana DNS de 5 segundos, usando el resolvedor real del contenedor obtenido por start-web.sh. Esto evita conservar la IP antigua que puede cambiar al parar/arrancar Java durante las copias H2. El arranque web del Compose de servidor usa ese script y la plantilla nginx.conf.
+
+## Verificacion publica completada (20/10/2026)
+
+El usuario abrio HTTPS TCP 443 en Lightsail. Verificada la URL publica https://www.contrastaloquetecuentan.com con certificado valido y usuario/password. Web y API sin credenciales devuelven 401. Navegador Edge autenticado: una sola creacion POST, replay PLUS_ULTRA_V20 completado con SUPPORTED_BY_PUBLICATIONS, resultado visible y recuperado tras recargar. /api/docs devuelve 404.
+
+Verificada persistencia con una consulta adicional: el resultado COMPLETED se recupera con la misma X-Job-Credential tras recrear todo el stack. Probada tambien una copia consistente seguida de reinicio completo de la instancia: mismo trabajo y mismo resultado recuperados tras arrancar automaticamente. Kernel activo comprobado: 7.0.0-1014-aws. No se ejecutaron inferencias reales de OpenAI.
+
+Se corrigio un 502 detectado durante la prueba: Java cambio de IP interna al parar/arrancar para una copia y Nginx conservaba la direccion antigua. El proxy de servidor ahora usa DNS dinamico con validez de 5 segundos, tomando el resolvedor real de /etc/resolv.conf mediante start-web.sh. Plantilla validada con nginx -t dentro del contenedor. El script usa una plantilla mktemp compatible con Alpine.
+
+El paquete archivado en /home/ubuntu/crosscheck-releases/beta-20261020-2 incluye las correcciones operativas y sus huellas SHA256 se verificaron en el servidor. El servicio y el timer de copias estan activos. Credenciales de acceso en Deployment/beta-access.txt (local, privado y excluido de Git). Perfil remoto actual: replay. Quedan pendientes activar OpenAI, verificar su funcionamiento real y preparar una copia externa cifrada con politica de retencion. La prueba funcional no equivale a una prueba de carga.

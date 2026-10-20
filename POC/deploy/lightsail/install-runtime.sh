@@ -6,7 +6,9 @@ if [[ "$ID" != ubuntu || "$VERSION_ID" != 24.04 ]]; then
   echo "This installer targets Ubuntu 24.04 LTS." >&2; exit 1
 fi
 apt-get update
-apt-get install -y --no-install-recommends podman podman-compose curl ca-certificates openssl
+apt-get install -y --no-install-recommends podman golang-github-containernetworking-plugin-dnsname python3-venv curl ca-certificates openssl
+python3 -m venv /opt/crosscheck-tools
+/opt/crosscheck-tools/bin/pip install --disable-pip-version-check 'podman-compose==1.6.0'
 install -d -m 700 /opt/crosscheck /var/backups/crosscheck
 install -m 644 "$(dirname "$0")/crosscheck-beta.service" /etc/systemd/system/crosscheck-beta.service
 install -m 644 "$(dirname "$0")/crosscheck-backup.service" /etc/systemd/system/crosscheck-backup.service

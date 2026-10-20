@@ -55,6 +55,7 @@ services:
       BETA_PASSWORD_HASH: ${BETA_PASSWORD_HASH:?Set bcrypt hash}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./sites:/etc/caddy/sites:ro
       - caddy-data:/data
       - caddy-config:/config
     mem_limit: ${EDGE_MEMORY_LIMIT:-96m}

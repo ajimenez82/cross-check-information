@@ -1,0 +1,4 @@
+*.pem
+known_hosts
+known_hosts.old
+beta-access.txt

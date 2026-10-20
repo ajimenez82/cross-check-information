@@ -18,9 +18,11 @@ try {
     foreach ($file in 'compose.yaml','Caddyfile','nginx.conf','.env.example','crosscheck-beta.service','crosscheck-backup.service','crosscheck-backup.timer','install-runtime.sh','backup-h2.sh') {
         Copy-Item -LiteralPath (Join-Path $PSScriptRoot $file) -Destination $outputDirectory
     }
-    $manifest = Get-ChildItem -LiteralPath $outputDirectory -File | Where-Object Name -ne 'SHA256SUMS' | ForEach-Object {
+    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'sites') -Destination $outputDirectory -Recurse
+    $manifest = Get-ChildItem -LiteralPath $outputDirectory -File -Recurse | Where-Object Name -ne 'SHA256SUMS' | ForEach-Object {
         $digest = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-        "$digest  $($_.Name)"
+        $relativePath = [IO.Path]::GetRelativePath($outputDirectory, $_.FullName).Replace('\', '/')
+        "$digest  $relativePath"
     }
     [IO.File]::WriteAllLines((Join-Path $outputDirectory 'SHA256SUMS'), $manifest, [Text.UTF8Encoding]::new($false))
     Write-Output "Release prepared at $outputDirectory. No credentials included. Set RELEASE_TAG=$ReleaseTag on the server."

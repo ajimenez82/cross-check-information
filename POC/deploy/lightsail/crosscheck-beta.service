@@ -6,8 +6,11 @@ After=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
+# Older Compose providers can echo environment arguments; keep them out of the journal.
+StandardOutput=null
+StandardError=null
 WorkingDirectory=/opt/crosscheck
-Environment=PODMAN_COMPOSE_PROVIDER=/usr/bin/podman-compose
+Environment=PODMAN_COMPOSE_PROVIDER=/opt/crosscheck-tools/bin/podman-compose
 UnsetEnvironment=DOCKER_HOST CONTAINER_HOST CONTAINER_CONNECTION
 ExecStart=/usr/bin/podman compose --env-file .env -f compose.yaml up -d
 ExecStop=/usr/bin/podman compose --env-file .env -f compose.yaml down
