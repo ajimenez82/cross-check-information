@@ -26,7 +26,7 @@
 .positions summary { cursor: pointer; font-weight: 600; }
 .breakdown { padding-block: 12px; border-bottom: 1px solid var(--border); }
 .dynamicBar { display: flex; height: 24px; border-radius: 5px; overflow: hidden; margin-top: 16px; }
-.dynamicBar span[data-position="QUESTIONS"] { background: #329c8e; }
+.dynamicBar span[data-position="QUESTIONS"] { background: #d64545; }
 .dynamicBar span[data-position="SUPPORTS"] { background: #b5d0fc; }
 .dynamicBar span[data-position="MIXED"] { background: #ffe495; }
 .dynamicBar span[data-position="NO_EXPLICIT_POSITION"] { background: #d1d6df; }
@@ -63,7 +63,6 @@
 .verdict p { color: var(--muted); margin-bottom: 6px; }
 .positions { padding: 16px; border: 1px solid var(--border); border-radius: 7px; }
 .positions h2 { font-size: 21px; margin-bottom: 12px; }
-.warning { display: block; border: 1px solid #efc453; border-radius: 5px; background: #fff6d7; color: #4b3d19; font-size: 12px; text-transform: uppercase; padding: 7px 9px; line-height: 1.4; }
 .percentage { display: block; font-size: 58px; line-height: 1.15; color: var(--green); letter-spacing: -2px; margin-top: 13px; }
 .positions > p { color: var(--muted); line-height: 1.35; }
 .positions > p strong { font-weight: 500; color: var(--ink); }
@@ -74,10 +73,11 @@
 .bar span:nth-child(3) { width: 10%; background: #d1d6df; }
 .legend { list-style: none; padding: 0; margin: 19px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 9px 12px; color: var(--muted); font-size: 13px; }
 .legend li { display: flex; align-items: center; gap: 9px; }
-.legend li::before { content: ''; width: 17px; height: 17px; border-radius: 50%; background: #329c8e; flex-shrink: 0; }
-.legend li:nth-child(2)::before { background: #b5d0fc; }
-.legend li:nth-child(3)::before { background: #ffe495; }
-.legend li:nth-child(4)::before { background: #d1d6df; }
+.legend li::before { content: ''; width: 17px; height: 17px; border-radius: 50%; flex-shrink: 0; }
+.legend li[data-position="QUESTIONS"]::before { background: #d64545; }
+.legend li[data-position="SUPPORTS"]::before { background: #b5d0fc; }
+.legend li[data-position="MIXED"]::before { background: #ffe495; }
+.legend li[data-position="NO_EXPLICIT_POSITION"]::before { background: #d1d6df; }
 .scope { border-top: 1px solid var(--border); padding-top: 13px; color: var(--muted); font-size: 13px; }
 .scope p + p { margin-top: 10px; }
 .sources { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 13px; }
@@ -119,7 +119,6 @@
   .verdict p { font-size: 14px; }
   .verdict small { font-size: 12px; }
   .positions h2 { font-size: 21px; }
-  .warning { width: fit-content; }
   .percentage { font-size: 57px; }
   .bar { margin-top: 16px; }
   .legend { font-size: 13px; }

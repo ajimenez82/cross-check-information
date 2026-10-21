@@ -1,0 +1,13 @@
+{
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "observedVerdict": "MISLEADING",
+  "expectedFactualVerdictGivenStatedReasoning": "INSUFFICIENT_EVIDENCE",
+  "criteria": [
+    "Do not infer misleadingness solely from lack of conclusive evidence.",
+    "Do not narrow unqualified remuneration to personal receipt; assess evidenced indirect connections.",
+    "A denial attributed to the subject alone does not justify AUTHOR/QUESTIONS.",
+    "Do not force a publication winner: the preserved sample ties SUPPORTS and NO_EXPLICIT_POSITION at three each."
+  ],
+  "provenance": "User-supplied processed service response; conversationToken removed. Not raw OpenAI output.",
+  "evaluation": "Editorial rubric for future live outputs; offline parsing does not establish model compliance."
+}

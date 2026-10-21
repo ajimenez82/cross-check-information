@@ -3,12 +3,12 @@
   "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
   "posts": 1,
   "terminal": {
-    "analysisId": "37be0fbe-6422-43c9-8605-9b19ef32ebe7",
+    "analysisId": "c8f51963-11a9-45f2-928b-6a3acb880f75",
     "status": "COMPLETED",
-    "createdAt": "2026-10-13T08:52:51.079949600Z",
-    "updatedAt": "2026-10-13T08:52:55.690390500Z",
-    "completedAt": "2026-10-13T08:52:55.797130800Z",
-    "expiresAt": "2026-10-14T08:52:51.079949600Z",
+    "createdAt": "2026-10-20T17:54:20.307449600Z",
+    "updatedAt": "2026-10-20T17:54:24.787425Z",
+    "completedAt": "2026-10-20T17:54:24.881924100Z",
+    "expiresAt": "2026-10-21T17:54:20.307449600Z",
     "pollAfterSeconds": null,
     "result": {
       "conversationToken": "[redacted]",
@@ -393,7 +393,7 @@
           "Varias piezas hablan de comisión para el 'grupo Zapatero', Análisis Relevante o sociedades vinculadas, pero no despejan por sí solas si el pago llegó directamente a Zapatero.",
           "No se accedió al sumario completo ni a todos los documentos primarios citados por las noticias, así que quedan lagunas sobre el circuito exacto del dinero."
         ],
-        "analyzedAt": "2026-10-13T08:52:55.690390500Z",
+        "analyzedAt": "2026-10-20T17:54:24.788522200Z",
         "asOf": null,
         "claimAnalysis": {
           "analysisTarget": "Determinar si José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra, entendiendo la afirmación como un beneficio económico ligado a sus gestiones o asesoramiento, incluso si el pago pudo canalizarse a través de terceros o sociedades vinculadas.",

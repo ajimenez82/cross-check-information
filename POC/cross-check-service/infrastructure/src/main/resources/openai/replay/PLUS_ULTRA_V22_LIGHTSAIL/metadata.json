@@ -1,0 +1,24 @@
+{
+  "scenario": "PLUS_ULTRA_V22_LIGHTSAIL",
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "revision": "political-v22",
+  "model": "gpt-5.4-mini",
+  "startedAt": "2026-10-20T18:56:41+00:00",
+  "capturedAt": "2026-10-20T18:58:28.058855+00:00",
+  "instructionsSha256": "a82c793b4249edef51aa88b6e5d20a13a363f979b430a9b4f9c328de24f7c74a",
+  "responseSha256": "c4dbbc22f67b272d747b1a11a23e7fb1a7806607d4e0c3c37eb2d1f80a62e303",
+  "usage": {
+    "input_tokens": 503216,
+    "input_tokens_details": {
+      "cached_tokens": 392576
+    },
+    "output_tokens": 10108,
+    "output_tokens_details": {
+      "reasoning_tokens": 5316
+    },
+    "total_tokens": 513324
+  },
+  "remoteStatus": "completed",
+  "previousContext": null,
+  "origin": "Lightsail production job; captured with read-only API calls"
+}

@@ -44,6 +44,11 @@ async function freePort(port) {
   await page.reload();await page.getByRole('heading',{name:heading,exact:true}).waitFor();
   if(terminal.result.analysis){
    const analysis=terminal.result.analysis;
+   if(analysis.publicationPositions.units.length>0){
+    assert.equal(await page.locator('aside li[data-position="QUESTIONS"]').evaluate(el=>getComputedStyle(el,'::before').backgroundColor),'rgb(214, 69, 69)');
+    assert.equal(await page.locator('aside span[data-position="QUESTIONS"]').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(214, 69, 69)');
+   }
+
    assert.equal(await page.getByRole('heading',{name:'Valoración por afirmaciones',exact:true}).count(),analysis.claimAnalysis?.claims.length>1?1:0);
    const verdict=await page.locator('section[aria-label="Valoración final"]').boundingBox();
    const body=await page.locator('section[aria-label="Análisis"]').boundingBox();

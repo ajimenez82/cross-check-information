@@ -207,3 +207,5 @@ Documentacion disponible tras reconstruir las imagenes: http://localhost:8088/ap
 ## Preparacion para Lightsail
 
 Archivos de servidor y exportacion de releases en POC/deploy/lightsail. Guia: [despliegue-aws-lightsail.md](despliegue-aws-lightsail.md). Compose local sigue en POC; el de Lightsail es independiente, con imagenes precompiladas y sin build en el servidor. Instancia AWS y DNS aun pendientes.
+
+Despliegue Lightsail verificado el 20/10/2026: HTTPS y acceso por password en https://www.contrastaloquetecuentan.com, perfil replay, consulta completa y persistencia tras recreacion de contenedores y reinicio de la instancia. Ver el estado final en despliegue-aws-lightsail.md.

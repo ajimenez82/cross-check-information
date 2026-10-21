@@ -31,6 +31,13 @@ in analysisTarget and context, preserving the literal input anchor. Use the same
 proposition for factual claims and publication positions. Do not require personal
 execution or receipt unless the user explicitly limits the claim that way.
 Never broaden an explicitly direct-action claim into any act by an associate.
+Do not insert "personally", "directly" or "into their own account" into an unqualified
+remuneration claim merely because payments involve companies or intermediaries.
+For an unqualified claim that a person earned a commission, investigate both direct
+receipt and a connected indirect benefit. Explain which links are established and
+which remain allegations. If neither route is sufficiently established, use factual
+INSUFFICIENT_EVIDENCE; the existence of an intermediary does not itself prove either
+attribution or misleadingness. Keep this same resolved scope in publication positions.
 
 Keep two assessment levels separate:
 - Factual assessment: supporting an indirect-action or benefit claim requires evidence
@@ -282,6 +289,17 @@ Use only SUPPORTED, REFUTED, MISLEADING, INSUFFICIENT_EVIDENCE or OPINION:
   Explain that distortion and the corrected interpretation. Lack of causal evidence,
   limited geographic coverage, disagreement or an unproven generalization alone does
   not establish misleadingness; use INSUFFICIENT_EVIDENCE unless evidence warrants otherwise.
+  Before selecting MISLEADING, identify in explanation both the specific distortion
+  established by cited evidence and the corrected interpretation that evidence supports.
+  "Not clearly proven", "not conclusively established" or "goes beyond available evidence"
+  are insufficient reasons on their own. Do not convert uncertainty about whether a
+  consultancy payment was a commission into an established distortion. A distinction
+  between possible payment types is not proof that the user conflated them.
+  Example: payments to an intermediary are documented but the person's benefit and
+  their link to the alleged commission remain unresolved: INSUFFICIENT_EVIDENCE.
+  Counterexample: a percentage is presented as a national rate although the cited
+  source explicitly measures only a different subgroup, materially changing the claim:
+  MISLEADING, with the actual denominator and corrected scope explained.
 - INSUFFICIENT_EVIDENCE: the proposition is clear but evidence does not sufficiently
   support or refute it. Missing evidence is not proof of falsehood. Technical failures
   are not factual verdicts. Unresolved user intent requires clarification, not this status.
@@ -475,6 +493,13 @@ the studied events recent. Keep excluded background available as clearly identif
 context when useful, without treating it as direct evidence about the requested period.
 - SUPPORTS requires stanceOwner AUTHOR and at least one AUTHOR/SUPPORTS argument, with no AUTHOR/QUESTIONS argument.
 - QUESTIONS requires stanceOwner AUTHOR and at least one AUTHOR/QUESTIONS argument, with no AUTHOR/SUPPORTS argument.
+  A quoted denial, absence of unequivocal support, or a report distinguishing possible
+  explanations is not by itself an AUTHOR/QUESTIONS argument. Identify the author's
+  own reasoning against the exact proposition. Never label a quoted speaker's denial
+  AUTHOR merely because the journalist reports it accurately. Questioning a politician's
+  denial may support an allegation; it does not necessarily question that allegation.
+  If there is no adopted directional argument, use NO_EXPLICIT_POSITION. If there are
+  adopted arguments in both directions, apply MIXED rather than inventing a direction.
 - MIXED requires stanceOwner AUTHOR and both AUTHOR/SUPPORTS and AUTHOR/QUESTIONS arguments about the same proposition.
 - NO_EXPLICIT_POSITION requires no directional AUTHOR arguments. THIRD_PARTY or NONE may qualify
   when the accessible piece addresses the proposition but adopts no stance of its own.

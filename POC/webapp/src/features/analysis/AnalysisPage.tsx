@@ -85,7 +85,7 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
       {classification.availability === 'UNAVAILABLE' ? <p><strong>Medición no disponible</strong></p> : total === 0 ? <p><strong>No calculable</strong> · 0 unidades clasificadas</p> : <>
         <p><strong>{total} unidades clasificadas</strong></p>
         <div className={s.dynamicBar} aria-hidden="true">{counts.map(({ position, count }) => <span key={position} data-position={position} style={{ width: `${100 * count / total}%` }} />)}</div>
-        <ul className={s.legend}>{counts.map(({ position, count }) => <li key={position}>{positionLabels[position]}: {count} de {total} ({(100 * count / total).toLocaleString('es-ES', { maximumFractionDigits: 1 })} %)</li>)}</ul>
+        <ul className={s.legend}>{counts.map(({ position, count }) => <li key={position} data-position={position}>{positionLabels[position]}: {count} de {total} ({(100 * count / total).toLocaleString('es-ES', { maximumFractionDigits: 1 })} %)</li>)}</ul>
       </>}
       {classification.reason && <p>{classification.reason}</p>}
       {classification.proposition && <p><strong>Proposición:</strong> {classification.proposition}</p>}
@@ -144,7 +144,6 @@ export function AnalysisPage() {
   return <div className={s.page}>
     <h1 className="srOnly">Conversación de análisis político</h1>
     <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categories[0].name}</span></div></div>
-    <p className={s.warning}>Prototipo · revisa las fuentes y las limitaciones de cada informe. Los informes marcados como simulados no evalúan tu consulta.</p>
     {conversation.turns.map(turn => <section key={turn.id} className={s.turn} aria-busy={turn.status === 'pending'}>
       <section className={s.message} aria-label="Tu consulta"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
       {turn.status === 'pending' && <PendingTurn turn={turn} />}

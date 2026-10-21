@@ -15,7 +15,7 @@ try {
         & podman save --format docker-archive --output $archive "localhost/cross-check-$component`:$ReleaseTag"
         if ($LASTEXITCODE -ne 0) { throw "Image export failed: $component" }
     }
-    foreach ($file in 'compose.yaml','Caddyfile','nginx.conf','.env.example','crosscheck-beta.service','crosscheck-backup.service','crosscheck-backup.timer','install-runtime.sh','backup-h2.sh') {
+    foreach ($file in 'compose.yaml','Caddyfile','nginx.conf','start-web.sh','.env.example','crosscheck-beta.service','crosscheck-backup.service','crosscheck-backup.timer','install-runtime.sh','backup-h2.sh') {
         Copy-Item -LiteralPath (Join-Path $PSScriptRoot $file) -Destination $outputDirectory
     }
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'sites') -Destination $outputDirectory -Recurse

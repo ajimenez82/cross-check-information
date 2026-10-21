@@ -4,4 +4,6 @@ After=crosscheck-beta.service
 
 [Service]
 Type=oneshot
+# Keep the restarted container monitor alive after the backup process exits.
+KillMode=process
 ExecStart=/bin/bash /opt/crosscheck/backup-h2.sh

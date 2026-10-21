@@ -1,0 +1,385 @@
+{
+  "scenario": "PLUS_ULTRA_V21_LIGHTSAIL",
+  "query": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+  "posts": 1,
+  "terminal": {
+    "analysisId": "63623ceb-c76b-4d68-864b-48e00547fd94",
+    "status": "COMPLETED",
+    "createdAt": "2026-10-20T18:05:18.843012Z",
+    "updatedAt": "2026-10-20T18:05:23.146399400Z",
+    "completedAt": "2026-10-20T18:05:23.198041800Z",
+    "expiresAt": "2026-10-21T18:05:18.843012Z",
+    "pollAfterSeconds": null,
+    "result": {
+      "conversationToken": "[redacted]",
+      "analysis": {
+        "title": "La supuesta comisión de Zapatero en el caso Plus Ultra",
+        "context": "Analizamos si José Luis Rodríguez Zapatero cobró una comisión por su asesoramiento vinculado al rescate de Plus Ultra, entendiendo la afirmación en su sentido literal: un cobro personal relacionado con ese caso y no solo pagos a terceros o a una consultora intermedia.",
+        "summary": "La cobertura accesible sí muestra una red de contratos, facturas y alegaciones judiciales sobre Plus Ultra, incluida la tesis de que hubo una comisión del 1% y que el entorno de Zapatero intentó monetizar su influencia. Pero también hay piezas que recogen su negativa y limitan el alcance probatorio: lo que aparece con claridad es una investigación en curso, no una prueba cerrada de que Zapatero cobrara personalmente esa comisión por su asesoramiento.",
+        "summarySourceIds": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S7"
+        ],
+        "verdict": {
+          "status": "INSUFFICIENT_EVIDENCE",
+          "explanation": "La evidencia disponible no permite afirmar como hecho probado que Zapatero ganara esa comisión por su asesoramiento en el caso Plus Ultra. Sí existen contratos y alegaciones que apuntan a pagos relacionados con la red, pero la conexión exacta entre su asesoramiento, el rescate y un cobro personal sigue controvertida y bajo investigación.",
+          "documentarySupport": "Los documentos y la cobertura periodística accesibles muestran contratos, facturas y alegaciones sobre pagos vinculados a la red de Plus Ultra, además de declaraciones de Zapatero negando que cobrara una comisión por influir en el rescate. También aparecen escritos de terceros que afirman que hubo un 1% pactado o que el dinero correspondía a asesoramiento, pero no una prueba documental concluyente de que Zapatero recibiera personalmente una comisión de Plus Ultra por ese caso.",
+          "sourceIds": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6",
+            "S7"
+          ]
+        },
+        "sources": [
+          {
+            "id": "S1",
+            "title": "Zapatero, implicado en el caso Plus Ultra: su socio confirma la comisión del 1% en el rescate",
+            "url": "https://www.moncloa.com/2026/07/21/caso-plus-ultra-zapatero-comision-3403001/",
+            "publisher": "Moncloa.com",
+            "publishedAt": "2026-07-21",
+            "consultedAt": null,
+            "contribution": "Reportaje que sostiene que existió una comisión del 1% y que el entorno de Zapatero lideraba la operación; aporta una postura editorial claramente favorable a la tesis de la comisión.",
+            "type": "news"
+          },
+          {
+            "id": "S2",
+            "title": "El contrato de Julio Martínez prometía a Plus Ultra un rescate en un \"periodo corto\": a los dos meses de la firma estaba hecho",
+            "url": "https://www.eldiario.es/politica/contrato-julio-martinez-prometia-plus-ultra-rescate-periodo-corto-meses-firma-hecho_1_13249550.html",
+            "publisher": "eldiario.es",
+            "publishedAt": "2026-05-26",
+            "consultedAt": null,
+            "contribution": "Artículo basado en el contrato de Julio Martínez con Plus Ultra; argumenta que el documento puede apuntalar la sospecha de que el entorno de Zapatero trabajó para conseguir el rescate a cambio de una comisión.",
+            "type": "news"
+          },
+          {
+            "id": "S3",
+            "title": "Plus Ultra pagó 707.000 € a las empresas de la trama: Zapatero y sus hijas se quedaron el 90%",
+            "url": "https://www.elconfidencial.com/espana/2026-03-11/zapatero-hijas-psoe-plus-ultra-empresas-trama_4317841/",
+            "publisher": "El Confidencial",
+            "publishedAt": "2026-03-11",
+            "consultedAt": null,
+            "contribution": "Reportaje de investigación que vincula pagos de Plus Ultra con sociedades de la red de Zapatero y sostiene la hipótesis de comisiones ilegales camufladas como asesoramiento.",
+            "type": "news"
+          },
+          {
+            "id": "S4",
+            "title": "Zapatero, sobre el rescate de Plus Ultra: “No es que no influyera, es que no hablé con nadie”",
+            "url": "https://elpais.com/espana/2026-07-23/zapatero-en-su-primera-entrevista-tras-su-imputacion-no-es-que-no-influyera-es-que-no-hable-con-nadie-del-rescate-de-plus-ultra.html?outputType=amp",
+            "publisher": "El País",
+            "publishedAt": "2026-07-23",
+            "consultedAt": null,
+            "contribution": "Entrevista y pieza informativa en la que Zapatero niega haber influido en el rescate y afirma que su trabajo fue asesoría; no adopta una tesis propia sobre la comisión.",
+            "type": "news"
+          },
+          {
+            "id": "S5",
+            "title": "Rescate Plus Ultra: Julio Martínez confiesa que Zapatero medió",
+            "url": "https://www.rtve.es/noticias/20260720/julio-martinez-juez-confiesa-zapatero-medio-rescate-plus-ultra/17162498.shtml",
+            "publisher": "RTVE",
+            "publishedAt": "2026-07-20",
+            "consultedAt": null,
+            "contribution": "Cobertura de la documentación enviada al juez; describe alegaciones y contratos, pero no asume una conclusión editorial propia sobre si Zapatero cobró esa comisión.",
+            "type": "news"
+          },
+          {
+            "id": "S6",
+            "title": "Las dudas del juez Calama sobre Análisis Relevante y la labor de Zapatero: \"Parece que se monta para recibir comisiones\"",
+            "url": "https://cadenaser.com/nacional/2026/06/18/las-dudas-del-juez-calama-sobre-analisis-relevante-y-la-labor-de-zapatero-parece-que-se-monta-para-recibir-comisiones-cadena-ser/?outputType=amp",
+            "publisher": "Cadena SER",
+            "publishedAt": "2026-06-18",
+            "consultedAt": null,
+            "contribution": "Cobertura de una comparecencia judicial que reproduce las dudas del juez y la negativa de Zapatero; no formula por sí misma una conclusión editorial sobre la comisión.",
+            "type": "news"
+          },
+          {
+            "id": "S7",
+            "title": "El juez apunta a que Zapatero traficaba con sus influencias con empresas chinas y venezolanas a través de una consultora tapadera",
+            "url": "https://elpais.com/espana/2026-05-20/el-juez-apunta-a-que-zapatero-traficaba-con-sus-influencias-con-empresas-chinas-y-venezolanas-a-traves-de-una-consultora-tapadera.html?comments_container=true",
+            "publisher": "El País",
+            "publishedAt": "2026-05-20",
+            "consultedAt": null,
+            "contribution": "Repaso informativo del estado de la investigación; destaca que no hay comunicación directa que pruebe la influencia de Zapatero y resume las versiones de las partes.",
+            "type": "news"
+          }
+        ],
+        "publicationPositions": {
+          "availability": "AVAILABLE",
+          "reason": null,
+          "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+          "period": {
+            "from": "2026-03-11",
+            "to": "2026-07-23"
+          },
+          "consultedAt": null,
+          "selectionCriteria": "Se seleccionaron piezas accesibles de siete publicaciones distintas que cubren la investigación judicial, los contratos y las respuestas de Zapatero y de Plus Ultra. El conjunto incluye reportajes que sostienen la hipótesis de comisión, así como piezas meramente descriptivas sin postura editorial explícita; no se accedió al texto de algunas exclusivas cerradas ni al sumario completo.",
+          "units": [
+            {
+              "id": "P1",
+              "sourceIds": [
+                "S1"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "El artículo adopta la tesis de que existió una comisión del 1% y la vincula al entorno de Zapatero, presentándolo como quien dirigía la operación.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2020-2021, con referencias retrospectivas en 2026",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza trata exactamente del presunto cobro de una comisión ligada al rescate de Plus Ultra y a Zapatero."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S1",
+                    "locator": "L106-L109",
+                    "paraphrase": "El texto afirma que Julio Martínez admite una comisión del 1% por intermediar en el rescate y que sitúa a Zapatero como líder de la estrategia para obtener el préstamo.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  },
+                  {
+                    "sourceId": "S1",
+                    "locator": "L113-L116",
+                    "paraphrase": "Añade que los presidentes de Plus Ultra corroboran el pago y señalan a Zapatero y a Julio Martínez como artífices de la intermediación.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P2",
+              "sourceIds": [
+                "S2"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "El reportaje sostiene que el contrato y las gestiones apuntalan la sospecha de que el entorno de Zapatero trabajó para lograr el rescate y cobrar por ello.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2020-2021, con revisión documental en 2026",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza aborda el mismo supuesto cobro ligado al rescate de Plus Ultra y la relación de Zapatero con esa operación."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S2",
+                    "locator": "L229-L235",
+                    "paraphrase": "El artículo explica que el contrato recogía una comisión del 1% y que ese documento puede apuntalar la sospecha de que el entorno de Zapatero trabajó para conseguir el rescate a cambio de dinero.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P3",
+              "sourceIds": [
+                "S3"
+              ],
+              "position": "SUPPORTS",
+              "explanation": "La pieza afirma que Zapatero incrementó sus ingresos de la red investigada tras el rescate y que ello refuerza la hipótesis de comisiones ilegales camufladas como asesoramiento.",
+              "trace": {
+                "stanceOwner": "AUTHOR",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2020-2025, con análisis retrospectivo en 2026",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza se centra en si los pagos de la red de Plus Ultra ocultaban una comisión vinculada a Zapatero."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S3",
+                    "locator": "L248-L251",
+                    "paraphrase": "El medio sostiene que Plus Ultra abonó dinero a sociedades del amigo de Zapatero y que la UDEF y la Fiscalía creen que eso camuflaba comisiones ilegales por mediar en el rescate.",
+                    "attribution": "AUTHOR",
+                    "relation": "SUPPORTS"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P4",
+              "sourceIds": [
+                "S4"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "El artículo reproduce la negativa de Zapatero y la información sobre contratos y pagos, pero no adopta una conclusión propia sobre si él cobró esa comisión.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2021-2026, con foco retrospectivo sobre el rescate",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza trata el mismo caso, pero su función es informar sobre la versión de Zapatero y el estado de la investigación, no sostener una tesis editorial propia sobre el cobro."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S4",
+                    "locator": "L56-L60",
+                    "paraphrase": "Se recogen la versión de Zapatero, su afirmación de que su trabajo fue asesoría y su negativa a haber intervenido en el rescate, sin que el autor cierre la cuestión como propia.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P5",
+              "sourceIds": [
+                "S5"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "La cobertura se limita a resumir los escritos judiciales y las imputaciones, sin que el medio afirme por su cuenta que el cobro personal de Zapatero quede probado.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2020-2026, con retrospectiva judicial",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "El texto describe la causa judicial sobre Plus Ultra, pero no asume editorialmente la afirmación de que Zapatero cobrara esa comisión."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S5",
+                    "locator": "L75-L77",
+                    "paraphrase": "RTVE informa de que los escritos presentados al juez apuntan a una pretensión de cobrar y a un contrato del 1%, pero lo hace como relato de la causa en curso.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P6",
+              "sourceIds": [
+                "S6"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "La pieza informa de las dudas del juez y de la negativa de Zapatero, pero no formula una posición propia sobre si él ganó la comisión.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2026, con referencia retrospectiva al rescate de 2021",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza aborda el mismo asunto judicial, aunque como cobertura descriptiva de una comparecencia y no como toma de postura editorial."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S6",
+                    "locator": "L110-L121",
+                    "paraphrase": "Cadena SER reproduce las valoraciones del juez y la negativa de Zapatero, pero el texto no toma partido propio sobre la veracidad de la comisión.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "P7",
+              "sourceIds": [
+                "S7"
+              ],
+              "position": "NO_EXPLICIT_POSITION",
+              "explanation": "El artículo recoge la negativa de Zapatero y la existencia de indicios, pero no presenta una tesis propia distinta de la narración del caso.",
+              "trace": {
+                "stanceOwner": "NONE",
+                "stanceHolder": null,
+                "scope": {
+                  "outcome": "Cobro de comisión por asesoramiento/intermediación",
+                  "geography": "España",
+                  "studyPeriod": "2021-2026, con retrospectiva sobre el rescate",
+                  "policy": "Rescate público de Plus Ultra por la SEPI",
+                  "match": "MATCH",
+                  "explanation": "La pieza es un repaso informativo del estado de la investigación, no una defensa ni refutación propia de la afirmación sobre la comisión."
+                },
+                "temporalRelation": "RETROSPECTIVE",
+                "arguments": [
+                  {
+                    "sourceId": "S7",
+                    "locator": "L104-L107",
+                    "paraphrase": "El texto explica que no hay comunicación directa que pruebe la influencia de Zapatero y resume la respuesta de las partes, sin adoptar una conclusión editorial propia.",
+                    "attribution": "DESCRIPTIVE",
+                    "relation": "CONTEXT"
+                  }
+                ]
+              }
+            }
+          ],
+          "excluded": []
+        },
+        "limitations": [
+          "Varias piezas clave dependen de alegaciones judiciales y escritos incorporados a la causa, no de una sentencia firme.",
+          "Algunas publicaciones describen contratos o pagos a intermediarios, pero no prueban por sí mismas que el beneficiario final fuera Zapatero personalmente.",
+          "La cobertura periodística encontrada es amplia pero no exhaustiva; no se accedió a todas las piezas originales del sumario judicial ni a todas las posibles exclusivas de cada medio."
+        ],
+        "analyzedAt": "2026-10-20T18:05:23.146399400Z",
+        "asOf": null,
+        "claimAnalysis": {
+          "analysisTarget": "Analizamos si José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+          "decomposition": {
+            "kind": "SINGLE",
+            "basis": "SINGLE_PROPOSITION",
+            "explanation": "La pregunta plantea una única afirmación fáctica: si Zapatero cobró una comisión por su asesoramiento en el caso Plus Ultra. No pide separar cuantía, intermediarios o periodos distintos."
+          },
+          "claims": [
+            {
+              "id": "C1",
+              "inputExcerpt": "Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra",
+              "proposition": "José Luis Rodríguez Zapatero ganó una comisión por su asesoramiento en el caso Plus Ultra.",
+              "verdict": {
+                "status": "INSUFFICIENT_EVIDENCE",
+                "explanation": "La evidencia disponible no permite afirmar como hecho probado que Zapatero ganara esa comisión por su asesoramiento en el caso Plus Ultra. Sí existen contratos y alegaciones que apuntan a pagos relacionados con la red, pero la conexión exacta entre su asesoramiento, el rescate y un cobro personal sigue controvertida y bajo investigación.",
+                "documentarySupport": "Los documentos y la cobertura periodística accesibles muestran contratos, facturas y alegaciones sobre pagos vinculados a la red de Plus Ultra, además de declaraciones de Zapatero negando que cobrara una comisión por influir en el rescate. También aparecen escritos de terceros que afirman que hubo un 1% pactado o que el dinero correspondía a asesoramiento, pero no una prueba documental concluyente de que Zapatero recibiera personalmente una comisión de Plus Ultra por ese caso.",
+                "sourceIds": [
+                  "S1",
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5",
+                  "S6",
+                  "S7"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "clarification": null
+    },
+    "error": null
+  }
+}

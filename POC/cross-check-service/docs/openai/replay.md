@@ -1,6 +1,6 @@
 # Pruebas reales y reproducción local
 
-El perfil `replay` reproduce respuestas originales de political-v19 y political-v20 sin conectarse a OpenAI. Usa el parser v3 real, sus validaciones, el cálculo de veredicto del servicio y el flujo de trabajos asíncronos que consume el frontend. No sirve informes finales precalculados.
+El perfil `replay` reproduce respuestas originales de political-v19, political-v20, political-v21 y political-v22 sin conectarse a OpenAI. Usa el parser v3 real, sus validaciones, el cálculo de veredicto del servicio y el flujo de trabajos asíncronos que consume el frontend. No sirve informes finales precalculados.
 
 ## Ejecutar desde IntelliJ
 
@@ -22,6 +22,8 @@ java -jar bootstrap/target/cross-check-bootstrap-0.0.1-SNAPSHOT.jar --spring.pro
 
 | Escenario | Consulta exacta |
 |---|---|
+| PLUS_ULTRA_V22_LIGHTSAIL | Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra |
+| PLUS_ULTRA_V21_LIGHTSAIL | Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra |
 | PLUS_ULTRA_V20 | Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra |
 | PLUS_ULTRA_V19 | Zapatero ganó una comisión por su asesoramiento en caso de Plus Ultra |
 | VOTO_OBLIGATORIO_V19 | En España es obligatorio votar en las elecciones generales. |
@@ -64,3 +66,13 @@ PLAYWRIGHT_MODULE permite indicar la ruta de un módulo Playwright externo. Usa 
 [Informe de capturas reales y reproducción local](political-v19-replay-review.md). Los cuatro casos completaron el procesamiento y la presentación en navegador; el informe separa esa validación técnica de las limitaciones del análisis generado.
 
 Para reproducir la nueva redaccion usa `--crosscheck.replay.scenario=PLUS_ULTRA_V20`. Para comprobar solo ese caso en navegador, establece `REPLAY_SCENARIOS=PLUS_ULTRA_V20` antes de ejecutar el script.
+
+## Captura de Lightsail del 20/10/2026
+
+`PLUS_ULTRA_V21_LIGHTSAIL` conserva la respuesta exacta de la primera prueba real tras activar OpenAI en la beta. Se recuperó la sesión por el metadato del trabajo y se leyó su respuesta final; la captura no generó otra inferencia. Resultado procesado: `INSUFFICIENT_EVIDENCE`, siete publicaciones de seis medios, tres `SUPPORTS` y cuatro `NO_EXPLICIT_POSITION`. Predomina la ausencia de postura explícita, por lo que no se transforma en respaldo. Es una comprobación técnica del flujo, no una verificación independiente de las fuentes ni de la calidad editorial.
+
+Para reproducirla, compila y usa `--crosscheck.replay.scenario=PLUS_ULTRA_V21_LIGHTSAIL` con perfiles `replay,local`. Para comprobar solo este escenario en navegador, establece `REPLAY_SCENARIOS=PLUS_ULTRA_V21_LIGHTSAIL`. La beta remota permanece en `openai`; esta selección es para ejecución local.
+
+## Captura political-v22 de Lightsail
+
+Escenario `PLUS_ULTRA_V22_LIGHTSAIL`: misma consulta de Zapatero, resultado final `SUPPORTED_BY_PUBLICATIONS` y factual `INSUFFICIENT_EVIDENCE`. Compilar y ejecutar con perfiles `replay,local` y `--crosscheck.replay.scenario=PLUS_ULTRA_V22_LIGHTSAIL`. Para el navegador: `REPLAY_SCENARIOS=PLUS_ULTRA_V22_LIGHTSAIL`. [Informe de verificación y limitaciones editoriales](political-v22-replay-review.md). La captura conserva también los fallos detectados; no es una respuesta corregida.

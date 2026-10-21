@@ -197,3 +197,25 @@ Verificada persistencia con una consulta adicional: el resultado COMPLETED se re
 Se corrigio un 502 detectado durante la prueba: Java cambio de IP interna al parar/arrancar para una copia y Nginx conservaba la direccion antigua. El proxy de servidor ahora usa DNS dinamico con validez de 5 segundos, tomando el resolvedor real de /etc/resolv.conf mediante start-web.sh. Plantilla validada con nginx -t dentro del contenedor. El script usa una plantilla mktemp compatible con Alpine.
 
 El paquete archivado en /home/ubuntu/crosscheck-releases/beta-20261020-2 incluye las correcciones operativas y sus huellas SHA256 se verificaron en el servidor. El servicio y el timer de copias estan activos. Credenciales de acceso en Deployment/beta-access.txt (local, privado y excluido de Git). Perfil remoto actual: replay. Quedan pendientes activar OpenAI, verificar su funcionamiento real y preparar una copia externa cifrada con politica de retencion. La prueba funcional no equivale a una prueba de carga.
+
+## OpenAI activado y contraseña sincronizada (20/10/2026)
+
+Estado actual: release `beta-20261020-3`, perfil `openai`, revisión `political-v21`. API y web con imágenes nuevas, tres contenedores saludables, HTTPS operativo y Swagger deshabilitado. Se transfirieron de forma privada las credenciales OpenAI de la configuración local y se conservó el secreto de las conversaciones. Las consultas nuevas consumen la API real. Abrir una conversación nueva al pasar de replay a OpenAI.
+
+Se aplicó en Caddy la contraseña editada por el usuario en `Deployment/beta-access.txt`, generando su hash y recreando el proxy. Cambiar ese archivo local por sí solo no actualiza Caddy: hay que regenerar `BETA_PASSWORD_HASH` en el `.env` privado del servidor y recrear el contenedor edge. El archivo privado remoto de acceso también se sincronizó. No incluir contraseñas ni claves en el repositorio ni en comandos visibles.
+
+Comprobaciones: sin credenciales 401; acceso con la contraseña nueva correcto; una sola consulta real de Zapatero completada, visible tras recargar; `/api/docs` devuelve 404. El color de `QUESTIONS` es rojo `#d64545` tanto en la barra como en la leyenda, comprobado en navegador. El resultado fue `INSUFFICIENT_EVIDENCE`, con siete publicaciones: tres de respaldo y cuatro sin posición explícita. Respuesta original conservada para replay en `PLUS_ULTRA_V21_LIGHTSAIL`; consultar `POC/cross-check-service/docs/openai/replay.md`.
+
+Se detectó y corrigió el cierre de la unidad de copia: systemd detenía el monitor conmon del contenedor reiniciado. `crosscheck-backup.service` usa `KillMode=process` para dejar ese monitor activo al terminar el script. La copia consistente se repitió con `Result=success`; la API volvió a estar saludable. Corrección incluida en el paquete archivado y huellas verificadas. Siguen pendientes la copia externa cifrada, la política de retención y pruebas de carga.
+
+## Revisión political-v22 desplegada (20/10/2026)
+
+Release actual `beta-20261020-5`, perfil openai, revisión `political-v22`. Copia H2 previa correcta, paquete SHA-256 verificado, contenedores saludables. Credenciales y secreto conservados. Instrucciones publicadas en OpenAI y empaquetadas en la imagen Java; igualdad con las instrucciones recibidas por la sesión real verificada.
+
+Una prueba real de Zapatero completó con `SUPPORTED_BY_PUBLICATIONS` y factual `INSUFFICIENT_EVIDENCE`; acceso y recarga correctos. Captura exacta `PLUS_ULTRA_V22_LIGHTSAIL`. La mejora editorial es parcial: persisten restricciones al cobro personal y exclusiones indebidas de piezas descriptivas. Ver `POC/cross-check-service/docs/openai/political-v22-replay-review.md`. Abrir una conversación nueva para usar esta revisión.
+
+## Aviso de prototipo retirado (21/10/2026)
+
+Release actual `beta-20261021-1`. Imagen web nueva sin el aviso de prototipo/simulaciones. API reutilizada exactamente desde `beta-20261020-5`, etiquetada también con el tag nuevo para mantener el Compose existente. Perfil `openai` y revisión `political-v22` conservados, al igual que credenciales y datos.
+
+Paquete web y SHA-256 archivados en `/home/ubuntu/crosscheck-releases/beta-20261021-1`; para reconstruir este release se requiere la imagen API del release anterior. Copia H2 previa correcta. Stack activo y contenedores saludables. Navegador autenticado comprobado en escritorio y móvil con un informe guardado en un contexto aislado: aviso ausente, etiquetas Beta de cabecera y pie conservadas. Cero solicitudes a los endpoints de análisis durante la verificación; sin consumo OpenAI. Acceso sin credenciales sigue devolviendo 401.
