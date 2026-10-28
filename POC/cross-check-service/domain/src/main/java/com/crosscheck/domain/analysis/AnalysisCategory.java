@@ -1,5 +1,6 @@
 package com.crosscheck.domain.analysis;
 
 public enum AnalysisCategory {
-    POLITICAL_ANALYSIS
+    POLITICAL_ANALYSIS,
+    SPORTS_ANALYSIS
 }

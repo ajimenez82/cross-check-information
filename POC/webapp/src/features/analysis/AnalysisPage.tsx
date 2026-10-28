@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { FileText, CircleCheck, CircleX, TriangleAlert, CircleHelp, MessageCircle, GitFork, Newspaper, Link as LinkIcon, List, Send } from 'lucide-react';
-import { categories } from '../../shared/model/categories';
+import { categoryName } from '../../shared/model/categories';
 import { Dialog } from '../../shared/ui/Dialog';
 import { useConversations, type Turn } from '../conversations/ConversationProvider';
 import { positionLabels, verdictLabels, type Analysis, type Source, type Position, type PublicationTrace } from './api/analysisContract';
@@ -60,7 +60,7 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
           <h2 className={s.reportTitle}>{data.title}</h2>
           <p>{data.verdict.explanation}</p>
           <ReferenceButtons ids={data.verdict.sourceIds} sources={data.sources} onSource={onSource} />
-          <div className={s.verdictMeta}><span>{data.sources.length} fuentes citadas</span>{data.asOf && <span>Corte de las evidencias: {data.asOf}</span>}</div>
+          <div className={s.verdictMeta}><span>{data.sources.length === 0 ? 'Sin fuentes externas' : `${data.sources.length} fuentes citadas`}</span>{data.asOf && <span>Corte de las evidencias: {data.asOf}</span>}</div>
         </div>
       </section>
       <section className={s.analysisBody} aria-label="Análisis">
@@ -82,7 +82,7 @@ function Report({ data, onSource }: { data: Analysis; onSource: (source: Source)
     </article>
     <aside className={s.positions}>
       <h3>Posiciones en las publicaciones</h3>
-      {classification.availability === 'UNAVAILABLE' ? <p><strong>Medición no disponible</strong></p> : total === 0 ? <p><strong>No calculable</strong> · 0 unidades clasificadas</p> : <>
+      {classification.availability === 'UNAVAILABLE' ? <p><strong>No se calculó una distribución de publicaciones</strong></p> : total === 0 ? <p><strong>No calculable</strong> · 0 unidades clasificadas</p> : <>
         <p><strong>{total} unidades clasificadas</strong></p>
         <div className={s.dynamicBar} aria-hidden="true">{counts.map(({ position, count }) => <span key={position} data-position={position} style={{ width: `${100 * count / total}%` }} />)}</div>
         <ul className={s.legend}>{counts.map(({ position, count }) => <li key={position} data-position={position}>{positionLabels[position]}: {count} de {total} ({(100 * count / total).toLocaleString('es-ES', { maximumFractionDigits: 1 })} %)</li>)}</ul>
@@ -142,8 +142,8 @@ export function AnalysisPage() {
   const canFollowUp = Boolean(conversation.token) && lastTurn?.status === 'done'
     || lastTurn?.status === 'clarification' && (Boolean(conversation.token) || lastTurn.clarification?.reason === 'CONTEXT_UNAVAILABLE');
   return <div className={s.page}>
-    <h1 className="srOnly">Conversación de análisis político</h1>
-    <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categories[0].name}</span></div></div>
+    <h1 className="srOnly">Conversación de {categoryName(conversation.category)}</h1>
+    <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categoryName(conversation.category)}</span></div></div>
     {conversation.turns.map(turn => <section key={turn.id} className={s.turn} aria-busy={turn.status === 'pending'}>
       <section className={s.message} aria-label="Tu consulta"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
       {turn.status === 'pending' && <PendingTurn turn={turn} />}

@@ -26,3 +26,5 @@
 
 .betaBadge { margin-right: auto; flex-shrink: 0; padding: 4px 9px; border: 1px solid #b8d5c9; border-radius: 999px; background: #edf6f1; color: var(--green); font-size: 12px; font-weight: 700; line-height: 1.2; }
 @media (max-width: 760px) { .betaBadge { margin-right: 0; padding: 4px 7px; font-size: 10px; } }
+
+.historyTitle { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }

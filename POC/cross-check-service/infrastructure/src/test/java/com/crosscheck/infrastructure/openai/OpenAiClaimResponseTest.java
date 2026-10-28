@@ -20,6 +20,31 @@ class OpenAiClaimResponseTest {
         root.putNull("clarification");
         return root;
     }
+    @Test void acceptsResolvedKnowledgeReportWithoutExternalSources() throws Exception {
+        var root = response();
+        var analysis = (ObjectNode) root.path("analysis");
+        analysis.putArray("sources");
+        analysis.putArray("summarySourceIds");
+        for (var claim : analysis.path("claimAnalysis").path("claims")) {
+            var verdict = (ObjectNode) claim.path("verdict");
+            verdict.put("status", "SUPPORTED");
+            verdict.put("documentarySupport", "Conclusión basada en razonamiento y conocimiento general, sin consultar fuentes externas.");
+            verdict.putArray("sourceIds");
+        }
+        var positions = analysis.putObject("publicationPositions");
+        positions.put("availability", "UNAVAILABLE");
+        positions.put("reason", "La cuestión se resuelve mediante conocimiento general; no se han evaluado posiciones de publicaciones.");
+        positions.putNull("proposition");
+        positions.putNull("selectionCriteria");
+        positions.putArray("assessments");
+        var report = claimTurn(root.toString(), input, "session").report();
+        assertEquals(com.crosscheck.domain.analysis.VerdictStatus.SUPPORTED, report.verdict().status());
+        assertTrue(report.sources().isEmpty());
+        assertTrue(report.verdict().sourceIds().isEmpty());
+        assertEquals(com.crosscheck.domain.analysis.ClassificationAvailability.UNAVAILABLE,
+                report.publicationPositions().availability());
+    }
+
     @Test void contextualAnchorMustComeFromServerInput() throws Exception {
         var json = response().toString();
         assertNotNull(claimTurn(json, input, "session").report());

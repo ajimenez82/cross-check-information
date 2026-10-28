@@ -82,6 +82,8 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
 
     @Override
     public AiAnalysisTurn analyze(AiAnalysisInput input) {
+        if (input.category() == com.crosscheck.domain.analysis.AnalysisCategory.SPORTS_ANALYSIS && reportSchemaVersion != 3)
+            throw new AnalysisProviderException(UNAVAILABLE, NOT_STARTED);
         long started = System.nanoTime();
         String sessionId = input.sessionId();
         if (sessionId != null && !sessionId.matches("[A-Za-z0-9_-]{1,200}")) {
@@ -128,7 +130,7 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
             configuration.put("agent_id",agentId);
             configuration.put("environment",Map.of("type","none"));
             configuration.put("input",requestText);configuration.put("stream",false);
-            if (reportSchemaVersion == 3) configuration.put("agent",UnifiedAgentConfiguration.value());
+            if (reportSchemaVersion == 3) configuration.put("agent",UnifiedAgentConfiguration.value(input.category()));
             var session = transport.request("agents/sessions", configuration,
                     deadline, false, false);
             sessionId = id(session, "id");

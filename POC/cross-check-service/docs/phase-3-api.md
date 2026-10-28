@@ -87,7 +87,7 @@ Los mensajes al usuario están en español. Identificadores, comentarios y Javad
 | `SERVER_PORT` | `server.port` | 8080 |
 | `MAX_INPUT_LENGTH` | `crosscheck.analysis.max-input-length` | 10000 puntos de código Unicode |
 | `MAX_TOKEN_LENGTH` | `crosscheck.analysis.max-token-length` | 4096 unidades UTF-16; mínimo 40 para el token simulado |
-| `POLITICAL_AGENT_REVISION` | `crosscheck.analysis.agent-revision` | development-v1 |
+| `AGENT_REVISION` | `crosscheck.analysis.agent-revision` | development-v1 |
 | `CONVERSATION_TOKEN_TTL` | `crosscheck.analysis.conversation-ttl` | PT2H |
 | `DEV_ANALYSIS_SCENARIO` | `crosscheck.development.scenario` | INSUFFICIENT_EVIDENCE |
 | `DEV_REFERENCE_CAPACITY` | `crosscheck.development.reference-capacity` | 1000 referencias |

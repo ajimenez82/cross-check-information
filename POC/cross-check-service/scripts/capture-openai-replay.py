@@ -21,7 +21,7 @@ def setting(name):
     return match.group(1).strip().strip("\"'")
 key = setting("OPENAI_API_KEY")
 agent = setting("OPENAI_POLITICAL_ANALYSIS_AGENT_ID")
-revision = setting("POLITICAL_AGENT_REVISION")
+revision = setting("AGENT_REVISION")
 prepared = json.loads((service / "bootstrap/target/political-agent-unified.request.json").read_text(encoding="utf-8-sig"))
 def request(path, body=None):
     req = urllib.request.Request("https://api.openai.com/v1/" + path,

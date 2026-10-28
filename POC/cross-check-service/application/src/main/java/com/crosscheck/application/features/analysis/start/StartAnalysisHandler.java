@@ -36,6 +36,11 @@ public final class StartAnalysisHandler {
     public Prepared prepare(StartAnalysisCommand command) {
         validateInput(command);
         var reference = resolve(command.conversationToken());
+        var category = command.category() != null ? command.category()
+                : reference == null ? AnalysisCategory.POLITICAL_ANALYSIS : reference.category();
+        if (reference != null && reference.category() != category) {
+            throw new InvalidConversationReferenceException();
+        }
         var context = reference == null || reference.contextId() == null ? null
                 : contexts.get(reference.contextId(), reference.sessionId());
         if (reference != null && reference.contextId() != null && context == null) {
@@ -43,7 +48,7 @@ public final class StartAnalysisHandler {
                     "El contexto anterior ya no está disponible. Escribe la consulta completa para iniciar un nuevo análisis.",
                     Clarification.Reason.CONTEXT_UNAVAILABLE)));
         }
-        var input = new AiAnalysisInput(command.text(), AnalysisCategory.POLITICAL_ANALYSIS,
+        var input = new AiAnalysisInput(command.text(), category,
                 policy.agentRevision(), reference == null ? null : reference.sessionId(), context);
 
         return new Prepared(input, null);
@@ -86,7 +91,7 @@ public final class StartAnalysisHandler {
                         completedAt.plus(policy.conversationTtl()));
             }
         } catch (IllegalArgumentException invalid) { throw new InvalidAnalysisOutputException(); }
-        var nextReference = new ConversationReference(turn.sessionId(), AnalysisCategory.POLITICAL_ANALYSIS,
+        var nextReference = new ConversationReference(turn.sessionId(), input.category(),
                 input.agentRevision(), completedAt.plus(policy.conversationTtl()), contextId);
         var token = codec.encode(nextReference);
         if (token == null || token.isBlank() || token.length() > policy.maxTokenLength()) {
@@ -111,7 +116,7 @@ public final class StartAnalysisHandler {
             throw new InvalidConversationReferenceException();
         }
         var reference = codec.decode(token);
-        if (reference == null || reference.category() != AnalysisCategory.POLITICAL_ANALYSIS
+        if (reference == null || reference.category() == null
                 || !reference.agentRevision().equals(policy.agentRevision())) {
             throw new InvalidConversationReferenceException();
         }

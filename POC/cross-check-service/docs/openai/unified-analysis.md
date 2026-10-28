@@ -23,7 +23,7 @@ Recursos canónicos:
 
 `./scripts/prepare-unified-agent.ps1` genera `bootstrap/target/political-agent-unified.request.json` sin red ni claves. Modelo gpt-5.4-mini, razonamiento low, servicio default, búsqueda web y multi-agent desactivado. La creación de cada sesión incluye esta configuración para no depender de una versión antigua del agente guardado. [Configuración oficial de Agents](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 
-En `config/application-local.yml`: OPENAI_API_KEY, OPENAI_POLITICAL_ANALYSIS_AGENT_ID y POLITICAL_AGENT_REVISION: political-v19. Perfil real `openai,local`; `dev,local` conserva su proveedor simulado y no cambia en esta entrega. La antigua variable de activación de captura se retira. Reiniciar el servicio y comenzar una conversación nueva tras cambiar revisión.
+En `config/application-local.yml`: OPENAI_API_KEY, OPENAI_POLITICAL_ANALYSIS_AGENT_ID y AGENT_REVISION: political-v19. Perfil real `openai,local`; `dev,local` conserva su proveedor simulado y no cambia en esta entrega. La antigua variable de activación de captura se retira. Reiniciar el servicio y comenzar una conversación nueva tras cambiar revisión.
 
 ## Trabajos anteriores
 
@@ -83,3 +83,25 @@ Se generaliza el alcance a actuaciones, decisiones, intermediaciones y beneficio
 Se mantienen las decisiones acordadas: objetivo de 8–12 publicaciones de cinco medios con limitaciones explicadas, posiciones solo para SINGLE, argumentos propios del AUTHOR y conservación de INSUFFICIENT_EVIDENCE en empate, predominio mixto/sin posición o muestra no evaluable. No cambian el contrato ni la lógica Java/FE.
 
 Validación v19: Maven verify correcto (288 pruebas superadas y 2 omitidas). Configuración publicada y comprobada por lectura en OpenAI. No se ha ejecutado una nueva inferencia real; esta verificación no demuestra por sí sola el cumplimiento del modelo. Reiniciar el servicio y abrir una conversación nueva para usar la revisión.
+
+## Investigación proporcional — analysis-v25
+
+Política y Deportes permiten resolver conocimiento estable y razonamiento sencillo sin
+búsqueda obligatoria. El informe explica esa base y no inventa fuentes: las referencias
+quedan vacías. Las dudas relevantes, hechos actuales, cifras, declaraciones y reglas
+aplicables requieren consulta. Las controversias mantienen investigación y evaluación
+de posiciones independientes; el objetivo de 8–12 publicaciones se limita a controversias
+ampliamente cubiertas. Si el análisis de publicaciones no es necesario, se utiliza
+UNAVAILABLE con el motivo explícito, sin afirmar que no existan publicaciones.
+Verificación automatizada: el lector v3 acepta conclusiones resueltas sin fuentes externas.
+Esta comprobación no demuestra el comportamiento semántico de una inferencia real.
+
+
+## Ajustes de investigación y presentación
+
+Las instrucciones distinguen conocimiento estable, cálculo con datos aportados, hechos que
+requieren verificación y controversias que requieren análisis de publicaciones. Las
+preferencias puras no requieren investigación salvo que se solicite evidencia. Deportes
+solo exige contexto de partido en afirmaciones sobre eventos concretos y conserva la
+intención pragmática al interpretar preguntas negativas. La interfaz distingue análisis
+sin fuentes externas y aclara que una distribución de publicaciones no se calculó.

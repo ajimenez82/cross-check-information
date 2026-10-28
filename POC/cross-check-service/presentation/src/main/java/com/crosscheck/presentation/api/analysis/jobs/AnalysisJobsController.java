@@ -29,7 +29,7 @@ public final class AnalysisJobsController {
             @Parameter(hidden=true) @RequestHeader(value="Authorization",required=false) String authorization,
             @Parameter(hidden=true) @RequestHeader(value="X-Job-Credential",required=false) String credential,
             @Valid @RequestBody StartAnalysisRequest body,HttpServletRequest request) {
-        var accepted=jobs.create(key,token(authorization,credential),new StartAnalysisCommand(body.text(),body.conversationToken()),
+        var accepted=jobs.create(key,token(authorization,credential),new StartAnalysisCommand(body.text(),body.conversationToken(),body.category()),
                 String.valueOf(request.getAttribute(RequestIdFilter.ATTRIBUTE)));
         var view=accepted.job();
         return ResponseEntity.status(accepted.replay() && view.pollAfterSeconds()==null?200:202)

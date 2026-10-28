@@ -31,7 +31,7 @@ Las variables de entorno tienen prioridad sobre el fichero. La clave no se inclu
 5. En la sesión de configuración posterior, crear el agente con ese JSON mediante `POST https://api.openai.com/v1/agents`, autenticación Bearer y cabecera `OpenAI-Beta: agents=v1`. Guardar el identificador devuelto en `OPENAI_POLITICAL_ANALYSIS_AGENT_ID`. El servicio no crea ni modifica agentes durante las consultas.
 6. Activar `openai,local` en IntelliJ. Mantener Working directory en `POC/cross-check-service` y usar Program arguments `--spring.profiles.active=openai,local`.
 
-Conservar versiones nuevas del agente cuando cambien sus instrucciones o esquema. Cambiar también `POLITICAL_AGENT_REVISION`; el valor inicial del perfil OpenAI es `political-v1`, distinto de `development-v1`, para evitar reutilizar tokens simulados. Si modificas el agente remoto sin cambiar su revisión local, las sesiones antiguas pueden conservar su configuración anterior.
+Conservar versiones nuevas del agente cuando cambien sus instrucciones o esquema. Cambiar también `AGENT_REVISION`; el valor inicial del perfil OpenAI es `political-v1`, distinto de `development-v1`, para evitar reutilizar tokens simulados. Si modificas el agente remoto sin cambiar su revisión local, las sesiones antiguas pueden conservar su configuración anterior.
 
 ## Flujo implementado
 

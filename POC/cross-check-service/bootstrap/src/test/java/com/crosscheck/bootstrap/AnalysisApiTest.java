@@ -108,6 +108,26 @@ class AnalysisApiTest {
     }
 
     @Test
+    void sportsRequestReachesProviderAndIssuesSportsToken() throws Exception {
+        var response = post("{\"text\":\"Era penalti\",\"category\":\"SPORTS_ANALYSIS\"}");
+        assertEquals(200, response.statusCode());
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.lastInput.category());
+        String token = (String) body(response).get("conversationToken");
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, codec.decode(token).category());
+        assertEquals("development-v1", codec.decode(token).agentRevision());
+        var followUp = post(mapper.writeValueAsString(Map.of("text", "Otra jugada", "conversationToken", token)));
+        assertEquals(200, followUp.statusCode());
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.lastInput.category());
+    }
+
+    @Test
+    void unknownCategoryIsRejectedBeforeProviderCall() throws Exception {
+        var response = post("{\"text\":\"Consulta\",\"category\":\"UNKNOWN\"}");
+        assertEquals(400, response.statusCode());
+        assertEquals(0, provider.calls.get());
+    }
+
+    @Test
     void nullTokenStartsNewSessionAndFollowUpReusesIt() throws Exception {
         var first = post("{\"text\":\"Consulta\",\"conversationToken\":null}");
         String firstToken = (String) body(first).get("conversationToken");

@@ -81,6 +81,22 @@ class OpenAiJobProviderTest {
         assertTrue(submittedAgent.path("text").path("format").path("schema").path("properties").has("analysis"));
     }
 
+    @Test void sportsSessionUsesSportsInstructionsAndSharedReportContract() {
+        job.input = new AiAnalysisInput("Era penalti", AnalysisCategory.SPORTS_ANALYSIS, "analysis-v23", null);
+        prepare();
+        String instructions = submittedAgent.path("instructions").asString();
+        assertTrue(instructions.contains("CrossCheck's sports analysis agent"));
+        assertFalse(instructions.contains("CrossCheck's political analysis agent"));
+        assertTrue(instructions.contains("SUPPORTED_BY_PUBLICATIONS"));
+        assertEquals("web_search", submittedAgent.path("tools").get(0).path("type").asString());
+        assertEquals(OpenAiJson.MAPPER.valueToTree(UnifiedAgentConfiguration.value()).path("text"), submittedAgent.path("text"));
+        assertNotNull(provider.inspect(job).result().clarification());
+        job.input = new AiAnalysisInput("¿Y la otra jugada?", AnalysisCategory.SPORTS_ANALYSIS, "analysis-v23", job.sessionId);
+        provider.submit(job);
+        assertEquals(1, creates);
+        assertEquals(1, submissions);
+    }
+
     @Test void completeReportPreservesProviderSourcesWithoutDownloadingThem() throws Exception {
         tools.jackson.databind.node.ObjectNode report;
         try(var input=getClass().getResourceAsStream("/openai/claim-report-example.json")) {

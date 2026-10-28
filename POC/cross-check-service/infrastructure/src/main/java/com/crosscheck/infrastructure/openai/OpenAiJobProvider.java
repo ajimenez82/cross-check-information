@@ -26,7 +26,7 @@ final class OpenAiJobProvider implements JobProvider {
     public Remote prepare(AnalysisJob job) {
         long end=deadline(job);
         if (job.sessionId==null) {
-            var session=transport.request("agents/sessions",Map.of("agent_id",agentId,"agent",UnifiedAgentConfiguration.value(),"environment",Map.of("type","none"),
+            var session=transport.request("agents/sessions",Map.of("agent_id",agentId,"agent",UnifiedAgentConfiguration.value(job.input.category()),"environment",Map.of("type","none"),
                     "metadata",Map.of("crosscheck_job",job.id),"input",inputText(job),"stream",false),end,false,false,"crosscheck-"+job.id);
             return new Remote(id(session,"id"),null);
         }

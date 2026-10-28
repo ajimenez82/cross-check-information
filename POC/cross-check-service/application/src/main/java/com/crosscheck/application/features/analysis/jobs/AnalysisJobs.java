@@ -25,7 +25,8 @@ public final class AnalysisJobs {
         if (command == null || command.text() == null) throw new JobException(400, "INVALID_ANALYSIS_INPUT");
         String fingerprint = hash("v1:"+command.text().length()+":"+command.text()+":"
                 +(command.conversationToken()==null ? -1 : command.conversationToken().length())+":"
-                +Objects.toString(command.conversationToken(), ""));
+                +Objects.toString(command.conversationToken(), "")
+                +(command.category()==null ? "" : ":category:"+command.category().name()));
         return store.transact(tx -> {
             var old=tx.byKey(key.toLowerCase(Locale.ROOT));
             if (old != null) {

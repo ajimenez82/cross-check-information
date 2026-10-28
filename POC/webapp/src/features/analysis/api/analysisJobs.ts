@@ -1,11 +1,12 @@
 import { isAnalysisResponse, type AnalysisResponse } from './analysisContract';
 import { AnalysisRequestError } from './startAnalysis';
+import { isAnalysisCategory, type AnalysisCategory } from '../../../shared/model/categories';
 
 export type JobStatus = 'QUEUED' | 'SUBMITTING' | 'RUNNING' | 'RECOVERING' | 'COMPLETED' | 'FAILED';
 export interface PendingJob {
   key: string;
   accessToken: string;
-  body: { text: string; conversationToken: string | null };
+  body: { text: string; conversationToken: string | null; category?: AnalysisCategory };
   analysisId?: string;
   expiresAt: string;
   status?: JobStatus;
@@ -25,16 +26,17 @@ export function isPendingJob(value: unknown): value is PendingJob {
   if (!object(value) || typeof value.key !== 'string' || !uuid.test(value.key) ||
       typeof value.accessToken !== 'string' || !/^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$/.test(value.accessToken) ||
       !object(value.body) || typeof value.body.text !== 'string' ||
+      !(value.body.category === undefined || isAnalysisCategory(value.body.category)) ||
       !(value.body.conversationToken === null || typeof value.body.conversationToken === 'string') || !date(value.expiresAt)) return false;
   return (value.analysisId === undefined || typeof value.analysisId === 'string' && uuid.test(value.analysisId)) &&
     (value.status === undefined || statuses.includes(value.status as JobStatus)) &&
     (value.connectionLost === undefined || typeof value.connectionLost === 'boolean');
 }
-export function createJob(text: string, conversationToken: string | null): PendingJob {
+export function createJob(text: string, conversationToken: string | null, category: AnalysisCategory = 'POLITICAL_ANALYSIS'): PendingJob {
   const bytes = crypto.getRandomValues(new Uint8Array(32));
   return {
     key: crypto.randomUUID(), accessToken: btoa(String.fromCharCode(...bytes)).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, ''),
-    body: { text, conversationToken }, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+    body: { text, conversationToken, category }, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
   };
 }
 function isJobView(value: unknown): value is JobView {

@@ -6,6 +6,12 @@ export const categories = [
     "available": true
   },
   {
+    "id": "sports",
+    "name": "Deportes",
+    "description": "Contrasta hechos, estadísticas y declaraciones deportivas. Evalúa polémicas, penaltis y expulsiones distinguiendo las pruebas disponibles del respaldo o cuestionamiento de las publicaciones.",
+    "available": true
+  },
+  {
     "id": "category-1",
     "name": "Noticias falsas y bulos",
     "description": "Examina noticias virales, cadenas y contenidos potencialmente inventados, manipulados o fuera de contexto; busca su origen y evidencias que los respalden o contradigan.",
@@ -54,15 +60,17 @@ export const categories = [
     "available": false
   },
   {
-    "id": "category-8",
-    "name": "Deportes",
-    "description": "Contrasta resultados, estadísticas, récords y declaraciones deportivas, precisando competición, temporada, categoría y fecha.",
-    "available": false
-  },
-  {
     "id": "category-9",
     "name": "General",
     "description": "Permite analizar consultas que no encajen en ninguna categoría especializada. Delimita la afirmación, aporta contexto y contrasta las fuentes disponibles; solicita criterios o aclaraciones cuando sean necesarios y expresa los límites de la conclusión.",
     "available": false
   }
 ];
+
+export type AnalysisCategory = 'POLITICAL_ANALYSIS' | 'SPORTS_ANALYSIS';
+export function isAnalysisCategory(value: unknown): value is AnalysisCategory {
+  return value === 'POLITICAL_ANALYSIS' || value === 'SPORTS_ANALYSIS';
+}
+export function categoryName(category: AnalysisCategory): string {
+  return categories.find(item => item.id === (category === 'SPORTS_ANALYSIS' ? 'sports' : 'political'))!.name;
+}

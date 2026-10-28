@@ -22,6 +22,21 @@ import static com.crosscheck.application.error.AnalysisProviderException.Executi
 
 /** One HTTP attempt per operation; response bodies and credentials never enter exceptions or logs. */
 final class OpenAiTransport {
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(OpenAiTransport.class);
+    static String diagnosticCode(byte[] body) {
+        try {
+            String code = OpenAiJson.MAPPER.readTree(body).path("error").path("code").asString();
+            return switch (code == null ? "" : code) {
+                case "insufficient_quota", "credit_balance_exhausted", "billing_hard_limit_reached",
+                     "rate_limit_exceeded", "invalid_api_key", "model_not_found",
+                     "unsupported_parameter", "unsupported_value", "invalid_value", "permission_denied" -> code;
+                default -> "unrecognized_provider_error";
+            };
+        } catch (RuntimeException invalid) { return "unreadable_provider_error"; }
+    }
+    static String diagnosticId(String value) {
+        return value != null && value.matches("[a-zA-Z0-9_-]{1,100}") ? value : "unavailable";
+    }
     private final HttpClient client;
     private final URI baseUri;
     private final String apiKey;
@@ -54,6 +69,10 @@ final class OpenAiTransport {
             var response = pending.get(remaining, TimeUnit.NANOSECONDS);
             int status = response.statusCode();
             if (status < 200 || status >= 300) {
+                LOG.warn("OpenAI HTTP failure: status={}, code={}, providerRequestId={}, operationId={}",
+                        status, diagnosticCode(response.body()),
+                        diagnosticId(response.headers().firstValue("x-request-id").orElse(null)),
+                        diagnosticId(idempotencyKey));
                 var state = submitted || status >= 500 || status == 408 ? UNKNOWN : NOT_STARTED;
                 var reason = switch (status) {
                     case 404, 410 -> sessionResource ? SESSION_UNAVAILABLE : UNAVAILABLE;

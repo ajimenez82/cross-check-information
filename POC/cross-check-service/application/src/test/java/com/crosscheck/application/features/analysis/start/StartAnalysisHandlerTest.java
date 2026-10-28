@@ -17,8 +17,18 @@ class StartAnalysisHandlerTest {
     private static final Instant NOW = Instant.parse("2026-09-17T12:00:00Z");
     private final FakeCodec codec = new FakeCodec();
     private final FakeProvider provider = new FakeProvider();
-    private final AnalysisPolicy policy = new AnalysisPolicy(100, 200, "political-v1", Duration.ofHours(2));
+    private final AnalysisPolicy policy = new AnalysisPolicy(100, 200, "analysis-v1", Duration.ofHours(2));
     private final StartAnalysisHandler handler = handler(Clock.fixed(NOW, ZoneOffset.UTC));
+
+    @ParameterizedTest
+    @org.junit.jupiter.params.provider.EnumSource(AnalysisCategory.class)
+    void globalRevisionChangeRejectsPreviousConversationForEveryCategory(AnalysisCategory category) {
+        codec.decoded = new ConversationReference("session-1", category,
+                "analysis-v0", NOW.plusSeconds(60));
+        assertThrows(InvalidConversationReferenceException.class, () -> handler.handle(
+                new StartAnalysisCommand("Seguimiento", "token", category)));
+        assertEquals(0, provider.calls);
+    }
 
     @Test
     void newQueryCallsProviderOnceAndIssuesOpaqueToken() {
@@ -28,7 +38,7 @@ class StartAnalysisHandlerTest {
         assertEquals("Consulta", provider.input.text());
         assertNull(provider.input.sessionId());
         assertEquals(AnalysisCategory.POLITICAL_ANALYSIS, provider.input.category());
-        assertEquals("political-v1", provider.input.agentRevision());
+        assertEquals("analysis-v1", provider.input.agentRevision());
         assertEquals("opaque-output", result.conversationToken());
         assertEquals("session-1", codec.encoded.sessionId());
         assertEquals(NOW.plus(Duration.ofHours(2)), codec.encoded.expiresAt());
@@ -39,8 +49,32 @@ class StartAnalysisHandlerTest {
     }
 
     @Test
+    void sportsCategoryAndRevisionSurviveFollowUpWithoutExplicitCategory() {
+        handler.handle(new StartAnalysisCommand("Era penalti", null, AnalysisCategory.SPORTS_ANALYSIS));
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.input.category());
+        assertEquals("analysis-v1", provider.input.agentRevision());
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, codec.encoded.category());
+        codec.decoded = codec.encoded;
+        handler.handle(new StartAnalysisCommand("¿Y la otra jugada?", "opaque-output"));
+        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.input.category());
+        assertEquals("session-1", provider.input.sessionId());
+    }
+
+    @Test
+    void categoryCannotChangeInsideAnExistingConversation() {
+        codec.decoded = reference(NOW.plusSeconds(60), "analysis-v1");
+        assertThrows(InvalidConversationReferenceException.class, () -> handler.handle(
+                new StartAnalysisCommand("Era penalti", "token", AnalysisCategory.SPORTS_ANALYSIS)));
+        codec.decoded = new ConversationReference("session-1", AnalysisCategory.SPORTS_ANALYSIS,
+                "analysis-v1", NOW.plusSeconds(60));
+        assertThrows(InvalidConversationReferenceException.class, () -> handler.handle(
+                new StartAnalysisCommand("Consulta", "token", AnalysisCategory.POLITICAL_ANALYSIS)));
+        assertEquals(0, provider.calls);
+    }
+
+    @Test
     void followUpReusesDecodedSessionAndRefreshesExpiration() {
-        codec.decoded = reference(NOW.plusSeconds(60), "political-v1");
+        codec.decoded = reference(NOW.plusSeconds(60), "analysis-v1");
         handler.handle(new StartAnalysisCommand("Seguimiento", "opaque-input"));
         assertEquals("opaque-input", codec.receivedToken);
         assertEquals("session-1", provider.input.sessionId());
@@ -56,7 +90,7 @@ class StartAnalysisHandlerTest {
             public Clock withZone(ZoneId zone) { return this; }
             public Instant instant() { return calls++ == 0 ? NOW : NOW.plusSeconds(30); }
         };
-        codec.decoded = reference(NOW.plusSeconds(10), "political-v1");
+        codec.decoded = reference(NOW.plusSeconds(10), "analysis-v1");
         var result = handler(steppingClock).handle(new StartAnalysisCommand("Seguimiento", "token"));
         assertEquals(NOW.plusSeconds(30), result.analysis().analyzedAt());
         assertEquals(NOW.plusSeconds(30).plus(policy.conversationTtl()), codec.encoded.expiresAt());
@@ -119,7 +153,7 @@ class StartAnalysisHandlerTest {
     @Test
     void rejectsExpiredReferenceIncludingExactBoundary() {
         for (var expiry : List.of(NOW.minusSeconds(1), NOW)) {
-            codec.decoded = reference(expiry, "political-v1");
+            codec.decoded = reference(expiry, "analysis-v1");
             assertThrows(ExpiredConversationReferenceException.class,
                     () -> handler.handle(new StartAnalysisCommand("Consulta", "expired")));
         }
@@ -174,7 +208,7 @@ class StartAnalysisHandlerTest {
 
     @Test
     void rejectsProviderSwitchingSessionDuringFollowUp() {
-        codec.decoded = reference(NOW.plusSeconds(60), "political-v1");
+        codec.decoded = reference(NOW.plusSeconds(60), "analysis-v1");
         provider.turn = new AiAnalysisTurn("different-session", report());
         assertThrows(InvalidAnalysisOutputException.class,
                 () -> handler.handle(new StartAnalysisCommand("Seguimiento", "token")));
@@ -229,7 +263,7 @@ class StartAnalysisHandlerTest {
     @Test
     void sensitiveWrappersDoNotExposeTokensOrQueriesViaToString() {
         assertFalse(new StartAnalysisCommand("secret-query", "secret-token").toString().contains("secret"));
-        assertFalse(reference(NOW, "political-v1").toString().contains("session-1"));
+        assertFalse(reference(NOW, "analysis-v1").toString().contains("session-1"));
         assertFalse(handler.handle(new StartAnalysisCommand("Consulta", null)).toString().contains("opaque-output"));
     }
 

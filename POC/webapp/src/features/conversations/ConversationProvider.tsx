@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { isAnalysis, isClarification, type Analysis, type Clarification } from '../analysis/api/analysisContract';
 import { failureMessage, type AnalysisFailure } from '../analysis/api/startAnalysis';
+import { isAnalysisCategory, type AnalysisCategory } from '../../shared/model/categories';
 
 import { createJob, isPendingJob, requestJob, JobRequestError, type PendingJob } from '../analysis/api/analysisJobs';
 
@@ -8,7 +9,7 @@ export interface Turn {
   id: string; text: string; createdAt: string; status: 'pending' | 'done' | 'error' | 'clarification';
   analysis?: Analysis; clarification?: Clarification; error?: AnalysisFailure; job?: PendingJob;
 }
-export interface Conversation { id: string; title: string; token: string | null; turns: Turn[] }
+export interface Conversation { id: string; title: string; token: string | null; category: AnalysisCategory; turns: Turn[] }
 const storageKey = 'crosscheck.conversations.v1';
 const interrupted: AnalysisFailure = {
   code: 'INTERRUPTED', message: 'La página se cerró antes de recibir el resultado.',
@@ -22,16 +23,18 @@ function load(): { conversations: Conversation[]; notice: string } {
     if (!Array.isArray(parsed) || parsed.length > 50) throw new Error();
     const conversations = parsed.map((value: unknown): Conversation => {
       const item = value as Conversation;
+      const category = item?.category ?? 'POLITICAL_ANALYSIS';
       if (!item || typeof item.id !== 'string' || !/^[a-f0-9-]{36}$/.test(item.id) ||
           typeof item.title !== 'string' || !(item.token === null || typeof item.token === 'string') ||
-          !Array.isArray(item.turns) || item.turns.length > 100) throw new Error();
+          !Array.isArray(item.turns) || item.turns.length > 100 || !isAnalysisCategory(category)) throw new Error();
       const turns = item.turns.map((turn: Turn): Turn => {
         if (!turn || typeof turn.id !== 'string' || typeof turn.text !== 'string' ||
             !Number.isFinite(Date.parse(turn.createdAt))) throw new Error();
         if (turn.status === 'done' && isAnalysis(turn.analysis)) return { ...turn, error: undefined };
         if (turn.status === 'clarification' && isClarification(turn.clarification))
           return { ...turn, analysis: undefined, error: undefined };
-        if (turn.job !== undefined && (!isPendingJob(turn.job) || turn.job.body.text !== turn.text)) throw new Error();
+        if (turn.job !== undefined && (!isPendingJob(turn.job) || turn.job.body.text !== turn.text ||
+            (turn.job.body.category ?? 'POLITICAL_ANALYSIS') !== category)) throw new Error();
         if (turn.status === 'pending' && turn.job) return turn;
         if (turn.status === 'pending') return { ...turn, status: 'error', analysis: undefined, error: interrupted };
         if (turn.status === 'error' && turn.error && typeof turn.error.code === 'string' &&
@@ -43,7 +46,7 @@ function load(): { conversations: Conversation[]; notice: string } {
         throw new Error();
       });
       if (new Set(turns.map(turn => turn.id)).size !== turns.length) throw new Error();
-      return { id: item.id, title: item.title, token: item.token, turns };
+      return { id: item.id, title: turns[0]?.text.trim() || item.title, token: item.token, category, turns };
     });
     if (new Set(conversations.map(item => item.id)).size !== conversations.length) throw new Error();
     return { conversations, notice: '' };
@@ -53,7 +56,7 @@ function load(): { conversations: Conversation[]; notice: string } {
 }
 interface Store {
   conversations: Conversation[]; notice: string;
-  start: (text: string) => Promise<string | null>;
+  start: (text: string, category?: AnalysisCategory) => Promise<string | null>;
   send: (id: string, text: string, retryId?: string) => Promise<void>;
   clear: () => void;
   recover: (id: string, turnId: string) => void;
@@ -190,11 +193,11 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
       // Retries of legacy synchronous failures are explicit new submissions.
       const previous = item.turns.find(turn => turn.id === retryId);
       if (retryId && (!previous || previous.job)) return item;
-      const turn: Turn = { id: retryId ?? crypto.randomUUID(), text, createdAt: new Date().toISOString(), status: 'pending', job: createJob(text, item.token) };
+      const turn: Turn = { id: retryId ?? crypto.randomUUID(), text, createdAt: new Date().toISOString(), status: 'pending', job: createJob(text, item.token, item.category) };
       return { ...item, turns: retryId ? item.turns.map(old => old.id === retryId ? turn : old) : [...item.turns, turn] };
     }));
   }
-  async function start(text: string) {
+  async function start(text: string, category: AnalysisCategory = 'POLITICAL_ANALYSIS') {
     if (!text.trim()) return null;
     const id = crypto.randomUUID();
     let created = false;
@@ -205,8 +208,8 @@ export function ConversationProvider({ children }: { children: ReactNode }) {
         return items;
       }
       created = true;
-      return [{ id, title: text.trim().slice(0, 70), token: null,
-        turns: [{ id: crypto.randomUUID(), text, createdAt: new Date().toISOString(), status: 'pending', job: createJob(text, null) }] }, ...items];
+      return [{ id, title: text.trim(), token: null, category,
+        turns: [{ id: crypto.randomUUID(), text, createdAt: new Date().toISOString(), status: 'pending', job: createJob(text, null, category) }] }, ...items];
     });
     return saved && created ? id : null;
   }

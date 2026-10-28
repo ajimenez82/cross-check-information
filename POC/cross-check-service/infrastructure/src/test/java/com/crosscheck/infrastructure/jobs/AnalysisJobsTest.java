@@ -49,6 +49,20 @@ class AnalysisJobsTest {
         reopen();assertEquals(COMPLETED,finish(id).status());assertEquals(1,remote.submissions);
     }
 
+    @Test void categoryIsPartOfIdempotencyAndPersistsAcrossRestart() {
+        var sports = new StartAnalysisCommand(command.text(), null,
+                com.crosscheck.domain.analysis.AnalysisCategory.SPORTS_ANALYSIS);
+        var id = jobs.create(key, credential, sports, "sports-test").job().analysisId();
+        reopen();
+        assertEquals(com.crosscheck.domain.analysis.AnalysisCategory.SPORTS_ANALYSIS,
+                store.transact(tx -> tx.find(id).input.category()));
+        assertEquals("test-v3", store.transact(tx -> tx.find(id).input.agentRevision()));
+        assertTrue(jobs.create(key, credential, sports, "retry").replay());
+        code("IDEMPOTENCY_CONFLICT", () -> jobs.create(key, credential, command, "changed"));
+        code("IDEMPOTENCY_CONFLICT", () -> jobs.create(key, credential,
+                new StartAnalysisCommand(command.text(), null, com.crosscheck.domain.analysis.AnalysisCategory.POLITICAL_ANALYSIS), "changed"));
+    }
+
     @Test void oldCaptureJobIsRetiredWithoutSubmittingNewInference() {
         var id=create().analysisId();
         store.transact(tx -> {var job=tx.find(id);job.providerIdentity="openai-evidence:old:1";

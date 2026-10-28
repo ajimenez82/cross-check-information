@@ -7,7 +7,7 @@ final class StartAnalysisHttpMapper {
     private StartAnalysisHttpMapper() {}
 
     static StartAnalysisCommand toCommand(StartAnalysisRequest request) {
-        return new StartAnalysisCommand(request.text(), request.conversationToken());
+        return new StartAnalysisCommand(request.text(), request.conversationToken(), request.category());
     }
 
     static StartAnalysisResponse toResponse(StartAnalysisResult result) {
