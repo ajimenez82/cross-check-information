@@ -633,7 +633,7 @@
               "enum": [
                 "MISSING_PERIOD",
                 "MISSING_SCOPE",
-                "AMBIGUOUS_REFERENCE",
+                "AMBIGUOUS_REFERENCE", "CATEGORY_MISMATCH",
                 "OTHER"
               ]
             }

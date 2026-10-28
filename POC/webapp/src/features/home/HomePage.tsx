@@ -17,7 +17,7 @@ export function HomePage() {
   const [query, setQuery] = useState('');
   const [saving, setSaving] = useState(false);
   const submitting = useRef(false);
-  useEffect(() => { setQuery(''); }, [location.key]);
+  useEffect(() => { setQuery(typeof location.state?.query === 'string' ? location.state.query : ''); }, [location.key, location.state]);
   const [categoryId, setCategoryId] = useState(categories[0].id);
   const category = categories.find(item => item.id === categoryId)!;
   const ideas = categoryId === 'sports' ? [

@@ -45,6 +45,14 @@ class OpenAiClaimResponseTest {
                 report.publicationPositions().availability());
     }
 
+    @Test void categoryMismatchIsAClarificationWithoutVerdict() throws Exception {
+        var root = response();
+        root.putNull("analysis");
+        root.putObject("clarification").put("question", "Consulta fuera de categoria").put("reason", "CATEGORY_MISMATCH");
+        var turn = claimTurn(root.toString(), input, "session");
+        assertNull(turn.report());
+        assertEquals(Clarification.Reason.CATEGORY_MISMATCH, turn.clarification().reason());
+    }
     @Test void contextualAnchorMustComeFromServerInput() throws Exception {
         var json = response().toString();
         assertNotNull(claimTurn(json, input, "session").report());

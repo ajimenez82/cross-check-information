@@ -146,3 +146,6 @@ Todas las categorías, incluidas las futuras, deben comprobar pertinencia antes 
 
 ## Revisión analysis-v28
 Política y Deportes utilizan gpt-5.4 con reasoning.effort medium y servicio default. Esta revisión distingue las nuevas conversaciones de las ejecutadas con Mini. Requiere reconstruir el servicio y crear una conversación nueva.
+
+## Revisión analysis-v29
+Los desajustes de categoría usan clarification.reason CATEGORY_MISMATCH y el encabezado Consulta fuera de categoría. OTHER mantiene el encabezado genérico para otras aclaraciones. Los resultados históricos con OTHER no se reclasifican.

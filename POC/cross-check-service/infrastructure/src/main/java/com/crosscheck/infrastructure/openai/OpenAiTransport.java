@@ -25,9 +25,14 @@ final class OpenAiTransport {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(OpenAiTransport.class);
     static String diagnosticCode(byte[] body) {
         try {
-            String code = OpenAiJson.MAPPER.readTree(body).path("error").path("code").asString();
+            return diagnosticCode(OpenAiJson.MAPPER.readTree(body));
+        } catch (RuntimeException invalid) { return "unreadable_provider_error"; }
+    }
+    static String diagnosticCode(JsonNode response) {
+        try {
+            String code = response.path("error").path("code").asString();
             return switch (code == null ? "" : code) {
-                case "insufficient_quota", "credit_balance_exhausted", "billing_hard_limit_reached",
+                case "usage_limit_exceeded", "insufficient_quota", "credit_balance_exhausted", "billing_hard_limit_reached",
                      "rate_limit_exceeded", "invalid_api_key", "model_not_found",
                      "unsupported_parameter", "unsupported_value", "invalid_value", "permission_denied" -> code;
                 default -> "unrecognized_provider_error";
@@ -36,6 +41,14 @@ final class OpenAiTransport {
     }
     static String diagnosticId(String value) {
         return value != null && value.matches("[a-zA-Z0-9_-]{1,100}") ? value : "unavailable";
+    }
+    static void logTurnFailure(JsonNode turn, String jobId, String sessionId, String turnId) {
+        String status = turn.path("status").asString();
+        String safeStatus = java.util.Set.of("failed", "cancelled", "waiting").contains(status == null ? "" : status)
+                ? status : "unknown";
+        LOG.warn("OpenAI turn failure: status={}, code={}, jobId={}, sessionId={}, turnId={}",
+                safeStatus, diagnosticCode(turn), diagnosticId(jobId),
+                diagnosticId(sessionId), diagnosticId(turnId));
     }
     private final HttpClient client;
     private final URI baseUri;

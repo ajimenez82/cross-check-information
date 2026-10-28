@@ -40,7 +40,7 @@ export interface Analysis {
   };
   limitations: string[]; analyzedAt: string; asOf: string | null;
 }
-export interface Clarification { question: string; reason: 'MISSING_PERIOD' | 'MISSING_SCOPE' | 'AMBIGUOUS_REFERENCE' | 'OTHER' | 'CONTEXT_UNAVAILABLE' }
+export interface Clarification { question: string; reason: 'MISSING_PERIOD' | 'MISSING_SCOPE' | 'AMBIGUOUS_REFERENCE' | 'CATEGORY_MISMATCH' | 'OTHER' | 'CONTEXT_UNAVAILABLE' }
 export type AnalysisResponse = { conversationToken: string; analysis: Analysis; clarification?: null }
   | { conversationToken: string | null; analysis: null; clarification: Clarification };
 const object = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -138,5 +138,5 @@ export function isAnalysisResponse(value: unknown): value is AnalysisResponse {
 }
 export function isClarification(value: unknown): value is Clarification {
   return object(value) && text(value.question) && value.question.length <= 2000 &&
-    ['MISSING_PERIOD', 'MISSING_SCOPE', 'AMBIGUOUS_REFERENCE', 'OTHER', 'CONTEXT_UNAVAILABLE'].includes(String(value.reason));
+    ['MISSING_PERIOD', 'MISSING_SCOPE', 'AMBIGUOUS_REFERENCE', 'CATEGORY_MISMATCH', 'OTHER', 'CONTEXT_UNAVAILABLE'].includes(String(value.reason));
 }

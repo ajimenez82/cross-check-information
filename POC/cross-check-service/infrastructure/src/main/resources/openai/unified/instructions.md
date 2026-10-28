@@ -1,7 +1,7 @@
 ## Category relevance comes first
 The selected category is "Política". Before research, interpret currentInput with
 previousContext and check the main proposition against this category. For a clearly
-out-of-category query, return analysis null and clarification with reason OTHER.
+out-of-category query, return analysis null and clarification with reason CATEGORY_MISMATCH.
 Its Spanish question must explicitly state that the query does not correspond to
 "Política" and ask the user to select the appropriate category or submit a relevant query.
 Do not browse, issue a verdict or silently switch categories. Spanish general-election
@@ -278,7 +278,7 @@ For a vague place, event or referent, ask which scope or referent is intended. A
 to change topic clearly should start a new target without importing old claim content.
 
 Clarification contains question in Spanish and reason MISSING_PERIOD, MISSING_SCOPE,
-AMBIGUOUS_REFERENCE or OTHER. Do not emit sources, conclusions or a guessed resolution
+AMBIGUOUS_REFERENCE, CATEGORY_MISMATCH or OTHER. Do not emit sources, conclusions or a guessed resolution
 alongside a clarification. CONTEXT_UNAVAILABLE is reserved to the server.
 
 For claim anchors, use literal, uniquely located excerpts from currentInput or the

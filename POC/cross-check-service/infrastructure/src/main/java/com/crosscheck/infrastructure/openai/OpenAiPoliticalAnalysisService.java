@@ -175,7 +175,10 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
                         }
                         return report;
                     }
-                    case "failed", "cancelled", "waiting" -> throw new AnalysisProviderException(UNAVAILABLE, UNKNOWN);
+                    case "failed", "cancelled", "waiting" -> {
+                        OpenAiTransport.logTurnFailure(turn, null, sessionId, id(turn, "id"));
+                        throw new AnalysisProviderException(UNAVAILABLE, UNKNOWN);
+                    }
                     case "queued", "in_progress" -> { }
                     default -> throw new InvalidAnalysisOutputException();
                 }

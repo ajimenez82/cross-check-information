@@ -112,7 +112,10 @@ final class OpenAiJobProvider implements JobProvider {
                     yield new Observation(sessionId,turnId,reader.readReport(sessionId,turnId,end,input),null,true);
                 } catch(InvalidAnalysisOutputException invalid) {yield new Observation(sessionId,turnId,null,"INVALID_ANALYSIS_OUTPUT",true);}
             }
-            case "failed","cancelled" -> new Observation(sessionId,turnId,null,"ANALYSIS_PROVIDER_FAILED",true);
+            case "failed","cancelled" -> {
+                OpenAiTransport.logTurnFailure(turn, job.id, sessionId, turnId);
+                yield new Observation(sessionId,turnId,null,"ANALYSIS_PROVIDER_FAILED",true);
+            }
             case "waiting" -> new Observation(sessionId,turnId,null,"ANALYSIS_PROVIDER_ACTION_REQUIRED",false);
             case "queued","in_progress" -> Observation.pending(sessionId,turnId);
             default -> throw new InvalidAnalysisOutputException();

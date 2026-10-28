@@ -149,10 +149,24 @@ export function AnalysisPage() {
       {turn.status === 'pending' && <PendingTurn turn={turn} />}
       {turn.status === 'error' && <FailedTurn turn={turn} onRecover={() => recover(conversation.id, turn.id)} onRetry={text => { void send(conversation.id, text, turn.id); }} />}
       {turn.analysis && <Report data={turn.analysis} onSource={setSource} />}
-      {turn.status === 'clarification' && turn.clarification && <section className={s.notice} aria-label="Aclaración necesaria">
-        <h2>Necesito una aclaración</h2><p>{turn.clarification.question}</p>
-        <p>Responde en el campo de seguimiento para continuar.</p>
-      </section>}
+      {turn.status === 'clarification' && turn.clarification && (
+        turn.clarification.reason === 'CATEGORY_MISMATCH'
+          ? <section className={s.categoryNotice} aria-labelledby={`category-notice-${turn.id}`}>
+              <div className={s.categoryNoticeHeading}>
+                <CircleHelp aria-hidden="true" />
+                <h2 id={`category-notice-${turn.id}`}>Consulta fuera de categoría</h2>
+              </div>
+              <p>Esta consulta no corresponde a {categoryName(conversation.category)}. Selecciona otra categoría para analizarla en una nueva conversación.</p>
+              <div className={s.categoryNoticeActions}>
+                <Link className="primary" to="/" state={{ query: turn.text }}>Elegir otra categoría</Link>
+                <small>Tu consulta se conservará.</small>
+              </div>
+            </section>
+          : <section className={s.notice} aria-label="Aclaración necesaria">
+              <h2>Necesito una aclaración</h2><p>{turn.clarification.question}</p>
+              <p>Responde en el campo de seguimiento para continuar.</p>
+            </section>
+      )}
     </section>)}
     <form className={s.composer} onSubmit={event => {
       event.preventDefault();

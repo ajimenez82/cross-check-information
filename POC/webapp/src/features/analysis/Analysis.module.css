@@ -179,3 +179,17 @@
   .sourceGrid button > svg { display: none; }
   .sourceGrid strong { font-size: 12px; }
 }
+
+.categoryNotice { margin: 18px 0 24px; padding: 24px; border: 1px solid #ba7959; border-radius: 12px; background: #fff5ef; }
+.categoryNoticeHeading { display: flex; align-items: center; gap: 12px; color: #874627; }
+.categoryNoticeHeading svg { width: 24px; height: 24px; flex-shrink: 0; }
+.categoryNoticeHeading h2 { margin: 0; font-size: 20px; line-height: 1.35; }
+.categoryNotice > p { margin: 14px 0 20px; line-height: 1.6; font-size: 15px; }
+.categoryNoticeActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.categoryNoticeActions small { color: var(--muted); font-size: 13px; }
+.categoryNoticeActions a:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .categoryNotice { padding: 18px; }
+  .categoryNoticeActions { align-items: stretch; flex-direction: column; }
+  .categoryNoticeActions small { text-align: center; }
+}
