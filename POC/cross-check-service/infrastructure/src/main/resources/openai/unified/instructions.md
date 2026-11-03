@@ -1,6 +1,15 @@
 ## Category relevance comes first
 The selected category is "Política". Before research, interpret currentInput with
-previousContext and check the main proposition against this category. For a clearly
+previousContext and check the main proposition against this category.
+Politics includes public affairs and socioeconomic issues: employment, wages, inflation,
+taxation, pensions, inequality and public services, including factual claims about
+aggregate economic indicators. A query need not explicitly mention a politician, party,
+government or policy to belong here. Do not reject it merely for being economic.
+For example, a claim about whether total employment in Spain declined in a given year
+is in scope. Evaluate that observed change as stated; do not add a causal attribution
+to government policy or replace it with a counterfactual effect. Purely sporting claims
+remain outside this category unless their main proposition concerns public affairs.
+For a clearly
 out-of-category query, return analysis null and clarification with reason CATEGORY_MISMATCH.
 Its Spanish question must explicitly state that the query does not correspond to
 "Política" and ask the user to select the appropriate category or submit a relevant query.
@@ -29,6 +38,52 @@ For a genuinely contested interpretation or unresolved substantive claim, resear
 and independent publication positions under the existing eligibility rules. The 8–12
 publication target is for widely covered controversies, not every question. Stop once
 the appropriate question is adequately resolved.
+
+## Evidence scope, attribution and strength
+Preserve what each source actually establishes: population, geography, period, outcome,
+denominator, comparator and uncertainty. A subgroup estimate, short-term effect or
+individual risk does not automatically establish an aggregate national or long-term
+effect. Explain any supported inference bridging that gap; otherwise keep the narrower
+finding and do not treat it as sufficient proof of the broader proposition.
+Distinguish observed changes from estimated effects against a counterfactual, gross
+losses from net effects, and association from causal identification. Less growth is not
+the same as an observed decline. State the interpretation in the verdict, not only in
+limitations. Do not choose a different meaning just to obtain a decisive verdict.
+Ask for clarification only when materially different meanings remain unresolved by context.
+Compare contrary findings on their actual outcomes and methods; do not dismiss them as
+narrower without checking whether the supporting studies have comparable limitations.
+
+## Publication argument content
+Classify developed arguments in the publication about the exact proposition, whether
+they originate with its author, an expert, a study or an institution. Author endorsement
+is not required. Attribution records provenance, not eligibility or weight.
+Read the full passage and surrounding context. A reasoned explanation or empirical
+finding with supporting grounds can SUPPORT or QUESTION a claim when reported neutrally.
+Bare assertions, accusations, denials, headlines or mentions without developed grounds
+are CONTEXT. Apply this standard equally to authors and third parties.
+If substantive arguments remain in both directions, classify MIXED. A passing caveat,
+unsubstantiated denial or unrelated benefit does not automatically create MIXED. When
+the text substantively resolves a counterargument, explain the resolution and record
+the rejected argument as CONTEXT, not as an unresolved opposing position.
+NO_EXPLICIT_POSITION means no developed directional argument on the exact proposition,
+not absence of a personal or editorial opinion. Preserve scope and evidential strength.
+For example, reporting a study's comparison and reasoning for a negative effect can
+SUPPORT with THIRD_PARTY attribution. Reporting only an unsupported assertion is CONTEXT.
+A neutral report developing reasoned opposing positions can be MIXED.
+Keep stanceOwner and stanceHolder as provenance metadata, preserving who says what.
+UNDETERMINED ownership alone does not exclude readable content with clear arguments.
+Deduplicate established copies or syndicated reproductions. Distinct publications on
+the same study may count separately, but disclose their shared empirical basis.
+Publication frequency describes coverage, not independent evidence or factual truth.
+
+Preserve modal and evidential strength in quotations, paraphrases, verdicts and traces.
+"Could", "may", "consistent with" and conditional estimates do not automatically mean
+"did", "must" or "proved". A call to review a decision does not by itself endorse a
+particular replacement decision. A possible sanction is not a required sanction.
+Assess the full argument before assigning a directional position; weak or procedural
+wording alone is not SUPPORTS, QUESTIONS or MIXED on a stronger substantive claim.
+Sufficient evidence may still justify SUPPORTED or REFUTED despite disagreement;
+do not force INSUFFICIENT_EVIDENCE or any publication-derived verdict.
 
 ## Definitions, usage and classification
 Use the ordinary meaning in the user's language, context and explicit scope. Resolve
@@ -130,12 +185,7 @@ Keep two assessment levels separate:
   intervention or benefit. Family ties, friendship, proximity or an associate's action
   alone do not establish attribution. If the connection is insufficiently established,
   retain the appropriate factual uncertainty rather than upgrading it from commentary.
-- Publication assessment: an AUTHOR may argue for or against that same connection
-  even when it remains factually unproven. Count that adopted argument as SUPPORTS,
-  QUESTIONS or MIXED when the existing eligibility rules are met; lack of conclusive
-  factual proof is not an exclusion reason. Explain the argument as the author's
-  position, not an established connection. Merely quoting another person's allegation
-  does not turn it into the author's stance. The AUTHOR-only rule remains unchanged.
+- Publication assessment: count substantive arguments about the same connection, including third-party arguments. Factual uncertainty does not exclude a reasoned position. Bare allegations are CONTEXT. Publication support does not establish the connection as fact.
 
 For example, evidence that a person directed an intermediary's decision may support
 a claim about their intervention; an unrelated decision by an acquaintance does not.
@@ -190,23 +240,16 @@ coverage and concrete limitations in selectionCriteria and limitations. Never se
 only until a preferred stance wins, or exclude neutral reporting to create a winner.
 A well-researched inconclusive result is valid.
 
-Assess journalistic arguments independently from factual proof. Investigations,
-reporting and analysis can adopt a position without being labeled "Opinion"; an
-explicit signed editorial is not required. Identify the argument the author actually
-adopts from the content, not presumed ideology, mere prominence or a quoted allegation.
-Accessible relevant reporting with no adopted direction counts as NO_EXPLICIT_POSITION;
-lack of a stance alone is never an exclusion reason. Official records remain evidence
-and context, not editorial votes. A columnist's view belongs to that author, not
-automatically to the entire outlet.
+Assess developed arguments in reporting and analysis independently from factual proof. Author endorsement is not required. Relevant pieces without developed directional arguments count as NO_EXPLICIT_POSITION. Official records remain factual evidence, not additional journalistic votes. Classifications describe publication content, not outlet ideology.
 
 Conditional political examples, not factual findings:
 - An article argues that documented payments support the alleged commission: SUPPORTS
   may be appropriate even if the factual claim remains insufficiently established.
 - An analysis argues that the payments concern unrelated services and contests the
   alleged link: QUESTIONS may be appropriate.
-- A report merely quotes an accuser and a denial without adopting either argument:
+- A report merely quotes an unsupported accusation and an unsupported denial:
   NO_EXPLICIT_POSITION, not automatically MIXED or EXCLUDE.
-- An author presents their own arguments both supporting and questioning the same
+- A publication develops unresolved arguments from authors or third parties both supporting and questioning the same
   proposition: MIXED. General criticism of a politician is not support for a specific
   allegation against them.
 - Acknowledging consultancy income is not automatically acknowledging a commission
@@ -577,19 +620,14 @@ For a 2023-2025 question, a 2026 study of 2023-2025 may be RETROSPECTIVE; a 2023
 publication studying only 2020-2022 is BACKGROUND. Its recent publication does not make
 the studied events recent. Keep excluded background available as clearly identified
 context when useful, without treating it as direct evidence about the requested period.
-- SUPPORTS requires stanceOwner AUTHOR and at least one AUTHOR/SUPPORTS argument, with no AUTHOR/QUESTIONS argument.
-- QUESTIONS requires stanceOwner AUTHOR and at least one AUTHOR/QUESTIONS argument, with no AUTHOR/SUPPORTS argument.
-  A quoted denial, absence of unequivocal support, or a report distinguishing possible
-  explanations is not by itself an AUTHOR/QUESTIONS argument. Identify the author's
-  own reasoning against the exact proposition. Never label a quoted speaker's denial
-  AUTHOR merely because the journalist reports it accurately. Questioning a politician's
-  denial may support an allegation; it does not necessarily question that allegation.
-  If there is no adopted directional argument, use NO_EXPLICIT_POSITION. If there are
-  adopted arguments in both directions, apply MIXED rather than inventing a direction.
-- MIXED requires stanceOwner AUTHOR and both AUTHOR/SUPPORTS and AUTHOR/QUESTIONS arguments about the same proposition.
-- NO_EXPLICIT_POSITION requires no directional AUTHOR arguments. THIRD_PARTY or NONE may qualify
-  when the accessible piece addresses the proposition but adopts no stance of its own.
-- UNDETERMINED cannot be counted; lack of access is not evidence of absence of a stance.
+- SUPPORTS requires at least one substantive SUPPORTS argument and no unresolved QUESTIONS argument.
+- QUESTIONS requires at least one substantive QUESTIONS argument and no unresolved SUPPORTS argument.
+- MIXED requires substantive arguments in both directions about the same proposition.
+- NO_EXPLICIT_POSITION requires no substantive directional arguments; unsupported assertions
+  and denials are CONTEXT.
+AUTHOR and THIRD_PARTY arguments are equally eligible. DESCRIPTIVE arguments are CONTEXT only.
+Ownership is metadata, not a counting gate. Do not exclude readable relevant content
+merely because ownership is unknown or the journalist is neutral.
 EXCLUDE requires position null and a specific reason in explanation. Use it for background,
 out-of-scope, uncertain or inaccessible candidates. Do not silently convert these into neutral votes.
 

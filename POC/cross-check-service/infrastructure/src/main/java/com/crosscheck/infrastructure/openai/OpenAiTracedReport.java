@@ -81,7 +81,8 @@ record OpenAiTracedReport(String schemaVersion, String title, String context, St
                 require(argument != null);
                 text(argument.sourceId()); text(argument.paraphrase()); optionalText(argument.locator());
                 require(sourceIds.contains(argument.sourceId()) && argument.attribution() != null && argument.relation() != null);
-                if (argument.attribution() == Attribution.AUTHOR) {
+                require(argument.attribution() != Attribution.DESCRIPTIVE || argument.relation() == Relation.CONTEXT);
+                if (argument.attribution() != Attribution.DESCRIPTIVE) {
                     supports |= argument.relation() == Relation.SUPPORTS;
                     questions |= argument.relation() == Relation.QUESTIONS;
                 }
@@ -93,11 +94,11 @@ record OpenAiTracedReport(String schemaVersion, String title, String context, St
             require(position != null && scope.match() == Match.MATCH);
             require(trace.temporalRelation() == TemporalRelation.REQUESTED_PERIOD
                     || trace.temporalRelation() == TemporalRelation.RETROSPECTIVE);
-            require(trace.stanceOwner() != Owner.UNDETERMINED);
+
             if (position == PublicationPosition.NO_EXPLICIT_POSITION) {
                 require(!supports && !questions);
             } else {
-                require(trace.stanceOwner() == Owner.AUTHOR);
+
                 switch (position) {
                     case SUPPORTS -> require(supports && !questions);
                     case QUESTIONS -> require(questions && !supports);

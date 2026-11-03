@@ -1,0 +1,50 @@
+[
+  {
+    "id": "P1",
+    "expected": "SUPPORTS",
+    "url": "https://elpais.com/economia/2021-07-03/el-discurso-del-banco-de-espana-sobre-el-smi.html",
+    "text": "Dolado valora el nuevo enfoque del Banco de España como más convincente. Acepta su estimación de menor empleo y desarrolla un cálculo propio sobre la masa salarial de quienes conservaron y perdieron el empleo. Con ese balance defiende la eficacia redistributiva de la medida pese a su coste laboral."
+  },
+  {
+    "id": "P2",
+    "expected": null,
+    "url": "https://www.eldiario.es/economia/moderada-perdida-empleo-subida-salario-minimo-concentro-micropymes_1_12310478.html",
+    "text": "La noticia presenta un nuevo estudio de FEDEA que estima efectos negativos moderados. La autora contextualiza que las investigaciones españolas sobre 2019 coinciden en una merma moderada del crecimiento: el empleo creció, pero los estudios concluyen que habría crecido más sin la subida. Después relata resultados y declaraciones de los investigadores y advierte que sus cálculos excluyen el canal positivo del consumo."
+  },
+  {
+    "id": "P3",
+    "expected": null,
+    "url": "https://www.lavanguardia.com/economia/20250519/10696331/subida-salario-minimo-2019-castigo-especialmente-pequenas-empresas.html",
+    "text": "FEDEA ha presentado un estudio sobre la subida de 2019. La conclusión es un impacto importante en empresas pequeñas y más moderado en general. Según los autores, el método permite aislar el impacto salarial. Señalan que, aunque el empleo global creció, hubo efectos negativos en determinadas áreas. El resto de la noticia desarrolla los resultados del informe y declaraciones de Jansen."
+  },
+  {
+    "id": "P4",
+    "expected": null,
+    "url": "https://www.lavanguardia.com/economia/20231023/9321881/economistas-aplauden-subidas-smi-discrepan-debe-evolucionar.html",
+    "text": "La apertura afirma que las advertencias negativas resultaron infundadas y que los estudios muestran una destrucción mínima de empleo. El párrafo siguiente identifica esa conclusión como un consenso del debate entre Jansen y Zarapuz. Jansen cita un pequeño efecto negativo en afectados por la subida de 2019. Zarapuz señala que el mayor consumo compensa los efectos negativos. El artículo continúa con sus diferencias sobre futuras subidas."
+  },
+  {
+    "id": "C1",
+    "expected": "SUPPORTS",
+    "url": "https://example.org/synthetic-support",
+    "text": "Caso ficticio: el informe estima menor empleo total nacional frente al escenario sin subida mediante una comparacion causal. La noticia explica el metodo y el resultado y los atribuye al instituto, sin expresar opinion del periodista."
+  },
+  {
+    "id": "C2",
+    "expected": "QUESTIONS",
+    "url": "https://example.org/synthetic-question",
+    "text": "Caso ficticio: una investigadora presenta una comparacion nacional que encuentra el mismo empleo total con y sin subida, y explica por que el descenso estimado previamente se debia a otro factor. El periodista reproduce su razonamiento sin valorarlo."
+  },
+  {
+    "id": "C3",
+    "expected": "MIXED",
+    "url": "https://example.org/synthetic-mixed",
+    "text": "Caso ficticio: una noticia desarrolla dos estudios causales sobre el empleo total nacional frente al escenario sin subida. Uno estima menor empleo y explica su comparacion. El otro explica por que esa comparacion esta sesgada y estima efecto nulo. El articulo no resuelve la discrepancia."
+  },
+  {
+    "id": "C4",
+    "expected": "NO_EXPLICIT_POSITION",
+    "url": "https://example.org/synthetic-context",
+    "text": "Caso ficticio: una noticia reproduce que un politico dice que la subida destruyo empleo y otro lo niega. No ofrece datos, razonamientos ni fundamentos para ninguna afirmacion."
+  }
+]

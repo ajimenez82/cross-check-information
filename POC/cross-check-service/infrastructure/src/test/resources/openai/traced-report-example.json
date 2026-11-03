@@ -191,7 +191,7 @@
               "locator": "Párrafo 1 del texto ficticio",
               "paraphrase": "La noticia atribuye a una asociación una caída de oferta, sin concluir que esa afirmación sea correcta.",
               "attribution": "THIRD_PARTY",
-              "relation": "SUPPORTS"
+              "relation": "CONTEXT"
             }
           ]
         }

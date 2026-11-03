@@ -16,7 +16,7 @@ services:
       CONVERSATION_TOKEN_SECRET: ${CONVERSATION_TOKEN_SECRET:?Set a Base64 encoded 32-byte secret in .env}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_POLITICAL_ANALYSIS_AGENT_ID: ${OPENAI_POLITICAL_ANALYSIS_AGENT_ID:-}
-      AGENT_REVISION: ${AGENT_REVISION:-analysis-v29}
+      AGENT_REVISION: ${AGENT_REVISION:-analysis-v33}
       JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:--Xms64m -Xmx384m -XX:ActiveProcessorCount=2}
     volumes:
       - analysis-data:/app/data

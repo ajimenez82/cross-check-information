@@ -149,3 +149,27 @@ Política y Deportes utilizan gpt-5.4 con reasoning.effort medium y servicio def
 
 ## Revisión analysis-v29
 Los desajustes de categoría usan clarification.reason CATEGORY_MISMATCH y el encabezado Consulta fuera de categoría. OTHER mantiene el encabezado genérico para otras aclaraciones. Los resultados históricos con OTHER no se reclasifican.
+
+## Revisión analysis-v30: fidelidad a la evidencia
+Política y Deportes comparten reglas explícitas de alcance, atribución y fuerza de las conclusiones:
+- No generalizar de un colectivo al total sin justificar el vínculo; distinguir cambio observado, contrafactual y efecto neto.
+- Informar de una conclusión ajena no supone adoptarla. AUTHOR requiere un pasaje que demuestre adopción; la cobertura neutral pertinente sigue contando según las reglas existentes.
+- No convertir posibilidad en obligación ni revisión de una decisión en apoyo a una sanción concreta.
+- Evaluar también las limitaciones de la evidencia favorable; no forzar ningún veredicto.
+
+Validación semántica pendiente: repetir SMI 2019 y entrada a Valverde en conversaciones nuevas, revisando alcance y trazas de publicaciones, sin preasignar un estado esperado. Los tests de contrato no validan el comportamiento semántico del modelo.
+
+## Revisión analysis-v33: argumentos de la publicación
+
+Esta revisión sustituye el requisito anterior de adopción por el autor en Política y
+Deportes. Se clasifica el contenido argumental desarrollado sobre la proposición:
+SUPPORTS, QUESTIONS o MIXED pueden basarse en argumentos de terceros. Una declaración
+sin fundamentos se registra como CONTEXT; si no hay argumentos direccionales,
+NO_EXPLICIT_POSITION. La atribución conserva la procedencia, sin determinar elegibilidad.
+Las copias establecidas se deduplican; cobertura distinta del mismo estudio no representa
+evidencia empírica independiente. La validación Java comprueba coherencia entre argumentos
+y posición, pero la suficiencia semántica del argumento sigue siendo tarea del agente.
+
+Las pruebas aisladas Python y PowerShell comparten fixed-attribution-cases.json e incluyen
+cuatro casos ficticios de control. Las paráfrasis históricas ambiguas requieren revisión
+manual. Ejecutarlas con --run o -Run consume API; sin ese indicador solo preparan la entrada.

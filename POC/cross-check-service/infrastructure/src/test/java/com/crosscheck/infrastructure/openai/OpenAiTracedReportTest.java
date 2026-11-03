@@ -105,7 +105,7 @@ class OpenAiTracedReportTest {
         }
     }
 
-    @ParameterizedTest @ValueSource(strings = {"third-party", "unknown-owner", "wrong-direction", "mixed-one-direction",
+    @ParameterizedTest @ValueSource(strings = {"wrong-direction", "mixed-one-direction",
             "partial", "background", "unknown-source", "duplicate", "missing-trace", "unknown-field",
             "excluded-position", "no-position-own-argument", "wrong-version", "missing-version"})
     void rejectsInconsistentAssessments(String mutation) throws Exception {
@@ -113,8 +113,8 @@ class OpenAiTracedReportTest {
         var unit = assessment(root);
         var trace = (ObjectNode) unit.path("trace");
         switch (mutation) {
-            case "third-party" -> trace.put("stanceOwner", "THIRD_PARTY");
-            case "unknown-owner" -> trace.put("stanceOwner", "UNDETERMINED");
+
+
             case "wrong-direction" -> unit.put("position", "QUESTIONS");
             case "mixed-one-direction" -> unit.put("position", "MIXED");
             case "partial" -> ((ObjectNode) trace.path("scope")).put("match", "PARTIAL");
@@ -130,6 +130,27 @@ class OpenAiTracedReportTest {
             case "missing-version" -> root.remove("schemaVersion");
         }
         assertThrows(InvalidAnalysisOutputException.class, () -> tracedReport(root.toString()), mutation);
+    }
+
+    @ParameterizedTest @ValueSource(strings = {"THIRD_PARTY", "UNDETERMINED"})
+    void countsDevelopedThirdPartyArgumentsRegardlessOfOwner(String owner) throws Exception {
+        for (var position : java.util.List.of("SUPPORTS", "QUESTIONS", "MIXED")) {
+            var root = fixture(0);
+            var unit = assessment(root);
+            unit.put("position", position);
+            var trace = (ObjectNode) unit.path("trace");
+            trace.put("stanceOwner", owner);
+            var arguments = trace.putArray("arguments");
+            if (!position.equals("QUESTIONS")) arguments.addObject().put("sourceId", "S1")
+                    .putNull("locator").put("paraphrase", "Study explains the supporting comparison")
+                    .put("attribution", "THIRD_PARTY").put("relation", "SUPPORTS");
+            if (!position.equals("SUPPORTS")) arguments.addObject().put("sourceId", "S1")
+                    .putNull("locator").put("paraphrase", "Expert develops a counterargument")
+                    .put("attribution", "THIRD_PARTY").put("relation", "QUESTIONS");
+            assertEquals(position, tracedReport(root.toString()).publicationPositions().units().getFirst().position().name());
+            unit.put("position", "NO_EXPLICIT_POSITION");
+            assertThrows(InvalidAnalysisOutputException.class, () -> tracedReport(root.toString()));
+        }
     }
 
     @Test void activeParserDoesNotSilentlyAcceptNewContract() throws Exception {
