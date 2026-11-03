@@ -75,23 +75,13 @@ sudo chmod 600 /opt/crosscheck/.env
 sudoedit /opt/crosscheck/.env
 ```
 
-Completar DOMAIN, ACME_EMAIL, RELEASE_TAG, BETA_USERNAME, BETA_PASSWORD_HASH y CONVERSATION_TOKEN_SECRET. Usar un secreto de conversacion nuevo y conservarlo para reinicios y restauraciones. Generar sus 32 bytes aleatorios codificados Base64:
+Completar DOMAIN, ACME_EMAIL, RELEASE_TAG y CONVERSATION_TOKEN_SECRET. Usar un secreto de conversacion nuevo y conservarlo para reinicios y restauraciones. Generar sus 32 bytes aleatorios codificados Base64:
 
 ```bash
 openssl rand -base64 32
 ```
 
-Generar el hash de password de acceso (la herramienta pide el password de forma interactiva):
-
-```bash
-sudo podman run --rm -it docker.io/library/caddy:2-alpine caddy hash-password
-```
-
-Guardar el hash entre comillas simples en .env para conservar los caracteres $:
-
-```text
-BETA_PASSWORD_HASH='$2a$...hash completo...'
-```
+El acceso web es público: Caddy mantiene HTTPS sin autenticación básica.
 
 La primera validacion usa ANALYSIS_PROFILE=replay. Para openai, aportar OPENAI_API_KEY, OPENAI_POLITICAL_ANALYSIS_AGENT_ID y POLITICAL_AGENT_REVISION=political-v21. No activar local ni compartir salidas de compose config o podman inspect que incluyan secretos.
 
@@ -219,3 +209,7 @@ Una prueba real de Zapatero completó con `SUPPORTED_BY_PUBLICATIONS` y factual 
 Release actual `beta-20261021-1`. Imagen web nueva sin el aviso de prototipo/simulaciones. API reutilizada exactamente desde `beta-20261020-5`, etiquetada también con el tag nuevo para mantener el Compose existente. Perfil `openai` y revisión `political-v22` conservados, al igual que credenciales y datos.
 
 Paquete web y SHA-256 archivados en `/home/ubuntu/crosscheck-releases/beta-20261021-1`; para reconstruir este release se requiere la imagen API del release anterior. Copia H2 previa correcta. Stack activo y contenedores saludables. Navegador autenticado comprobado en escritorio y móvil con un informe guardado en un contexto aislado: aviso ausente, etiquetas Beta de cabecera y pie conservadas. Cero solicitudes a los endpoints de análisis durante la verificación; sin consumo OpenAI. Acceso sin credenciales sigue devolviendo 401.
+
+
+## Acceso público (2026-11-03)
+Se elimina basic_auth del sitio de Caddy y las variables BETA_USERNAME y BETA_PASSWORD_HASH de Compose. Las referencias anteriores a acceso con contraseña describen el despliegue histórico. El cambio se hará efectivo al actualizar sites/contrasta.caddy y recrear edge en el servidor. Las variables antiguas del .env pueden eliminarse; ya no se utilizan.

@@ -1,3 +1,4 @@
+import { demoUser } from '../../mocks/analysis';
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { FileText, CircleCheck, CircleX, TriangleAlert, CircleHelp, MessageCircle, GitFork, Newspaper, Link as LinkIcon, List, Send } from 'lucide-react';
@@ -145,7 +146,7 @@ export function AnalysisPage() {
     <h1 className="srOnly">Conversación de {categoryName(conversation.category)}</h1>
     <div className={s.toolbar}><div><strong>Categoría:</strong><span>{categoryName(conversation.category)}</span></div></div>
     {conversation.turns.map(turn => <section key={turn.id} className={s.turn} aria-busy={turn.status === 'pending'}>
-      <section className={s.message} aria-label="Tu consulta"><span className="avatar">AJ</span><div><strong>Ale Jiménez</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
+      <section className={s.message} aria-label="Tu consulta"><span className="avatar">{demoUser.initials}</span><div><strong>{demoUser.name}</strong><time dateTime={turn.createdAt}>{formatDate(turn.createdAt)}</time><p>{turn.text}</p></div></section>
       {turn.status === 'pending' && <PendingTurn turn={turn} />}
       {turn.status === 'error' && <FailedTurn turn={turn} onRecover={() => recover(conversation.id, turn.id)} onRetry={text => { void send(conversation.id, text, turn.id); }} />}
       {turn.analysis && <Report data={turn.analysis} onSource={setSource} />}

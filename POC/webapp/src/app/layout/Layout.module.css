@@ -28,3 +28,6 @@
 @media (max-width: 760px) { .betaBadge { margin-right: 0; padding: 4px 7px; font-size: 10px; } }
 
 .historyTitle { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+
+.pageFooter a { color: var(--green); text-underline-offset: 3px; }
+.pageFooter a:hover { text-decoration-thickness: 2px; }

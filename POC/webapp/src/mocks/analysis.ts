@@ -1,4 +1,4 @@
-export const demoUser = { name: 'Ale Jiménez', initials: 'AJ', description: 'Usuario de demostración' };
+export const demoUser = { name: 'Usuario de demostración', initials: 'UD', description: 'Perfil ficticio' };
 export const demoAnalysis = {
   query: 'El gobierno habla de lawfare en los casos abierto, que valoracion haces de esta afirmacion',
   title: '¿Está respaldada la acusación de lawfare?',

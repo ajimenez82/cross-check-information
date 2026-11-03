@@ -53,8 +53,6 @@ services:
     environment:
       DOMAIN: ${DOMAIN:?Set DOMAIN}
       ACME_EMAIL: ${ACME_EMAIL:?Set certificate contact email}
-      BETA_USERNAME: ${BETA_USERNAME:-beta}
-      BETA_PASSWORD_HASH: ${BETA_PASSWORD_HASH:?Set bcrypt hash}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./sites:/etc/caddy/sites:ro
