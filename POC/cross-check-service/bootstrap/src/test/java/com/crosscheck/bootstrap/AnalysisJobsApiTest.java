@@ -94,6 +94,21 @@ class AnalysisJobsApiTest {
                 body.replace("SPORTS_ANALYSIS", "UNKNOWN")).statusCode());
     }
 
+    @Test void consumptionCategoryPassesThroughAsyncEndpointAndCannotBeReusedAsPolitics() throws Exception {
+        String key = UUID.randomUUID().toString();
+        String body = "{\"text\":\"Este camping está bien valorado\",\"category\":\"CONSUMPTION_ANALYSIS\"}";
+        var response = send("POST", "/api/analysis/jobs", key, credential, body);
+        assertEquals(202, response.statusCode());
+        String id = json.readTree(response.body()).path("analysisId").asString();
+        assertEquals(com.crosscheck.domain.analysis.AnalysisCategory.CONSUMPTION_ANALYSIS,
+                store.transact(tx -> tx.find(id).input.category()));
+        assertEquals("development-v1", store.transact(tx -> tx.find(id).input.agentRevision()));
+        assertEquals(409, send("POST", "/api/analysis/jobs", key, credential,
+                body.replace("CONSUMPTION_ANALYSIS", "POLITICAL_ANALYSIS")).statusCode());
+        assertEquals(400, send("POST", "/api/analysis/jobs", UUID.randomUUID().toString(), credential,
+                body.replace("CONSUMPTION_ANALYSIS", "UNKNOWN")).statusCode());
+    }
+
     @Test void syncRouteCannotBypassAsyncReservations() throws Exception {
         var response=send("POST","/api/analysis/start",null,null,"{\"text\":\"Offline test\"}");
         assertEquals(409,response.statusCode());assertEquals("ASYNC_ANALYSIS_REQUIRED",json.readTree(response.body()).path("code").asString());

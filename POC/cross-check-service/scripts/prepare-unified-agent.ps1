@@ -1,8 +1,8 @@
-param([string]$Model = 'gpt-5.4-mini', [ValidateSet('political', 'sports')][string]$Category = 'political')
+param([string]$Model = 'gpt-5.4-mini', [ValidateSet('political', 'sports', 'consumption')][string]$Category = 'political')
 $ErrorActionPreference = 'Stop'
 $serviceDirectory = Split-Path -Parent $PSScriptRoot
 $resources = Join-Path $serviceDirectory 'infrastructure/src/main/resources/openai/unified'
-$instructionsFile = if ($Category -eq 'sports') { 'sports-instructions.md' } else { 'instructions.md' }
+$instructionsFile = switch ($Category) { 'sports' { 'sports-instructions.md' } 'consumption' { 'consumption-instructions.md' } default { 'instructions.md' } }
 $definition = [ordered]@{
     model = $Model
     service_tier = 'default'

@@ -48,15 +48,16 @@ class StartAnalysisHandlerTest {
         assertNull(result.analysis().asOf());
     }
 
-    @Test
-    void sportsCategoryAndRevisionSurviveFollowUpWithoutExplicitCategory() {
-        handler.handle(new StartAnalysisCommand("Era penalti", null, AnalysisCategory.SPORTS_ANALYSIS));
-        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.input.category());
+    @ParameterizedTest
+    @org.junit.jupiter.params.provider.EnumSource(AnalysisCategory.class)
+    void categoryAndRevisionSurviveFollowUpWithoutExplicitCategory(AnalysisCategory category) {
+        handler.handle(new StartAnalysisCommand("Consulta", null, category));
+        assertEquals(category, provider.input.category());
         assertEquals("analysis-v1", provider.input.agentRevision());
-        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, codec.encoded.category());
+        assertEquals(category, codec.encoded.category());
         codec.decoded = codec.encoded;
-        handler.handle(new StartAnalysisCommand("¿Y la otra jugada?", "opaque-output"));
-        assertEquals(AnalysisCategory.SPORTS_ANALYSIS, provider.input.category());
+        handler.handle(new StartAnalysisCommand("¿Y la otra opción?", "opaque-output"));
+        assertEquals(category, provider.input.category());
         assertEquals("session-1", provider.input.sessionId());
     }
 

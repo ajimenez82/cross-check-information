@@ -82,7 +82,7 @@ public final class OpenAiPoliticalAnalysisService implements AiPoliticalAnalysis
 
     @Override
     public AiAnalysisTurn analyze(AiAnalysisInput input) {
-        if (input.category() == com.crosscheck.domain.analysis.AnalysisCategory.SPORTS_ANALYSIS && reportSchemaVersion != 3)
+        if (input.category() != com.crosscheck.domain.analysis.AnalysisCategory.POLITICAL_ANALYSIS && reportSchemaVersion != 3)
             throw new AnalysisProviderException(UNAVAILABLE, NOT_STARTED);
         long started = System.nanoTime();
         String sessionId = input.sessionId();

@@ -14,6 +14,7 @@ final class UnifiedAgentConfiguration {
         String instructions = switch (category) {
             case POLITICAL_ANALYSIS -> resource("instructions.md");
             case SPORTS_ANALYSIS -> resource("sports-instructions.md");
+            case CONSUMPTION_ANALYSIS -> resource("consumption-instructions.md");
         };
         return Map.of("model", "gpt-5.4", "service_tier", "default", "reasoning", Map.of("effort", "medium"),
                 "instructions", instructions, "tools", List.of(Map.of("type", "web_search", "mode", "live")),

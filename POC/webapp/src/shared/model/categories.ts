@@ -12,6 +12,12 @@ export const categories = [
     "available": true
   },
   {
+    "id": "category-3",
+    "name": "Consumo, ocio y viajes",
+    "description": "Contrasta comparaciones de productos, restaurantes, campings, alojamientos y servicios. Diferencia características comprobables, reseñas y preferencias; explicita los criterios de cada recomendación.",
+    "available": true
+  },
+  {
     "id": "category-1",
     "name": "Noticias falsas y bulos",
     "description": "Examina noticias virales, cadenas y contenidos potencialmente inventados, manipulados o fuera de contexto; busca su origen y evidencias que los respalden o contradigan.",
@@ -27,12 +33,6 @@ export const categories = [
     "id": "category-2",
     "name": "Sociedad, medios y entretenimiento",
     "description": "Analiza audiencias de televisión, fenómenos sociales, celebridades y afirmaciones sobre contenidos culturales. Distingue datos verificables, declaraciones e interpretaciones.",
-    "available": false
-  },
-  {
-    "id": "category-3",
-    "name": "Consumo, ocio y viajes",
-    "description": "Contrasta comparaciones de productos, restaurantes, campings, alojamientos y servicios. Diferencia características comprobables, reseñas y preferencias; explicita los criterios de cada recomendación.",
     "available": false
   },
   {
@@ -67,10 +67,10 @@ export const categories = [
   }
 ];
 
-export type AnalysisCategory = 'POLITICAL_ANALYSIS' | 'SPORTS_ANALYSIS';
+export type AnalysisCategory = 'POLITICAL_ANALYSIS' | 'SPORTS_ANALYSIS' | 'CONSUMPTION_ANALYSIS';
 export function isAnalysisCategory(value: unknown): value is AnalysisCategory {
-  return value === 'POLITICAL_ANALYSIS' || value === 'SPORTS_ANALYSIS';
+  return value === 'POLITICAL_ANALYSIS' || value === 'SPORTS_ANALYSIS' || value === 'CONSUMPTION_ANALYSIS';
 }
 export function categoryName(category: AnalysisCategory): string {
-  return categories.find(item => item.id === (category === 'SPORTS_ANALYSIS' ? 'sports' : 'political'))!.name;
+  return categories.find(item => item.id === (category === 'SPORTS_ANALYSIS' ? 'sports' : category === 'CONSUMPTION_ANALYSIS' ? 'category-3' : 'political'))!.name;
 }
