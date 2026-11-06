@@ -128,6 +128,8 @@ La importacion debe hacerse sobre un volumen nuevo o vacio, no mezclar datos de 
 
 Guardar release tag y paquete anterior. Hacer copia H2, parar el servicio, cargar las imagenes nuevas, reemplazar archivos de despliegue y actualizar RELEASE_TAG en .env; arrancar de nuevo. Conservar .env, volumen H2 y datos de Caddy. Verificar salud e informe. Para revertir imagenes, usar el tag anterior; si hubiera cambios incompatibles de esquema, requerir tambien una restauracion compatible de la base de datos.
 
+Tras el arranque, esperar tanto a API y web saludables como a que HTTPS responda correctamente en `/healthz`. Caddy puede tardar unos segundos adicionales en aceptar conexiones aunque los otros contenedores ya esten saludables. Reintentar la comprobacion HTTPS durante un plazo acotado antes de activar la vuelta al release anterior.
+
 ## Estado y limites de esta preparacion
 
 Validados localmente: Compose con valores ficticios, Caddy y Nginx mediante sus validadores reales, sintaxis de scripts Bash y PowerShell. El usuario ha creado la instancia y asociado la IP estatica; estos recursos no fueron creados desde la automatizacion. No se ha confirmado aun el cambio DNS, emision de certificados del dominio ni despliegue remoto. No se ha ejecutado OpenAI en estas validaciones. No se ha probado Ubuntu/systemd real, copias/restauracion ni capacidad de 512 MB. Los contenedores locales actuales no se han recreado ni sus volumenes modificado.
@@ -213,3 +215,11 @@ Paquete web y SHA-256 archivados en `/home/ubuntu/crosscheck-releases/beta-20261
 
 ## Acceso público (2026-11-03)
 Se elimina basic_auth del sitio de Caddy y las variables BETA_USERNAME y BETA_PASSWORD_HASH de Compose. Las referencias anteriores a acceso con contraseña describen el despliegue histórico. El cambio se hará efectivo al actualizar sites/contrasta.caddy y recrear edge en el servidor. Las variables antiguas del .env pueden eliminarse; ya no se utilizan.
+
+## Release beta-20261105-1 desplegada (05/11/2026)
+
+Release completa generada desde el codigo actual (base Git 256aab9 mas los cambios de las paginas informativas), con las imagenes API y web etiquetadas beta-20261105-1. Incluye la categoria Consumo, ocio y viajes, el ajuste de cabecera y los textos acordados de Acerca del proyecto, Como funciona, Privacidad y Ayuda.
+
+Maven verify correcto: 325 pruebas superadas y 2 omitidas. Build frontend correcto. Paquete y SHA256SUMS verificados en /home/ubuntu/crosscheck-releases/beta-20261105-1. Copia H2 previa mediante crosscheck-backup.service con Result=success. Se conservan configuracion, secretos, volumenes y perfil openai con AGENT_REVISION=analysis-v33. Release anterior disponible: beta-20261103-1.
+
+El primer intento activo la recuperacion por comprobar HTTPS antes de que Caddy aceptara conexiones. Version anterior recuperada y segundo despliegue correcto tras incorporar reintentos HTTPS. API y web saludables, servicio activo y verificacion publica externa HTTP 200 tanto en la pagina principal como en /healthz. Bundle servido: /assets/index-yNiQpIUO.js, con los textos actualizados y correo de contacto comprobados. No se han generado consultas de IA durante la comprobacion de produccion.

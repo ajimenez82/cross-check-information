@@ -31,3 +31,10 @@
 
 .pageFooter a { color: var(--green); text-underline-offset: 3px; }
 .pageFooter a:hover { text-decoration-thickness: 2px; }
+
+.informationContent { line-height: 1.6; overflow-wrap: anywhere; }
+.informationContent h3 { font-size: 18px; }
+.informationContent h3:not(:first-child) { margin-top: 24px; }
+.informationContent ul { padding-left: 22px; color: var(--muted); }
+.informationContent li + li { margin-top: 10px; }
+.informationContent a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
